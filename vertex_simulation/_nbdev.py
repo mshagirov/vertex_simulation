@@ -2,9 +2,9 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"Vertex": "00_primitives.ipynb"}
 
-modules = []
+modules = ["primitives.py"]
 
 git_url = "https://github.com/mshagirov/vertex_simulation/tree/master/"
 
