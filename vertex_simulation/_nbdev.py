@@ -6,6 +6,6 @@ index = {}
 
 modules = []
 
-git_url = "https://github.com/mshagirov/vertex-simulation/tree/master/"
+git_url = "https://github.com/mshagirov/vertex_simulation/tree/master/"
 
 def custom_doc_links(name): return None
