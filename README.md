@@ -19,7 +19,7 @@ Modules:
 
 ## Install
 
-`pip install vertex_simulation`
+`pip install vertex_simulation` (not yet implemented)
 
 ## How to use
 
@@ -42,16 +42,6 @@ print(f"v1={v1}\nv2={v2}\ndistance v1-->v2 = {v1.dist(v2)}")
     v2=[1.0, -1.0]
     distance v1-->v2 = 2.0
 
-
-</div>
-
-</div>
-<div class="codecell" markdown="1">
-<div class="input_area" markdown="1">
-
-```python
-Vertex.dist?
-```
 
 </div>
 
