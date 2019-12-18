@@ -29,7 +29,7 @@ Define `Vertex` object with its location or set it later with a given `torch.ten
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 import torch
 # set location at init
 v1 = Vertex(location=torch.tensor([1.,1.],dtype=torch.float64))
