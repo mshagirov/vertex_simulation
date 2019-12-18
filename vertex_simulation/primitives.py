@@ -9,6 +9,8 @@ class Vertex(object):
 
     - Methods:
         > `dist(self,other)`
+        > `zero_grad_(self)`
+        > `grad(self)`
     - Properties :
         > `x`
     '''
@@ -19,6 +21,16 @@ class Vertex(object):
     def dist(self,other):
         '''Calculate (Euclidean) distance to another vertex'''
         return torch.sqrt(torch.sum(torch.pow(other.x - self._x,2)))
+
+    def zero_grad_(self):
+        '''set gradients to zero if x.requires_grad==True'''
+        if self._x.grad is not None:
+            self._x.grad.data.zero_()
+
+    def grad(self):
+        '''Get accumulated gradients w/ respect to x (calculated with backprop)'''
+        if self._x.grad is not None:
+            return self._x.grad
 
     @property
     def x(self):
