@@ -7,14 +7,12 @@ import torch
 class Vertex(object):
     '''Implements vertex and stores its position as a 1x2 `torch.Tensor`:(x,y).
 
-    - Methods:
-        > `dist(self,other)`
-
-        > `zero_grad_(self)`
-
-        > `grad(self)`
-    - Properties :
-        > `x`
+    >- Methods:
+        - `dist(self,other)`
+        - `zero_grad_(self)`
+        - `grad(self)`
+    >- Properties :
+        - `x`
     '''
     def __init__(self,location=None):
         '''access `location` with self.x '''

@@ -54,16 +54,19 @@ summary: "Implementations for vertex, edges, cell(s), and cell monolayer"
 <h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L7" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Implements vertex and stores its position as a 1x2 <code>torch.Tensor</code>:(x,y).</p>
-<ul>
-<li>Methods:<blockquote><p><code>dist(self,other)</code>
-<code>zero_grad_(self)</code>
-<code>grad(self)</code></p>
-</blockquote>
+<blockquote><ul>
+<li>Methods:<ul>
+<li><code>dist(self,other)</code></li>
+<li><code>zero_grad_(self)</code></li>
+<li><code>grad(self)</code></li>
+</ul>
 </li>
-<li>Properties :<blockquote><p><code>x</code></p>
-</blockquote>
+<li>Properties :<ul>
+<li><code>x</code></li>
+</ul>
 </li>
 </ul>
+</blockquote>
 
 </div>
 
@@ -165,7 +168,7 @@ tensor([0., 0.], dtype=torch.float64)
 <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Energy=kr^2 :{E.item():.4f}&#39;</span><span class="p">)</span>
 <span class="c1"># compute gradients</span>
 <span class="n">E</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="n">dEdx</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">grad</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+<span class="n">dEdx</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">grad</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
 <span class="n">dxdt</span> <span class="o">=</span> <span class="o">-</span><span class="n">dEdx</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;t=0: dE/dx={dEdx.tolist()} --&gt; dx/dt=-dE/dx={dxdt.tolist()}&#39;</span><span class="p">)</span>
 <span class="c1"># Numerical integration</span>
