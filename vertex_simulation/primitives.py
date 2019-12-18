@@ -5,7 +5,11 @@ __all__ = ['Vertex']
 #Cell
 import torch
 class Vertex(object):
-    '''Implements vertex. Stores vertex position'''
+    '''Implements vertex. Stores vertex position
+
+    *Methods*:
+        Vertex.
+    '''
     def __init__(self,location=None):
         '''access `location` with self.x '''
         self._x=location
