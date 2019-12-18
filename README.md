@@ -27,7 +27,7 @@ Define `Vertex` object with its location or set it later with a given `torch.ten
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 import torch
 v1 = Vertex(location=torch.tensor([1.,1.],dtype=torch.float64))
 v2 = Vertex()
@@ -49,19 +49,19 @@ print(f"v1={v1}\nv2={v2}\ndistance v1-->v2 = {v1.dist(v2)}")
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
-v1
+```python
+v1?
 ```
 
 </div>
-<div class="output_area" markdown="1">
 
+</div>
+<div class="codecell" markdown="1">
+<div class="input_area" markdown="1">
 
-
-
-    tensor([1., 1.], dtype=torch.float64);torch.float64
-
-
+```python
+Vertex?
+```
 
 </div>
 
