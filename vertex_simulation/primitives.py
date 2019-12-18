@@ -9,7 +9,9 @@ class Vertex(object):
 
     - Methods:
         > `dist(self,other)`
+
         > `zero_grad_(self)`
+
         > `grad(self)`
     - Properties :
         > `x`
