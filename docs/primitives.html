@@ -21,6 +21,18 @@ summary: "Implementations for vertex, edges, cell(s), and cell monolayer"
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><code>vertex</code>: stores 2D position of a given vertex 1x2 numpy array. Should implement a method for distance calculation.</li>
+<li><code>edges</code>: (currently) adjacency matrix that represents connectivity of vertices</li>
+<li><code>cell</code> : a subset of vertices that represents a cell. Implements area, and perimeter calculations.</li>
+<li><code>monolayer</code>: stores cells, with their corresponding vertices, edges, and boundary conditions. Also should implement energy calculation together with its spatial gradient.</li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
@@ -36,6 +48,8 @@ summary: "Implementations for vertex, edges, cell(s), and cell monolayer"
 <h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L7" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Implements vertex. Stores vertex position</p>
+<p><em>Methods</em>:
+    Vertex.</p>
 
 </div>
 
