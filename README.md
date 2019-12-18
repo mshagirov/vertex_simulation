@@ -46,23 +46,3 @@ print(f"v1={v1}\nv2={v2}\ndistance v1-->v2 = {v1.dist(v2)}")
 </div>
 
 </div>
-<div class="codecell" markdown="1">
-<div class="input_area" markdown="1">
-
-```python
-v1?
-```
-
-</div>
-
-</div>
-<div class="codecell" markdown="1">
-<div class="input_area" markdown="1">
-
-```python
-Vertex?
-```
-
-</div>
-
-</div>
