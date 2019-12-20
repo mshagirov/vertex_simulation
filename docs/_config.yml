@@ -1,7 +1,7 @@
-repository: mshagirov/vertex-simulation
+repository: mshagirov/vertex_simulation
 output: web
-topnav_title: vertex-simulation
-site_title: vertex-simulation
+topnav_title: vertex_simulation
+site_title: vertex_simulation
 company_name: Mechanobiology Institute, National University of Singapore
 description: Vertex Dynamics Model Implementation on Python and Pytorch
 # Set to false to disable KaTeX math
