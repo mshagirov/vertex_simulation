@@ -29,11 +29,11 @@ Define `Vertex` object with its location or set it later with a given `torch.ten
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 import torch
 # set location at init
-v1 = Vertex(location=torch.tensor([1.,1.],dtype=torch.float64))
-v2 = Vertex(location=torch.tensor([1.,-1.],dtype=torch.float64))
+v1 = Vertex(location=torch.tensor([[1.,1.]],dtype=torch.float64))
+v2 = Vertex(location=torch.tensor([[1.,-1.]],dtype=torch.float64))
 # calculate distance between two vertices: v1 <--> v2
 r = v1.dist(v2)
 print(f"v1={v1}\nv2={v2}\ndistance v1<-->v2 = {r}")
@@ -42,9 +42,9 @@ print(f"v1={v1}\nv2={v2}\ndistance v1<-->v2 = {r}")
 </div>
 <div class="output_area" markdown="1">
 
-    v1=[1.0, 1.0]
-    v2=[1.0, -1.0]
-    distance v1<-->v2 = 2.0
+    v1=[[1.0, 1.0]]
+    v2=[[1.0, -1.0]]
+    distance v1<-->v2 = tensor([[2.]], dtype=torch.float64)
 
 
 </div>
