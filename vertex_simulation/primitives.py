@@ -5,22 +5,41 @@ __all__ = ['Vertex']
 #Cell
 import torch
 class Vertex(object):
-    '''Implements vertex and stores its position as a 1x2 `torch.Tensor`:(x,y).
+    '''Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) `torch.Tensor`:(x,y,...)'s.
+    Rows represent points, columns the spatial dimensions, i.e.
+    ```
+    [[x1,y1],
+     [x2,y2],
+     ...
+     [xN,yN]]
+    ```
 
     - Methods:
-        - `dist(self,other)`
-        - `zero_grad_(self)`
-        - `grad(self)`
+        - `dist(self,other)` : calculates Euclidean distance between two points (each row).
+        - `zero_grad_(self)` : set all gradients to zero (used during gradient descent at each iter-n step).
+        - `grad(self)` : get gradient w.r.t. each tensor in `self.x`
     - Properties :
-        - `x`
+        - `x` : get torch.tensor (returns self._x)
     '''
     def __init__(self,location=None):
-        '''access `location` with self.x '''
+        '''`location` must be 2D `torch.tensor` w/ float dtype, set and get `location` with self.x
+
+        Usage:
+        `v = Vertex(torch.tensor([[3.,-1.]],requires_grad=True,dtype=torch.float64))`
+        '''
         self._x=location
+        if location is not None:
+            assert location.ndim==2
 
     def dist(self,other):
-        '''Calculate (Euclidean) distance to another vertex'''
-        return torch.sqrt(torch.sum(torch.pow(other.x - self._x,2)))
+        '''
+        Calculate (Euclidean) distance to another vertex from self._x.
+        '''
+        return torch.norm(other.x - self._x,dim=1,p=2,keepdim=True)
+
+    def subloc(self,other):
+        '''Subtract locations, self._x-other.x'''
+        return self._x-other.x
 
     def zero_grad_(self):
         '''set gradients to zero if x.requires_grad==True'''
@@ -43,4 +62,4 @@ class Vertex(object):
     def __str__(self):
         return f"{self._x.tolist()}"
     def __repr__(self):
-        return f"{self._x};{self._x.dtype}"
+        return f"Vertex {self._x}"
