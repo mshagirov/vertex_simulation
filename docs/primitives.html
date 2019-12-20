@@ -45,15 +45,10 @@ summary: "Implementations for vertex, edges, cell(s), and cell monolayer"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L7" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L8" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) <code>torch.Tensor</code>:(x,y,...)'s.
-Rows represent points, columns the spatial dimensions, i.e.</p>
-
-<pre><code>[[x1,y1],
- [x2,y2],
- ...
- [xN,yN]]</code></pre>
+Rows represent points, columns the spatial dimensions, i.e. <code>`` [[x1,y1], [x2,y2], ...,[xN,yN]]</code></p>
 <ul>
 <li>Methods:<ul>
 <li><code>dist(self,other)</code> : calculates Euclidean distance between two points (each row).</li>
@@ -62,7 +57,7 @@ Rows represent points, columns the spatial dimensions, i.e.</p>
 </ul>
 </li>
 <li>Properties :<ul>
-<li><code>x</code> : get torch.tensor (returns self._x)</li>
+<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self._x)</li>
 </ul>
 </li>
 </ul>
@@ -78,6 +73,11 @@ Rows represent points, columns the spatial dimensions, i.e.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Initialization and calculating distances between vertices:</p>
+<ul>
+<li>When you initialize vertices with no input <code>v = Vertex()</code>, the location <code>v.x</code> is set to <code>None</code>.</li>
+<li><code>Vertex(location)</code> accepts <code>torch.tensors</code>, list of lists that are convertible to tensors (with optional keyword arg-s for <code>torch.tensor()</code>), numpy.ndarrays (using <code>torch.from_numpy()</code>)</li>
+<li><a href="primitives.html#Vertex.x"><code>Vertex.x</code></a> (i.e. location) is assumed to be Nx2 array (or any 2D array), and sizes are <strong>not</strong> checked when set using <code>self.x</code>.</li>
+</ul>
 
 </div>
 </div>
@@ -89,12 +89,12 @@ Rows represent points, columns the spatial dimensions, i.e.</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Define vertices with Nx2 torch tensors</span>
 <span class="n">o</span><span class="o">=</span><span class="n">Vertex</span><span class="p">()</span>
-<span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">]])</span> <span class="c1"># set to 0&#39;s (origin)</span>
+<span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">])</span> <span class="c1"># set to 0&#39;s (origin)</span>
 <span class="c1"># or with location at init</span>
-<span class="n">v1</span><span class="o">=</span><span class="n">Vertex</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]]))</span>
+<span class="n">v1</span><span class="o">=</span><span class="n">Vertex</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="c1"># calculate distance between vertices</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Distance between two vertices (o &lt;--&gt; v1) : {r.item()}&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Distance between two vertices (o &lt;--&gt; v1) : {r.numpy().squeeze()}&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -119,6 +119,9 @@ Rows represent points, columns the spatial dimensions, i.e.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Computing and resetting gradients:</p>
+<ul>
+<li>Example below demonstartes computing $\partial y/\partial v_{i,j}$ for $y = \sum_i\sum_j v_{i,j}^2$ using <code>torch.autograd</code></li>
+</ul>
 
 </div>
 </div>
@@ -128,15 +131,15 @@ Rows represent points, columns the spatial dimensions, i.e.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v1</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">],[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.</span><span class="p">]],</span><span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-<span class="c1"># do some calculation with v1.x</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">([[</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">],[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.</span><span class="p">]],</span><span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="c1"># do some calculation with v.x</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="c1"># calculate grad-s</span>
 <span class="n">y</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;after y.backward():</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">v1</span><span class="o">.</span><span class="n">grad</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dy/dx_i after y.backward():</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">v</span><span class="o">.</span><span class="n">grad</span><span class="p">())</span>
 <span class="c1"># set grad-s to zeros (useful when you don&#39;t want to accumulate grad-s)</span>
-<span class="n">v1</span><span class="o">.</span><span class="n">zero_grad_</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;after zeroing grad-s:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">v1</span><span class="o">.</span><span class="n">grad</span><span class="p">())</span>
+<span class="n">v</span><span class="o">.</span><span class="n">zero_grad_</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dy/dx_i after zeroing grad-s:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">v</span><span class="o">.</span><span class="n">grad</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -149,10 +152,10 @@ Rows represent points, columns the spatial dimensions, i.e.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>after y.backward():
+<pre>dy/dx_i after y.backward():
  tensor([[ 6.0000, -2.0000],
         [ 0.2000,  0.0000]])
-after zeroing grad-s:
+dy/dx_i after zeroing grad-s:
  tensor([[0., 0.],
         [0., 0.]])
 </pre>

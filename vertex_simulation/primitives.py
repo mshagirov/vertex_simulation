@@ -4,42 +4,38 @@ __all__ = ['Vertex']
 
 #Cell
 import torch
+import numpy as np
 class Vertex(object):
     '''Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) `torch.Tensor`:(x,y,...)'s.
-    Rows represent points, columns the spatial dimensions, i.e.
-
-    ```
-    [[x1,y1],
-     [x2,y2],
-     ...
-     [xN,yN]]
-    ```
+    Rows represent points, columns the spatial dimensions, i.e. ``` [[x1,y1], [x2,y2], ...,[xN,yN]]`
 
     - Methods:
         - `dist(self,other)` : calculates Euclidean distance between two points (each row).
         - `zero_grad_(self)` : set all gradients to zero (used during gradient descent at each iter-n step).
         - `grad(self)` : get gradient w.r.t. each tensor in `self.x`
     - Properties :
-        - `x` : get torch.tensor (returns self._x)
+        - `x` : use it to set/get location torch.tensor (returns or modifies self._x)
     '''
-    def __init__(self,location=None):
-        '''`location` must be 2D `torch.tensor` w/ float dtype, set and get `location` with self.x
+    def __init__(self,location=None,**kwargs):
+        '''`location` must be (or convertible to)  2D `torch.tensor` w/ float dtype, set and get `location` with self.x
 
         Usage:
         `v = Vertex(torch.tensor([[3.,-1.]],requires_grad=True,dtype=torch.float64))`
         '''
-        self._x=location
         if location is not None:
-            assert location.ndim==2
+            if type(location) is list:
+                location = torch.tensor(location,**kwargs)
+            elif type(location) is np.ndarray:
+                location = torch.from_numpy(location)
+            assert location.ndim==2, f"Input 'location' has wrong dimensions, location.ndim!=2 :'( "
+        self._x=location
 
     def dist(self,other):
-        '''
-        Calculate (Euclidean) distance to another vertex from self._x.
-        '''
+        ''' Calculate (Euclidean) distance to another vertex from self._x.'''
         return torch.norm(other.x - self._x,dim=1,p=2,keepdim=True)
 
     def subloc(self,other):
-        '''Subtract locations, self._x-other.x'''
+        '''Subtract locations, self._x-other.x. Returns `torch.tensor`'''
         return self._x-other.x
 
     def zero_grad_(self):
@@ -48,13 +44,12 @@ class Vertex(object):
             self._x.grad.data.zero_()
 
     def grad(self):
-        '''Get accumulated gradients w/ respect to x (calculated with backprop)'''
+        '''Get accumulated gradients w.r.t. x (calculated with backprop; `torch.autograd`)'''
         if self._x.grad is not None:
             return self._x.grad
 
     @property
     def x(self):
-        '''Get current location'''
         return self._x
     @x.setter
     def x(self, val):
