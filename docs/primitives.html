@@ -76,7 +76,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 <ul>
 <li>When you initialize vertices with no input <code>v = Vertex()</code>, the location <code>v.x</code> is set to <code>None</code>.</li>
 <li><code>Vertex(location)</code> accepts <code>torch.tensors</code>, list of lists that are convertible to tensors (with optional keyword arg-s for <code>torch.tensor()</code>), numpy.ndarrays (using <code>torch.from_numpy()</code>)</li>
-<li><a href="primitives.html#Vertex.x"><code>Vertex.x</code></a> (i.e. location) is assumed to be Nx2 array (or any 2D array), and sizes are <strong>not</strong> checked when set using <code>self.x</code>.</li>
+<li><code>v.x</code> (i.e. location for <code>v=Vertex(location)</code>) is assumed to be Nx2 array (or any 2D array), and sizes are <strong>not</strong> checked when set using <code>self.x</code>.</li>
 </ul>
 
 </div>
@@ -170,7 +170,7 @@ dy/dx_i after zeroing grad-s:
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model)">Example: particle in a fluid attached to a spring (2D model)<a class="anchor-link" href="#Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model)">&#182;</a></h3><p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
-where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to a current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
+where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
 Let's numerically solve this equation ( <em>refer to the code cell below</em> ). If the scale of the step size is chosen well (e.g. in the code below for large <code>k</code> use smaller <code>Dt</code>), solution $x(t)$ should converge to the equilibrium point $o$.</p>
 
@@ -276,6 +276,18 @@ t=3.20:r=0.002; E=3.6e-06; dx/dt=tensor([[ 0.0027, -0.0027]], dtype=torch.float6
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>to-do:<ul>
+<li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
 </div>
 </div>
  
