@@ -48,7 +48,7 @@ summary: "Implementations for vertex, edges, cell(s), and cell monolayer"
 <h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L8" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) <code>torch.Tensor</code>:(x,y,...)'s.
-Rows represent points, columns the spatial dimensions, i.e. <code>`` [[x1,y1], [x2,y2], ...,[xN,yN]]</code></p>
+Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,y2], ...,[xN,yN]]</code></p>
 <ul>
 <li>Methods:<ul>
 <li><code>dist(self,other)</code> : calculates Euclidean distance between two points (each row).</li>
@@ -120,7 +120,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>`` [[x1,y1], [
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Computing and resetting gradients:</p>
 <ul>
-<li>Example below demonstartes computing $\partial y/\partial v_{i,j}$ for $y = \sum_i\sum_j v_{i,j}^2$ using <code>torch.autograd</code></li>
+<li>Example below demonstrates computing $\partial y/\partial v_{i,j}$ for $y = \sum_i\sum_j v_{i,j}^2$ using <code>torch.autograd</code></li>
 </ul>
 
 </div>
@@ -168,11 +168,11 @@ dy/dx_i after zeroing grad-s:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Example:-particle-in-a-fluid-attached-to-a-on-a-spring-(2D-model)">Example: particle in a fluid attached to a on a spring (2D model)<a class="anchor-link" href="#Example:-particle-in-a-fluid-attached-to-a-on-a-spring-(2D-model)">&#182;</a></h3><p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
+<h3 id="Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model)">Example: particle in a fluid attached to a spring (2D model)<a class="anchor-link" href="#Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model)">&#182;</a></h3><p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to a current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
-Let's numerically solve this equation ( <em>refer to the code cell below</em> ). If the scale of the step size is choosen well, in the code below for large <code>k</code> use smaller <code>Dt</code>, solution ($x(t)$) should converge to the equilibrium point.</p>
+Let's numerically solve this equation ( <em>refer to the code cell below</em> ). If the scale of the step size is chosen well (e.g. in the code below for large <code>k</code> use smaller <code>Dt</code>), solution $x(t)$ should converge to the equilibrium point $o$.</p>
 
 </div>
 </div>
@@ -182,7 +182,7 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">o</span>  <span class="o">=</span> <span class="n">Vertex</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span> <span class="c1"># equilibrium point (where U(x)==0)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">o</span>  <span class="o">=</span> <span class="n">Vertex</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span> <span class="c1"># equilibrium point (where U(x) is minimum)</span>
 <span class="n">v1</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]],</span><span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span> <span class="c1"># particles location</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;distance from origin (r):{r.item():.4f}&#39;</span><span class="p">)</span>

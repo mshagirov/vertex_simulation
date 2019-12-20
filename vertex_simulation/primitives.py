@@ -7,7 +7,7 @@ import torch
 import numpy as np
 class Vertex(object):
     '''Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) `torch.Tensor`:(x,y,...)'s.
-    Rows represent points, columns the spatial dimensions, i.e. ``` [[x1,y1], [x2,y2], ...,[xN,yN]]`
+    Rows represent points, columns the spatial dimensions, i.e. `[[x1,y1], [x2,y2], ...,[xN,yN]]`
 
     - Methods:
         - `dist(self,other)` : calculates Euclidean distance between two points (each row).
