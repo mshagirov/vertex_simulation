@@ -279,19 +279,6 @@ t=3.20:r=0.002; E=3.6e-06; dx/dt=tensor([[ 0.0027, -0.0027]], dtype=torch.float6
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>to-do:<ul>
-<li>add edge class to store vertex pairs, and edge ids; it should have method for length calculation.</li>
-<li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
@@ -334,8 +321,9 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Initilizing <a href="primitives.html#Graph"><code>Graph</code></a> objects</p>
 <ul>
-<li>Initilize <a href="primitives.html#Graph"><code>Graph</code></a> object with providing vertices (as <a href="primitives.html#Vertex"><code>Vertex</code></a> object) and edges (connected vertex indices) at initialization, or set it later with <code>self.vertices</code> and <code>self.edges</code> property setters.</li>
+<li>Provide vertices (as <a href="primitives.html#Vertex"><code>Vertex</code></a> object) and edges (connected vertex indices) at initialization, or set it later with <code>self.vertices</code> and <code>self.edges</code> property setters.</li>
 </ul>
 
 </div>
@@ -388,8 +376,9 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="primitives.html#Graph"><code>Graph</code></a> class)</p>
 <ul>
-<li>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="primitives.html#Graph"><code>Graph</code></a> class). Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above</li>
+<li>Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above</li>
 </ul>
 
 </div>
@@ -402,14 +391,14 @@ Provided for convenience, turn off gradient calculation separately from "variabl
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># do something with vertex positions</span>
 <span class="n">l</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="c1"># compute gradients w.r.t. variables of y() </span>
-<span class="n">y</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="n">dydv</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># here I&#39;m copying grad-s into dydv list</span>
+<span class="n">E</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="n">dEdx</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># here I&#39;m copying grad-s into dydv list</span>
 <span class="c1"># reset gradients to zeros (useful for iterative calculations s.a. gradient descent)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">set_zero_grad_</span><span class="p">()</span>
-<span class="n">dydv_2</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;dydv=</span><span class="si">{dydv}</span><span class="se">\n</span><span class="s1">---</span><span class="se">\n</span><span class="s1">after zeroing gradients</span><span class="se">\n</span><span class="s1">dydv=</span><span class="si">{dydv_2}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">dEdx_2</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;dydv=</span><span class="si">{dEdx}</span><span class="se">\n</span><span class="s1">---</span><span class="se">\n</span><span class="s1">after zeroing gradients</span><span class="se">\n</span><span class="s1">dydv=</span><span class="si">{dEdx_2}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -436,10 +425,23 @@ dydv=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><em>Next</em>:</p>
+<h3 id="Example-2">Example 2<a class="anchor-link" href="#Example-2">&#182;</a></h3><p><em>Next</em>:</p>
 <ul>
 <li>calculate $E=k\sum_{&lt;i,j&gt;}(x_i-x_j)^2=k\sum_{&lt;i,j&gt;}l^2_{ij}$. Where all vertices are connected.</li>
 <li>plot graph function</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>to-do:<ul>
+<li>add edge class to store vertex pairs, and edge ids; it should have method for length calculation.</li>
+<li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
+</ul>
+</li>
 </ul>
 
 </div>

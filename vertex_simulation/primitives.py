@@ -74,7 +74,7 @@ class Graph(object):
         Provided for convenience, turn off gradient calculation separately from "variable" vertices to keep them constant.
         '''
     def __init__(self,edges=None,vertices=None,fixed=None):
-        '''
+        '''Init-n function for `Graph` objects. Stores vertices and edges.
 
         Usage:
             `g = Graph(edges=torch.tensor([[0,1],[1,2],[2,0]]), vertices=Vertex(torch.tensor([[1,1],[0,-1],[-1,0]]))`
