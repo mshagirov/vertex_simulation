@@ -15,6 +15,8 @@ class Vertex(object):
         - `dist(self,other)` : calculates Euclidean distance between two points (each row).
         - `zero_grad_(self)` : set all gradients to zero (used during gradient descent at each iter-n step).
         - `grad(self)` : get gradient w.r.t. each tensor in `self.x`
+        - `requires_grad_(self,val)`: sets `torch.tensor` flag inplace
+        - `requires_grad(self)`: returns `torch.tensor` flag
     - Properties :
         - `x` : use it to set/get location torch.tensor (returns or modifies self._x)
     '''
