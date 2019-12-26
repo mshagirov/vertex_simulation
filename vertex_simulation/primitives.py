@@ -45,6 +45,14 @@ class Vertex(object):
         '''Get accumulated gradients w.r.t. x (calculated with backprop; `torch.autograd`)'''
         return self._x.grad
 
+    def requires_grad_(self,val):
+        '''Access to `torch.tensor` method to change `requires_grad` status'''
+        self._x.requires_grad_(val)
+
+    def requires_grad(self):
+        '''Access to `torch.tensor` method to view `requires_grad` status'''
+        return self._x.requires_grad
+
     @property
     def x(self):
         return self._x
@@ -84,7 +92,7 @@ class Graph(object):
         self._fixed= fixed
 
     def length(self):
-        ''' Calculates edge lengths-- (Euclidean) distances between vertex pairs connected with a given edge.'''
+        ''' Calculates all edge lengths in the graph. Lengths--(Euclidean) distances between vertex pairs connected with edges.'''
         return torch.norm(self.vertices.x[self.edges[:,1],:] - self.vertices.x[self.edges[:,0],:],
                           dim=1,p=2,keepdim=True)
 
@@ -117,4 +125,4 @@ class Graph(object):
     def __str__(self):
         return f"{self._edges.tolist()}"
     def __repr__(self):
-        return f"Graph\nedges {self._edges}; dtype:{self._edges.dtype}\nvertices {self._vertices}"
+        return f"Graph\nedges {self.edges}...;dtype:{self.edges.dtype}\nvertices {self.vertices}"
