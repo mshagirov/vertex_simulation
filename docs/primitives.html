@@ -170,7 +170,8 @@ dy/dx_i after zeroing grad-s:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model)">Example: particle in a fluid attached to a spring (2D model)<a class="anchor-link" href="#Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model)">&#182;</a></h3><p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
+<h3 id="Example:-A-trapped-particle-in-a-2D-fluid">Example: A trapped particle in a 2D fluid<a class="anchor-link" href="#Example:-A-trapped-particle-in-a-2D-fluid">&#182;</a></h3><p><a name="ex1"></a>
+Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
@@ -430,7 +431,7 @@ dydv=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, let's evolve in time a system decribed by a potential $U=k\sum_{&lt;i,j&gt;}|x_i-x_j|^2=k\sum_{&lt;i,j&gt;}l^2_{ij}$, where every vertex $i$ is connected to all the other vertices $j$ with edges $&lt;i,j&gt;$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation, same as <a href="#Example:-particle-in-a-fluid-attached-to-a-spring-(2D-model">Example 1</a> ), for this system is $b\frac{dx(t')}{dt'}=-\nabla U$, but now $\nabla U$ is a function of distances (edge lengths $l_{ij}$, scalars) between all possible pairs of vertices. So the equation of motion for every vertex is (with $t=t'/b$)
+<p>Now, let's evolve in time a system decribed by a potential $U=k\sum_{&lt;i,j&gt;}|x_i-x_j|^2=k\sum_{&lt;i,j&gt;}l^2_{ij}$, where every vertex $i$ is connected to all the other vertices $j$ with edges $&lt;i,j&gt;$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation, same as <a href="#ex1">Example 1</a>, for this system is $b\frac{dx(t')}{dt'}=-\nabla U$, but now $\nabla U$ is a function of distances (edge lengths $l_{ij}$, scalars) between all possible pairs of vertices. So the equation of motion for every vertex is (with $t=t'/b$)
 $$\frac{dx_i}{dt}=-k\sum_{\forall ij|j\neq i}2(x_i-x_j)= 2k\sum_{\forall ij|j\neq i}(x_j-x_i)$$
 This model system can be described by a complete graph ($G$). In order to demonstrate how to work with such systems, let's create a complete graph with $N_v$ vertices:</p>
 
