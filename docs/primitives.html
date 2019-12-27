@@ -173,20 +173,18 @@ dy/dx_i after zeroing grad-s:
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Vertex-usage-example">Vertex usage example<a class="anchor-link" href="#Vertex-usage-example">&#182;</a></h3><p><a name="ex1">Trapped particle in a 2D fluid</a></p>
-<blockquote><p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
+<p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
 Let's numerically solve this equation ( <em>refer to the code cell below</em> ). If the scale of the step size is chosen well (e.g. in the code below for large <code>k</code> use smaller <code>Dt</code>), solution $x(t)$ should converge to the equilibrium point $o$.</p>
-</blockquote>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>One way to model this system is to use two vertices, one for constant equilibrium point $o$, and a second vertex for particle position $x(t)$. To track potential energy gradient w.r.t. $x(t)$ we'll set <code>requires_grad=True</code> for the moving vertex, <code>v1</code> in the code below (this flag enables <code>torch</code>'s autograd to backpropagate the gradients).</p>
-</blockquote>
+<p>One way to model this system is to use two vertices, one for constant equilibrium point $o$, and a second vertex for particle position $x(t)$. To track potential energy gradient w.r.t. $x(t)$ we'll set <code>requires_grad=True</code> for the moving vertex, <code>v1</code> in the code below (this flag enables <code>torch</code>'s autograd to backpropagate the gradients).</p>
 
 </div>
 </div>
@@ -230,8 +228,7 @@ r requires_grad? :True
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>In order to calculate gradients w.r.t. $x$ we need to set up a function that maps $x$ to some scalar value. In our example, this function is the potential energy function $U(x)$ (<code>energy(r)</code> below). Once $U(x)$ is evalutated, we need to call <code>backward()</code> to calculate (analytic) gradient of potential energy function at $x=v1$ (i.e. $\nabla_x U|_{x=v1}$)</p>
-</blockquote>
+<p>In order to calculate gradients w.r.t. $x$ we need to set up a function that maps $x$ to some scalar value. In our example, this function is the potential energy function $U(x)$ (<code>energy(r)</code> below). Once $U(x)$ is evalutated, we need to call <code>backward()</code> to calculate (analytic) gradient of potential energy function at $x=v1$ (i.e. $\nabla_x U|_{x=v1}$)</p>
 
 </div>
 </div>
@@ -275,8 +272,7 @@ t=0: dE/dx=[[-6.0, 6.0]] --&gt; dx/dt=-dE/dx=[[6.0, -6.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>An important point to keep in mind when using iterative methods s.a. gradient descent shown in the code below, is to remember to reset gradients accumulator to zeros. For <a href="primitives.html#Vertex"><code>Vertex</code></a> objects its done with <code>self..zero_grad_()</code>, calling this method sets all gradients of a given vertex to zeros (if the vertex has <code>requires_grad=True</code> flag). Otherwise it does nothing, e.g. gradients w.r.t. $o$ is kept as <code>None</code>.</p>
-</blockquote>
+<p>An important point to keep in mind when using iterative methods s.a. gradient descent shown in the code below, is to remember to reset gradients accumulator to zeros. For <a href="primitives.html#Vertex"><code>Vertex</code></a> objects its done with <code>self..zero_grad_()</code>, calling this method sets all gradients of a given vertex to zeros (if the vertex has <code>requires_grad=True</code> flag). Otherwise it does nothing, e.g. gradients w.r.t. $o$ is kept as <code>None</code>.</p>
 
 </div>
 </div>
@@ -333,8 +329,7 @@ t=3.20:r=0.002; E=3.6e-06; dx/dt=tensor([[ 0.0027, -0.0027]], dtype=torch.float6
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>Results of the numerical integration above-- the evolution of the system in relative time, is shown below. Keep in mind that, in this simulation time is scaled w.r.t. drag coefficient $b$, and for more accurate dynamics we need to use smaller <code>Dt</code> (or more accurate method for numerical integration).</p>
-</blockquote>
+<p>Results of the numerical integration above-- the evolution of the system in relative time, is shown below. Keep in mind that, in this simulation time is scaled w.r.t. drag coefficient $b$, and for more accurate dynamics we need to use smaller <code>Dt</code> (or more accurate method for numerical integration).</p>
 
 </div>
 </div>
@@ -548,14 +543,13 @@ dydv=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Graph-usage-example">Graph usage example<a class="anchor-link" href="#Graph-usage-example">&#182;</a></h3><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
-<blockquote><p>Now, let's evolve in time a system decribed by a potential
+<p>Now, let's evolve in time a system decribed by a potential
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in <a href="#ex1">Example 1</a> is 
 $$b\frac{dx(t')}{dt'}=-\nabla U$$
 $\nabla U$ is a function of distances between all possible pairs of vertices (edge lengths $l_{ij}$, scalars). The equation of motion for every vertex is (with $t=t'/b$)
 $$\frac{dx_i}{dt}=-k\sum_{\forall ij|j\neq i}2(x_i-x_j)= 2k\sum_{\forall ij|j\neq i}(x_j-x_i)$$
 This system can be described by a complete graph, <code>G</code> in the code below. In order to demonstrate how to work with such systems, let's create a complete graph with $N_v$ vertices.</p>
-</blockquote>
 
 </div>
 </div>
@@ -597,11 +591,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>Now, let's compute $x(t)$ with Euler's method.</p>
+<p>Now, let's compute $x(t)$ with Euler's method.</p>
 <ul>
 <li>Note: in the code below, <code>Dt</code> must be smaller for large $N_v$ (e.g. about $0.01$ or less for $N_v=10$, and about $0.001$ for $N_v=100$)</li>
 </ul>
-</blockquote>
 
 </div>
 </div>
@@ -688,8 +681,7 @@ t=0.220: E=0.002; aver |dx/dt|= 0.09
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>We can also make a movie of the vertices in the graph $G$ (numerical integration above):</p>
-</blockquote>
+<p>A movie of the vertices in the graph $G$, results for numerical integration above:</p>
 
 </div>
 </div>
