@@ -3,7 +3,8 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Vertex": "00_primitives.ipynb",
-         "Graph": "00_primitives.ipynb"}
+         "Graph": "00_primitives.ipynb",
+         "Monolayer": "00_primitives.ipynb"}
 
 modules = ["primitives.py"]
 
