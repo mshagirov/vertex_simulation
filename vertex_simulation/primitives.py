@@ -71,7 +71,8 @@ class Vertex(object):
 #Cell
 class Graph(object):
     '''Implements graph object. Stores vertices and edges.
-
+    - to-do:
+        - need to add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)
     - Methods:
         - `length(self)` : calculates (Euclidean) edge lengths for each edge in the graph.
         - `direction(self)`: calculates edge vectors (`second_vertex - first_vertex` positions)
@@ -80,7 +81,7 @@ class Graph(object):
     - Properties :
         - `edges` : edges connecting vertices. Nx2 array of integers (vertex indices).
         - `vertices` : variable vertices represented by `Vertex` object.
-        - `fixed`: constant (fixed boundary) vertices represented by `Vertex` object.
+        - `fixed`: [__not implemented__] some information about constant/fixed vertices (for setting boundary).
         Provided for convenience, turn off gradient calculation separately from "variable" vertices to keep them constant.
         '''
     def __init__(self,edges=None,vertices=None,fixed=None):
