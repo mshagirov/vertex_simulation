@@ -143,15 +143,16 @@ class Graph(object):
 
 #Cell
 class Monolayer(Graph):
-    '''Implements 2-dimensional cell monolayer (e.g. apical plane) represented by vertices and edges.vertex_simulation
+    '''Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.
 
-    Inherits from `Graph`
     - to-do:
         - add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)
         - add cells, perimeter and area calculation
     '''
     def __init__(self,edges=None,vertices=None,fixed=None):
-        '''cells = Monolayer(edges=None,vertices=None,fixed=None)'''
+        '''Usage:
+        - cells = Monolayer()
+        '''
         super().__init__(edges=edges,vertices=vertices,fixed=fixed)
 
     def __str__(self):
