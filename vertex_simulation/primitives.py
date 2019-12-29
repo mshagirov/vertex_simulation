@@ -94,7 +94,10 @@ class Graph(object):
         self._fixed= fixed
 
     def length(self):
-        ''' Calculates all edge lengths in the graph. Lengths--(Euclidean) distances between vertex pairs connected with edges.'''
+        ''' Calculates all edge lengths in the graph.
+        Lengths--(Euclidean) distances between vertex pairs connected with edges.
+        Order of the lengths is same as the order of the edges, i.e. i'th result corresponds to i'th edge.
+        '''
         return torch.norm(self.vertices.x[self.edges[:,1],:] - self.vertices.x[self.edges[:,0],:],
                           dim=1,p=2,keepdim=True)
 
@@ -146,14 +149,22 @@ class Monolayer(Graph):
     '''Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.
 
     - to-do:
-        - add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)
-        - add cells, perimeter and area calculation
+        - ? add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)
+        - add cell perimeter and cell area calculation methods
     '''
     def __init__(self,edges=None,vertices=None,fixed=None):
         '''Usage:
-        - cells = Monolayer()
+        - cells = Monolayer(edges=torch.tensor([[0,1],[1,2],[2,0]]), vertices=Vertex([[1.,1.],[0.,-1.],[-1.,0.]]))
         '''
         super().__init__(edges=edges,vertices=vertices,fixed=fixed)
+        self._cells = None
+
+    @property
+    def cells(self):
+        return self._cells
+    @cells.setter
+    def cells(self, val):
+        self._cells = val
 
     def __str__(self):
         return f"Monolayer edges {super().__str__()}"

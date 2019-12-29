@@ -24,9 +24,15 @@ summary: "Implementations for vertex, graph, and cell monolayer"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
+<li>Graph primitives:<ul>
 <li><a href="primitives.html#Vertex"><code>Vertex</code></a>: implements a vertex object. Stores position of a given vertex (or vertices) as <code>1x2</code> <code>torch.tensor</code>, and implements methods for interacting with <code>torch</code> autograd. Compatible with D-dimensional <code>NxD</code> <code>torch.tensor</code>.</li>
 <li><a href="primitives.html#Graph"><code>Graph</code></a>: implements graph object. Stores vertices (<a href="primitives.html#Vertex"><code>Vertex</code></a> object with <code>NxD</code> <code>torch.tensor</code>), edges (<code>Nx2</code> integer array of vertex indices) connecting the vertices, and implements methods for interacting with <code>torch</code> autograd.</li>
-<li><a href="primitives.html#Monolayer"><code>Monolayer</code></a>: Inherits from <a href="primitives.html#Graph"><code>Graph</code></a> class. [<strong>needs docs</strong>]</li>
+</ul>
+</li>
+<li>Cell monolayer representations: <ul>
+<li><a href="primitives.html#Monolayer"><code>Monolayer</code></a>: Implements cell monolayer, such as (2-dimensional) apical plane of an epithelial tissue. Inherits from <a href="primitives.html#Graph"><code>Graph</code></a> class. [<strong>needs docs</strong>]</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -34,6 +40,12 @@ summary: "Implementations for vertex, graph, and cell monolayer"
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Graph-primitives">Graph primitives<a class="anchor-link" href="#Graph-primitives">&#182;</a></h2>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 
@@ -594,7 +606,7 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, let's compute $x(t)$ with Euler's method.</p>
+<p>Now, let's solve $x(t)$ with Euler's method.</p>
 <ul>
 <li>Note: in the code below, <code>Dt</code> must be smaller for large $N_v$ (e.g. about $0.01$ or less for $N_v=10$, and about $0.001$ for $N_v=100$)</li>
 </ul>
@@ -930,39 +942,39 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgc19e1466ee254ac0acd1c1d477bb7851">
+  <img id="_anim_img796168632fe449cd80ae6f479df9f607">
   <div class="anim-controls">
-    <input id="_anim_sliderc19e1466ee254ac0acd1c1d477bb7851" type="range" class="anim-slider"
+    <input id="_anim_slider796168632fe449cd80ae6f479df9f607" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animc19e1466ee254ac0acd1c1d477bb7851.set_frame(parseInt(this.value));"></input>
+           oninput="anim796168632fe449cd80ae6f479df9f607.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.slower()"><i class="fa fa-minus"></i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.first_frame()"><i class="fa fa-fast-backward">
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.slower()"><i class="fa fa-minus"></i></button>
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.first_frame()"><i class="fa fa-fast-backward">
           </i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.previous_frame()">
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.reverse_animation()">
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.pause_animation()"><i class="fa fa-pause">
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.pause_animation()"><i class="fa fa-pause">
           </i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.play_animation()"><i class="fa fa-play"></i>
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.play_animation()"><i class="fa fa-play"></i>
           </button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.next_frame()"><i class="fa fa-step-forward">
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.next_frame()"><i class="fa fa-step-forward">
           </i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.last_frame()"><i class="fa fa-fast-forward">
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.last_frame()"><i class="fa fa-fast-forward">
           </i></button>
-      <button onclick="animc19e1466ee254ac0acd1c1d477bb7851.faster()"><i class="fa fa-plus"></i></button>
+      <button onclick="anim796168632fe449cd80ae6f479df9f607.faster()"><i class="fa fa-plus"></i></button>
     </div>
-    <form action="#n" name="_anim_loop_selectc19e1466ee254ac0acd1c1d477bb7851" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_c19e1466ee254ac0acd1c1d477bb7851"
+    <form action="#n" name="_anim_loop_select796168632fe449cd80ae6f479df9f607" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_796168632fe449cd80ae6f479df9f607"
              >
-      <label for="_anim_radio1_c19e1466ee254ac0acd1c1d477bb7851">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_c19e1466ee254ac0acd1c1d477bb7851"
+      <label for="_anim_radio1_796168632fe449cd80ae6f479df9f607">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_796168632fe449cd80ae6f479df9f607"
              checked>
-      <label for="_anim_radio2_c19e1466ee254ac0acd1c1d477bb7851">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_c19e1466ee254ac0acd1c1d477bb7851"
+      <label for="_anim_radio2_796168632fe449cd80ae6f479df9f607">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_796168632fe449cd80ae6f479df9f607"
              >
-      <label for="_anim_radio3_c19e1466ee254ac0acd1c1d477bb7851">Reflect</label>
+      <label for="_anim_radio3_796168632fe449cd80ae6f479df9f607">Reflect</label>
     </form>
   </div>
 </div>
@@ -972,9 +984,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgc19e1466ee254ac0acd1c1d477bb7851";
-    var slider_id = "_anim_sliderc19e1466ee254ac0acd1c1d477bb7851";
-    var loop_select_id = "_anim_loop_selectc19e1466ee254ac0acd1c1d477bb7851";
+    var img_id = "_anim_img796168632fe449cd80ae6f479df9f607";
+    var slider_id = "_anim_slider796168632fe449cd80ae6f479df9f607";
+    var loop_select_id = "_anim_loop_select796168632fe449cd80ae6f479df9f607";
     var frames = new Array(65);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -10005,7 +10017,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animc19e1466ee254ac0acd1c1d477bb7851 = new Animation(frames, img_id, slider_id, 200.0,
+        anim796168632fe449cd80ae6f479df9f607 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -10019,6 +10031,12 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Cell-monolayer-representations">Cell monolayer representations<a class="anchor-link" href="#Cell-monolayer-representations">&#182;</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
@@ -10031,13 +10049,13 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L145" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="primitives.html#Graph"><code>Graph</code></a></p>
+<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L148" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="primitives.html#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <ul>
 <li>to-do:<ul>
-<li>add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)</li>
-<li>add cells, perimeter and area calculation</li>
+<li>? add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)</li>
+<li>add cell perimeter and cell area calculation methods</li>
 </ul>
 </li>
 </ul>
@@ -10062,6 +10080,32 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># x= torch.tensor([[0,1],[1,2],[2,0]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>"cell(s)" will store IDs of edges of the cell</li>
+</ul>
+<p>Assigning cell ID's</p>
+<ul>
+<li>? Prepare edge neighbourhood "matrix" (actually MxN array of edge IDs, M:#edges, N:#neighbours)</li>
+</ul>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
