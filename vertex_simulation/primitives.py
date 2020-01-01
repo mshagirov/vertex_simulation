@@ -149,15 +149,14 @@ class Monolayer(Graph):
     '''Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.
 
     - to-do:
-        - ? add graph of edges or list of neighbouring edges (i.e. adjacency matrix entries for edges)
         - add cell perimeter and cell area calculation methods
     '''
-    def __init__(self,edges=None,vertices=None,fixed=None):
+    def __init__(self,cells=None, edges=None, vertices=None, fixed=None):
         '''Usage:
         - cells = Monolayer(edges=torch.tensor([[0,1],[1,2],[2,0]]), vertices=Vertex([[1.,1.],[0.,-1.],[-1.,0.]]))
         '''
         super().__init__(edges=edges,vertices=vertices,fixed=fixed)
-        self._cells = None
+        self._cells = cells
 
     @property
     def cells(self):
