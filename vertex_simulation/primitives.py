@@ -4,7 +4,7 @@ __all__ = ['Vertex', 'Graph', 'plot_graph', 'Monolayer', 'VoronoiRegions2Edges']
 
 #Cell
 import torch
-import numpy as np
+import numpy as np, matplotlib.pylab as plt
 
 #Cell
 class Vertex(object):
