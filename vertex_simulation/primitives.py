@@ -222,7 +222,7 @@ class Monolayer(Graph):
 def VoronoiRegions2Edges(regions):
     '''Converts Voronoi region vertex indices into list of (*undirected*) edges (indices of vertex pairs).
 
-    Edges [1,2] and [2,1] are condidered to be the same edge, and stored as one of these
+    Edges [1,2] and [2,1] are considered to be the same edge, and stored as one of these
     representations e.g. [2,1], but not both.
     - `regions` is a list of lists, empty regions, or regions with out-of-diagram vertices ("-1") are ignored
 
