@@ -228,6 +228,7 @@ def VoronoiRegions2Edges(regions):
     `cells` starts from 1 (not 0!). Thus, when reading cell edges from `edge_list` you need to
     substract 1 from (absolute value of) these indices. E.g.
 
+
     ```python
     vrn = Voronoi(seeds) # <-- scipy.spatial.Voronoi
     edge_list,cells = VoronoiRegions2Edges(vrn.regions)
