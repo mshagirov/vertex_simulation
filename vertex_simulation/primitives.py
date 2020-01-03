@@ -55,6 +55,17 @@ class Vertex(object):
         '''Access to `torch.tensor` method to view `requires_grad` status'''
         return self._x.requires_grad
 
+    def device(self):
+        """Returns torch tensor's device"""
+        return self.x.device
+    def to_(self,val):
+        """Change torch tensor's device"""
+        self._x = self.x.to(val)
+
+    def dtype(self):
+        """Returns torch tensor's dtype"""
+        return self.x.dtype
+
     @property
     def x(self):
         return self._x
@@ -137,11 +148,13 @@ class Graph(object):
     def __str__(self):
         if (self.edges is None) or (self.vertices is None):
             return f"Graph: edges {self._edges}; vertices {self.vertices}"
-        return f"{self._edges.tolist()}"
+        dtype_edges = self.edges.dtype
+        dtype_verts = self.vertices.dtype()
+        return f"Graph\nedges {self._edges} {dtype_edges};\nvertices {self.vertices} {dtype_verts}"
     def __repr__(self):
-        if (self.edges is None) or (self.vertices is None):
-            return f"Graph\nedges {self._edges}"
-        return f"Graph\nedges {self.edges};dtype:{self.edges.dtype}\nvertices {self.vertices}"
+        n_edges = self.edges if self.edges is None else self.edges.size(0)
+        n_verts = self.vertices if self.vertices is None else self.vertices.x.size(0)
+        return f"Graph: {n_edges} edges; {n_verts} vertices"
 
 
 #Cell
@@ -164,20 +177,32 @@ class Monolayer(Graph):
         '''Usage:
         - cells = Monolayer(edges=torch.tensor([[0,1],[1,2],[2,0]]), vertices=Vertex([[1.,1.],[0.,-1.],[-1.,0.]]))
         '''
-        super().__init__(vertices=None, edges=None, fixed=None)
+        super().__init__(vertices=vertices, edges=edges, fixed=fixed)
 
         # cells must be a dict (keys:cell#,values:edge indices w/ negative indices for reverced edge direction)
         self._cells = cells
 
     def perimeter(self):
         '''Calculates perimeters of the cells'''
-#         cell_edges = edges[np.abs(cells[c]),:]
-#         edge_lengths = self.length()
-        pass
+        if (self.cells is None) or len(self.cells)==0:
+            return torch.zeros((1,))
+        Perims = []
+        for c in self.cells:
+            c_edges = self.edges[np.abs(self.cells[c]),:]
+            Perims.append(torch.sum(torch.norm(
+                self.vertices.x[c_edges[:,1],:] - self.vertices.x[c_edges[:,0],:],
+                dim=1,p=2,keepdim=True),0,keepdim=True))
+        return torch.cat(Perims,dim=0)
 
     def area(self):
         '''Calculates areas of the cells'''
-        pass
+        if (self.cells is None) or len(self.cells)==0:
+            return torch.zeros((1,))
+        Areas = []
+        for c in self.cells:
+            # compute area of each cell
+            Areas.append()
+        return torch.cat(Areas,dim=0)
 
     @property
     def cells(self):
@@ -187,9 +212,11 @@ class Monolayer(Graph):
         self._cells = val
 
     def __str__(self):
-        return f"edges {super().__str__()}"
+        n_cells = self.cells if self.cells is None else len(self.cells)
+        return f"Monolayer {n_cells} cells\n{self.cells};\n{super().__str__()}"
     def __repr__(self):
-        return f"Monolayer {super().__repr__()}"
+        n_cells = self.cells if self.cells is None else len(self.cells)
+        return f"Monolayer {n_cells} cells, {super().__repr__()}"
 
 #Cell
 def VoronoiRegions2Edges(regions):
