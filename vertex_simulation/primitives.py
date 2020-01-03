@@ -226,13 +226,10 @@ def VoronoiRegions2Edges(regions):
     Edges [i,j] and [j,i] are considered to be the same edge, and stored as one of these
     representations e.g. [j,i], but not both (i.e. no duplicate edges). Note that edge indexing in
     `cells` starts from 1 (not 0!). Thus, when reading cell edges from `edge_list` you need to
-    substract 1 from (absolute value of) these indices. E.g.
+    substract 1 from (absolute value of) these indices.
 
-    > `vrn = Voronoi(seeds) # <-- scipy.spatial.Voronoi` <br>
-    >`edge_list,cells = VoronoiRegions2Edges(vrn.regions)` <br>
-    >`edges = np.array(edge_list)` <br>
-    >`# select cell 0 edges:`<br>
-    >`cell_edges = edges[np.abs(cells[0])-1,:] # subtract 1 from indices to covert to start from 0`<br>
+    Usage:
+    - `edge_list,cells = VoronoiRegions2Edges(vrn_regions)`
 
     Arg-s:
     - `regions` is a list of lists, empty regions, or regions with out-of-diagram vertices ("-1") are ignored
