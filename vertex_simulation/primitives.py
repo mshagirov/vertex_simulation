@@ -188,7 +188,7 @@ class Monolayer(Graph):
             return torch.zeros((1,))
         Perims = []
         for c in self.cells:
-            c_edges = self.edges[np.abs(self.cells[c]),:]
+            c_edges = self.edges[np.abs(self.cells[c])-1,:]
             Perims.append(torch.sum(torch.norm(
                 self.vertices.x[c_edges[:,1],:] - self.vertices.x[c_edges[:,0],:],
                 dim=1,p=2,keepdim=True),0,keepdim=True))
@@ -220,23 +220,36 @@ class Monolayer(Graph):
 
 #Cell
 def VoronoiRegions2Edges(regions):
-    '''Converts Voronoi region vertex indices into list of (*undirected*) edges (indices of vertex pairs).
+    '''Converts Voronoi region vertex indices, like the one obtained from `scipy.spatial.Voronoi`,
+    to a list of (*undirected*) edges (indices of vertex pairs).
 
-    Edges [1,2] and [2,1] are considered to be the same edge, and stored as one of these
-    representations e.g. [2,1], but not both.
+    Edges [i,j] and [j,i] are considered to be the same edge, and stored as one of these
+    representations e.g. [j,i], but not both (i.e. no duplicate edges). Note that edge indexing in
+    `cells` starts from 1 (not 0!). Thus, when reading cell edges from `edge_list` you need to
+    substract 1 from (absolute value of) these indices. E.g.
+    ```python
+    vrn = Voronoi(seeds) # <-- scipy.spatial.Voronoi
+    edge_list,cells = VoronoiRegions2Edges(vrn.regions)
+    edges = np.array(edge_list)
+    # select cell 0 edges:
+    cell_edges = edges[np.abs(cells[0])-1,:] # subtract 1 from indices to covert to start from 0
+    ```
+
+    Arg-s:
     - `regions` is a list of lists, empty regions, or regions with out-of-diagram vertices ("-1") are ignored
 
     Returns:
     - `edge_list` : list of edges of an undirected graph.
-    - `cells`: dictionary of cells (Voronoi regions), keys: cell numbers, values: list of edge indices.
-    Negative indices indicate reversed order for vertices (together these edges form a closed region--a cell).
+    - `cells`: dictionary of cells (Voronoi regions), keys: cell numbers, values: list of
+    **edge indices starting from 1**. Negative indices indicate reversed order for vertices
+    (together these edges form a closed region--a cell). Use `np.sign(cells[c])` to find reversed edges.
     '''
     def is_in_edges_(e,edge_list):
         '''Returns edge index in the list, "-" means in reversed order, False if not found'''
         if (e in edge_list):
-            return edge_list.index(e)
+            return edge_list.index(e)+1
         elif ((e[1],e[0]) in edge_list):
-            return -edge_list.index((e[1],e[0]))
+            return -(1+edge_list.index((e[1],e[0])))
         else:
             return False
 
@@ -252,7 +265,7 @@ def VoronoiRegions2Edges(regions):
             if edge_idx:
                 cells[cell_k].append(edge_idx)
             else:
-                cells[cell_k].append(len(edge_list))
+                cells[cell_k].append(len(edge_list)+1)
                 edge_list.append(e)
         cell_k+=1
     return edge_list,cells
