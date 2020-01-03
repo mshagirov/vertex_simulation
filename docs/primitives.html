@@ -981,39 +981,39 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgd19d9897e8f54645b9e1c5a8c003dc3d">
+  <img id="_anim_imga08f09d723724e2c837c656995480440">
   <div class="anim-controls">
-    <input id="_anim_sliderd19d9897e8f54645b9e1c5a8c003dc3d" type="range" class="anim-slider"
+    <input id="_anim_slidera08f09d723724e2c837c656995480440" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animd19d9897e8f54645b9e1c5a8c003dc3d.set_frame(parseInt(this.value));"></input>
+           oninput="anima08f09d723724e2c837c656995480440.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.slower()"><i class="fa fa-minus"></i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.first_frame()"><i class="fa fa-fast-backward">
+      <button onclick="anima08f09d723724e2c837c656995480440.slower()"><i class="fa fa-minus"></i></button>
+      <button onclick="anima08f09d723724e2c837c656995480440.first_frame()"><i class="fa fa-fast-backward">
           </i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.previous_frame()">
+      <button onclick="anima08f09d723724e2c837c656995480440.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.reverse_animation()">
+      <button onclick="anima08f09d723724e2c837c656995480440.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.pause_animation()"><i class="fa fa-pause">
+      <button onclick="anima08f09d723724e2c837c656995480440.pause_animation()"><i class="fa fa-pause">
           </i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.play_animation()"><i class="fa fa-play"></i>
+      <button onclick="anima08f09d723724e2c837c656995480440.play_animation()"><i class="fa fa-play"></i>
           </button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.next_frame()"><i class="fa fa-step-forward">
+      <button onclick="anima08f09d723724e2c837c656995480440.next_frame()"><i class="fa fa-step-forward">
           </i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.last_frame()"><i class="fa fa-fast-forward">
+      <button onclick="anima08f09d723724e2c837c656995480440.last_frame()"><i class="fa fa-fast-forward">
           </i></button>
-      <button onclick="animd19d9897e8f54645b9e1c5a8c003dc3d.faster()"><i class="fa fa-plus"></i></button>
+      <button onclick="anima08f09d723724e2c837c656995480440.faster()"><i class="fa fa-plus"></i></button>
     </div>
-    <form action="#n" name="_anim_loop_selectd19d9897e8f54645b9e1c5a8c003dc3d" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_d19d9897e8f54645b9e1c5a8c003dc3d"
+    <form action="#n" name="_anim_loop_selecta08f09d723724e2c837c656995480440" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_a08f09d723724e2c837c656995480440"
              >
-      <label for="_anim_radio1_d19d9897e8f54645b9e1c5a8c003dc3d">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_d19d9897e8f54645b9e1c5a8c003dc3d"
+      <label for="_anim_radio1_a08f09d723724e2c837c656995480440">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_a08f09d723724e2c837c656995480440"
              checked>
-      <label for="_anim_radio2_d19d9897e8f54645b9e1c5a8c003dc3d">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_d19d9897e8f54645b9e1c5a8c003dc3d"
+      <label for="_anim_radio2_a08f09d723724e2c837c656995480440">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_a08f09d723724e2c837c656995480440"
              >
-      <label for="_anim_radio3_d19d9897e8f54645b9e1c5a8c003dc3d">Reflect</label>
+      <label for="_anim_radio3_a08f09d723724e2c837c656995480440">Reflect</label>
     </form>
   </div>
 </div>
@@ -1023,9 +1023,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgd19d9897e8f54645b9e1c5a8c003dc3d";
-    var slider_id = "_anim_sliderd19d9897e8f54645b9e1c5a8c003dc3d";
-    var loop_select_id = "_anim_loop_selectd19d9897e8f54645b9e1c5a8c003dc3d";
+    var img_id = "_anim_imga08f09d723724e2c837c656995480440";
+    var slider_id = "_anim_slidera08f09d723724e2c837c656995480440";
+    var loop_select_id = "_anim_loop_selecta08f09d723724e2c837c656995480440";
     var frames = new Array(65);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -10056,7 +10056,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animd19d9897e8f54645b9e1c5a8c003dc3d = new Animation(frames, img_id, slider_id, 200.0,
+        anima08f09d723724e2c837c656995480440 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -10139,12 +10139,15 @@ representations e.g. [j,i], but not both (i.e. no duplicate edges). Note that ed
 <code>cells</code> starts from 1 (not 0!). Thus, when reading cell edges from <code>edge_list</code> you need to
 substract 1 from (absolute value of) these indices. E.g.</p>
 <ul>
+<li>Usage:<ul>
 <li><div class="highlight"><pre><span></span><span class="n">vrn</span> <span class="o">=</span> <span class="n">Voronoi</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="c1"># &lt;-- scipy.spatial.Voronoi</span>
 <span class="n">edge_list</span><span class="p">,</span><span class="n">cells</span> <span class="o">=</span> <span class="n">VoronoiRegions2Edges</span><span class="p">(</span><span class="n">vrn</span><span class="o">.</span><span class="n">regions</span><span class="p">)</span>
 <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">edge_list</span><span class="p">)</span>
 <span class="c1"># select cell 0 edges:</span>
 <span class="n">cell_edges</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="c1"># subtract 1 from indices to covert to start from 0</span>
 </pre></div>
+</li>
+</ul>
 </li>
 </ul>
 <p>Arg-s:</p>
