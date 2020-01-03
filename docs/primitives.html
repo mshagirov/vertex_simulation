@@ -10099,7 +10099,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <ul>
 <li>to-do:<ul>
-<li>add cell perimeter and cell area calculation methods</li>
+<li>add cell area calculation method</li>
 </ul>
 </li>
 </ul>
@@ -10138,12 +10138,15 @@ to a list of (<em>undirected</em>) edges (indices of vertex pairs).</p>
 representations e.g. [j,i], but not both (i.e. no duplicate edges). Note that edge indexing in
 <code>cells</code> starts from 1 (not 0!). Thus, when reading cell edges from <code>edge_list</code> you need to
 substract 1 from (absolute value of) these indices. E.g.</p>
-<div class="highlight"><pre><span></span><span class="n">vrn</span> <span class="o">=</span> <span class="n">Voronoi</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="c1"># &lt;-- scipy.spatial.Voronoi</span>
+<ul>
+<li><div class="highlight"><pre><span></span><span class="n">vrn</span> <span class="o">=</span> <span class="n">Voronoi</span><span class="p">(</span><span class="n">seeds</span><span class="p">)</span> <span class="c1"># &lt;-- scipy.spatial.Voronoi</span>
 <span class="n">edge_list</span><span class="p">,</span><span class="n">cells</span> <span class="o">=</span> <span class="n">VoronoiRegions2Edges</span><span class="p">(</span><span class="n">vrn</span><span class="o">.</span><span class="n">regions</span><span class="p">)</span>
 <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">edge_list</span><span class="p">)</span>
 <span class="c1"># select cell 0 edges:</span>
 <span class="n">cell_edges</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="c1"># subtract 1 from indices to covert to start from 0</span>
 </pre></div>
+</li>
+</ul>
 <p>Arg-s:</p>
 <ul>
 <li><code>regions</code> is a list of lists, empty regions, or regions with out-of-diagram vertices ("-1") are ignored</li>

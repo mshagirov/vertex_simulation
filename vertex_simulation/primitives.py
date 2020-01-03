@@ -171,7 +171,7 @@ class Monolayer(Graph):
     '''Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.
 
     - to-do:
-        - add cell perimeter and cell area calculation methods
+        - add cell area calculation method
     '''
     def __init__(self, vertices=None, edges=None, cells=None, fixed=None):
         '''Usage:
@@ -228,8 +228,7 @@ def VoronoiRegions2Edges(regions):
     `cells` starts from 1 (not 0!). Thus, when reading cell edges from `edge_list` you need to
     substract 1 from (absolute value of) these indices. E.g.
 
-
-    ```python
+    - ```python
     vrn = Voronoi(seeds) # <-- scipy.spatial.Voronoi
     edge_list,cells = VoronoiRegions2Edges(vrn.regions)
     edges = np.array(edge_list)
