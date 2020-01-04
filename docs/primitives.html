@@ -4,7 +4,7 @@ title: Primitives
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Implementations for vertex, graph, and cell monolayer"
+summary: "Implementations for vertex, graph, and cell monolayer classes"
 ---
 <!--
 
@@ -34,10 +34,11 @@ summary: "Implementations for vertex, graph, and cell monolayer"
 <li><a href="primitives.html#Graph"><code>Graph</code></a> and <a href="primitives.html#Monolayer"><code>Monolayer</code></a> will need "to", "dtype", and "device" methods.</li>
 </ul>
 </li>
-<li>to-do:<ul>
-<li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
 </ul>
 </li>
+<li>to-do:<ul>
+<li>extend <a href="primitives.html#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to add out-of-diagram vertices as boundary vertices (or partial cells)</li>
+<li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
 </ul>
 </li>
 </ul>
@@ -46,6 +47,94 @@ summary: "Implementations for vertex, graph, and cell monolayer"
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Helper-functions">Helper functions<a class="anchor-link" href="#Helper-functions">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Helper-functions-for-Graphs">Helper functions for Graphs<a class="anchor-link" href="#Helper-functions-for-Graphs">&#182;</a></h3><hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="plot_graph" class="doc_header"><code>plot_graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L10" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph</code>(<strong><code>Xv</code></strong>, <strong><code>edges</code></strong>, <strong><code>plot_arg</code></strong>=<em><code>['g-', 'mo']</code></em>, <strong><code>alphas</code></strong>=<em><code>[0.2, 0.5]</code></em>)</p>
+</blockquote>
+<p>Simple function for plotting vertices(location <code>Xv</code>) and <code>edges</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Helper-functions-for-Monolayer">Helper functions for Monolayer<a class="anchor-link" href="#Helper-functions-for-Monolayer">&#182;</a></h3><hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="VoronoiRegions2Edges" class="doc_header"><code>VoronoiRegions2Edges</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>VoronoiRegions2Edges</code>(<strong><code>regions</code></strong>)</p>
+</blockquote>
+<p>Converts Voronoi region vertex indices, like the one obtained from <code>scipy.spatial.Voronoi</code>,
+to a list of (<em>undirected</em>) edges (indices of vertex pairs).</p>
+<p>Edges [i,j] and [j,i] are considered to be the same edge, and stored as one of these
+representations e.g. [j,i], but not both (i.e. no duplicate edges). Note that edge indexing in
+<code>cells</code> starts from 1 (not 0!). Thus, when reading cell edges from <code>edge_list</code> you need to
+substract 1 from (absolute value of) these indices.</p>
+<p>Usage:</p>
+<ul>
+<li><code>edge_list,cells = VoronoiRegions2Edges(vrn_regions)</code></li>
+</ul>
+<p>Arg-s:</p>
+<ul>
+<li><code>regions</code> is a list of lists, empty regions, or regions with out-of-diagram vertices ("-1") are ignored</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li><code>edge_list</code> : list of edges of an undirected graph.</li>
+<li><code>cells</code>: dictionary of cells (Voronoi regions), keys: cell numbers, values: list of
+<strong>edge indices starting from 1</strong>. Negative indices indicate reversed order for vertices
+(together these edges form a closed region--a cell). Use <code>np.sign(cells[c])</code> to find reversed edges.</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
@@ -66,7 +155,7 @@ summary: "Implementations for vertex, graph, and cell monolayer"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L10" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L67" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) <code>torch.Tensor</code>:(x,y,...)'s.
 Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,y2], ...,[xN,yN]]</code></p>
@@ -80,7 +169,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 </ul>
 </li>
 <li>Properties :<ul>
-<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self._x)</li>
+<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self.x)</li>
 </ul>
 </li>
 </ul>
@@ -153,7 +242,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Graph" class="doc_header"><code>class</code> <code>Graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L83" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Graph</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Graph" class="doc_header"><code>class</code> <code>Graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L145" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Graph</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Implements graph object. Stores vertices and edges.</p>
 <ul>
@@ -248,7 +337,7 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="primitives.html#Graph"><code>Graph</code></a> class)</p>
 <ul>
-<li>Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above</li>
+<li>Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above. In a more general case, you can use vertex positions using <code>g.vertices.x</code> of a <a href="primitives.html#Vertex"><code>Vertex</code></a> object, and check gradient tag with <code>g.vertices.requires_grad()</code> and enable gradient tracking inplace with <code>g.vertices.requires_grad_(True)</code>.</li>
 </ul>
 
 </div>
@@ -260,12 +349,14 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># do something with vertex positions</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
-<span class="n">E</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="c1"># edge lengths</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># some function that returns a scalar</span>
 
-<span class="c1"># compute gradients w.r.t. variables of y() </span>
+<span class="c1"># compute gradients w.r.t. variables of E </span>
 <span class="n">E</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-<span class="n">dEdx</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="c1"># here I&#39;m copying grad-s into dydv list</span>
+
+<span class="c1"># copying grad-s into dEdx as a list</span>
+<span class="n">dEdx</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
 <span class="c1"># reset gradients to zeros (useful for iterative calculations s.a. gradient descent)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">set_zero_grad_</span><span class="p">()</span>
@@ -297,44 +388,6 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-<h3 id="Helper-functions-for-Graph-objects">Helper functions for <a href="primitives.html#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Helper-functions-for-Graph-objects">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_graph" class="doc_header"><code>plot_graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L161" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph</code>(<strong><code>Xv</code></strong>, <strong><code>edges</code></strong>, <strong><code>plot_arg</code></strong>=<em><code>['g-', 'mo']</code></em>, <strong><code>alphas</code></strong>=<em><code>[0.2, 0.5]</code></em>)</p>
-</blockquote>
-<p>Simple function for plotting vertices(location <code>Xv</code>) and <code>edges</code></p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Cell-monolayer-representations">Cell monolayer representations<a class="anchor-link" href="#Cell-monolayer-representations">&#182;</a></h2>
 </div>
 </div>
@@ -351,7 +404,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L170" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="primitives.html#Graph"><code>Graph</code></a></p>
+<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="primitives.html#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <ul>
@@ -378,60 +431,99 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Helper-functions-for-Monolayer">Helper functions for <a href="primitives.html#Monolayer"><code>Monolayer</code></a><a class="anchor-link" href="#Helper-functions-for-Monolayer">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
+<p><a href="primitives.html#Monolayer.area"><code>Monolayer.area</code></a>:<br>
+For a <em>simple polygon</em> with $n$ sides, area is given by a <em>shoelace formula</em> :
+$$A_{polygon} = \frac{1}{2}\left|{\sum^{n-1}_{i=1}x_{i}y_{i+1} + x_ny_1 - \sum^{n-1}_{i=1}x_{i+1}y_{i} - x_1 y_n}\right|$$
+$$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$</p>
 
 </div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># triangle shaped cell:</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">([[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">1</span><span class="p">],[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">9</span><span class="p">],[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">tri_cells</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]}</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Monolayer</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">v</span><span class="p">,</span><span class="n">edges</span><span class="o">=</span><span class="n">edges</span><span class="p">,</span><span class="n">cells</span><span class="o">=</span><span class="n">tri_cells</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">perimeter</span><span class="p">(),</span><span class="s1">&#39;; Area=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="VoronoiRegions2Edges" class="doc_header"><code>VoronoiRegions2Edges</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L222" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>VoronoiRegions2Edges</code>(<strong><code>regions</code></strong>)</p>
-</blockquote>
-<p>Converts Voronoi region vertex indices, like the one obtained from <code>scipy.spatial.Voronoi</code>,
-to a list of (<em>undirected</em>) edges (indices of vertex pairs).</p>
-<p>Edges [i,j] and [j,i] are considered to be the same edge, and stored as one of these
-representations e.g. [j,i], but not both (i.e. no duplicate edges). Note that edge indexing in
-<code>cells</code> starts from 1 (not 0!). Thus, when reading cell edges from <code>edge_list</code> you need to
-substract 1 from (absolute value of) these indices.</p>
-<p>Usage:</p>
-<ul>
-<li><code>edge_list,cells = VoronoiRegions2Edges(vrn_regions)</code></li>
-</ul>
-<p>Arg-s:</p>
-<ul>
-<li><code>regions</code> is a list of lists, empty regions, or regions with out-of-diagram vertices ("-1") are ignored</li>
-</ul>
-<p>Returns:</p>
-<ul>
-<li><code>edge_list</code> : list of edges of an undirected graph.</li>
-<li><code>cells</code>: dictionary of cells (Voronoi regions), keys: cell numbers, values: list of
-<strong>edge indices starting from 1</strong>. Negative indices indicate reversed order for vertices
-(together these edges form a closed region--a cell). Use <code>np.sign(cells[c])</code> to find reversed edges.</li>
-</ul>
-
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
+</pre>
 </div>
-
 </div>
 
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="k">import</span> <span class="n">Voronoi</span><span class="p">,</span><span class="n">voronoi_plot_2d</span>
+
+<span class="n">v_seeds</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mf">5.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">5.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">4.</span><span class="p">],</span>
+                  <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">4.</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">4.</span><span class="p">],[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],</span>
+                  <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],[</span><span class="mf">1.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">2.5</span><span class="p">],[</span><span class="mf">2.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">2.5</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">1.</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mf">1.</span><span class="p">]])</span>
+
+<span class="n">vrn</span> <span class="o">=</span> <span class="n">Voronoi</span><span class="p">(</span><span class="n">v_seeds</span><span class="p">)</span>
+<span class="n">edge_list</span><span class="p">,</span><span class="n">hex_cells</span> <span class="o">=</span> <span class="n">VoronoiRegions2Edges</span><span class="p">(</span><span class="n">vrn</span><span class="o">.</span><span class="n">regions</span><span class="p">)</span> <span class="c1"># convert regions to edges and cells</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">verts</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">(</span><span class="n">vrn</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">edge_list</span><span class="p">)</span>
+
+<span class="n">cell_graph</span> <span class="o">=</span> <span class="n">Monolayer</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">Vertex</span><span class="p">(</span><span class="n">vrn</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">copy</span><span class="p">()),</span> <span class="n">edges</span><span class="o">=</span><span class="n">edges</span><span class="p">,</span> <span class="n">cells</span><span class="o">=</span><span class="n">hex_cells</span><span class="p">)</span>
+<span class="c1"># cell_graph.vertices.requires_grad_(True) #&lt;-- use for enabling gradient calculations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">cell_graph</span><span class="o">.</span><span class="n">perimeter</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span><span class="s1">&#39;;</span><span class="se">\n</span><span class="s1">Area=&#39;</span><span class="p">,</span><span class="n">cell_graph</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Perimeter= tensor([6., 6., 6.], dtype=torch.float64) ;
+Area= tensor([2.5981, 2.5981, 2.5981], dtype=torch.float64)
+</pre>
+</div>
+</div>
 
 </div>
 </div>
+
 </div>
 </div>
  
