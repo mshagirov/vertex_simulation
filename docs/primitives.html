@@ -1,6 +1,7 @@
 ---
 
 title: Primitives
+
 keywords: fastai
 sidebar: home_sidebar
 
@@ -25,19 +26,19 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Graph primitives:<ul>
-<li><a href="primitives.html#Vertex"><code>Vertex</code></a>: implements a vertex object. Stores position of a given vertex (or vertices) as <code>1x2</code> <code>torch.tensor</code>, and implements methods for interacting with <code>torch</code> autograd. Compatible with D-dimensional <code>NxD</code> <code>torch.tensor</code>.</li>
-<li><a href="primitives.html#Graph"><code>Graph</code></a>: implements graph object. Stores vertices (<a href="primitives.html#Vertex"><code>Vertex</code></a> object with <code>NxD</code> <code>torch.tensor</code>), edges (<code>Nx2</code> integer array of vertex indices) connecting the vertices, and implements methods for interacting with <code>torch</code> autograd.</li>
+<li><a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a>: implements a vertex object. Stores position of a given vertex (or vertices) as <code>1x2</code> <code>torch.tensor</code>, and implements methods for interacting with <code>torch</code> autograd. Compatible with D-dimensional <code>NxD</code> <code>torch.tensor</code>.</li>
+<li><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>: implements graph object. Stores vertices (<a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object with <code>NxD</code> <code>torch.tensor</code>), edges (<code>Nx2</code> integer array of vertex indices) connecting the vertices, and implements methods for interacting with <code>torch</code> autograd.</li>
 </ul>
 </li>
 <li>Cell monolayer representations: <ul>
-<li><a href="primitives.html#Monolayer"><code>Monolayer</code></a>: Implements cell monolayer, such as (2-dimensional) apical plane of an epithelial tissue. Inherits from <a href="primitives.html#Graph"><code>Graph</code></a> class. [<strong>needs docs</strong>]<ul>
-<li><a href="primitives.html#Graph"><code>Graph</code></a> and <a href="primitives.html#Monolayer"><code>Monolayer</code></a> will need "to", "dtype", and "device" methods.</li>
+<li><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a>: Implements cell monolayer, such as (2-dimensional) apical plane of an epithelial tissue. Inherits from <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> class. [<strong>needs docs</strong>]<ul>
+<li><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> and <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> will need "to", "dtype", and "device" methods.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>to-do:<ul>
-<li>extend <a href="primitives.html#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to add out-of-diagram vertices as boundary vertices (or partial cells)</li>
+<li>extend <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to add out-of-diagram vertices as boundary vertices (or partial cells)</li>
 <li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
 </ul>
 </li>
@@ -254,7 +255,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 </ul>
 </li>
 <li>Properties :<ul>
-<li><code>vertices</code> : variable vertices represented by <a href="primitives.html#Vertex"><code>Vertex</code></a> object (needs autograd).</li>
+<li><code>vertices</code> : variable vertices represented by <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object (needs autograd).</li>
 <li><code>edges</code> : edges connecting vertices.Nx2 array of integers (vertex indices).
 Can be any <code>torch.tensor</code> compatible array with <code>tolist()</code> method (doesn't need autograd).</li>
 <li><code>fixed</code>: [<strong>not yet implemented</strong>] stores information about constant/fixed vertices (for setting boundary).
@@ -280,7 +281,7 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>When initializing <a href="primitives.html#Graph"><code>Graph</code></a> objects provide vertices (as <a href="primitives.html#Vertex"><code>Vertex</code></a> object) and edges (connected vertex indices) at initialization, or set it later with <code>self.vertices</code> and <code>self.edges</code> property setters.</p>
+<p>When initializing <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects provide vertices (as <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object) and edges (connected vertex indices) at initialization, or set it later with <code>self.vertices</code> and <code>self.edges</code> property setters.</p>
 
 </div>
 </div>
@@ -335,9 +336,9 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="primitives.html#Graph"><code>Graph</code></a> class)</p>
+<p>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> class)</p>
 <ul>
-<li>Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above. In a more general case, you can use vertex positions using <code>g.vertices.x</code> of a <a href="primitives.html#Vertex"><code>Vertex</code></a> object, and check gradient tag with <code>g.vertices.requires_grad()</code> and enable gradient tracking inplace with <code>g.vertices.requires_grad_(True)</code>.</li>
+<li>Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above. In a more general case, you can use vertex positions using <code>g.vertices.x</code> of a <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object, and check gradient tag with <code>g.vertices.requires_grad()</code> and enable gradient tracking inplace with <code>g.vertices.requires_grad_(True)</code>.</li>
 </ul>
 
 </div>
@@ -404,7 +405,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="primitives.html#Graph"><code>Graph</code></a></p>
+<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <ul>
@@ -431,7 +432,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="primitives.html#Monolayer.area"><code>Monolayer.area</code></a>:<br>
+<p><a href="/vertex_simulation/primitives#Monolayer.area"><code>Monolayer.area</code></a>:<br>
 For a <em>simple polygon</em> with $n$ sides, area is given by a <em>shoelace formula</em> :
 $$A_{polygon} = \frac{1}{2}\left|{\sum^{n-1}_{i=1}x_{i}y_{i+1} + x_ny_1 - \sum^{n-1}_{i=1}x_{i+1}y_{i} - x_1 y_n}\right|$$
 $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$</p>

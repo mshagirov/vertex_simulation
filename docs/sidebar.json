@@ -1,6 +1,8 @@
 {
   "vertex_simulation": {
     "Overview": "/",
-    "Primitives": "/primitives"
+    "Primitives": "/primitives",
+    "Simulation": "/simulation",
+    "Title": "/examples"
   }
 }

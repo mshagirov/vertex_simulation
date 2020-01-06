@@ -12,6 +12,12 @@ entries:
     - output: web,pdf
       title: Primitives
       url: /primitives
+    - output: web,pdf
+      title: Simulation
+      url: /simulation
+    - output: web,pdf
+      title: Title
+      url: /examples
     output: web
     title: vertex_simulation
   output: web

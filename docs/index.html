@@ -1,6 +1,7 @@
 ---
 
 title: Vertex Dynamics Simulation of Cell Monolayers
+
 keywords: fastai
 sidebar: home_sidebar
 
@@ -26,7 +27,7 @@ summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (p
 <p>Modules:</p>
 <ul>
 <li><code>primitives</code>: implements vertices (w/ distance), edges, cells (w/ perimeter and area), and monolayer (with energy, boundary constraints, and other parameters)</li>
-<li><code>simulation</code>: iteration steps for simulating vertex dynamics</li>
+<li><code>simulation</code>: tools for  simulating cellular vertex dynamics. Iterative algorithm implementations, cell monolayer generators (vertices). (anything else to add?!)</li>
 </ul>
 
 </div>
@@ -62,26 +63,26 @@ summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (p
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">Using Pytorch's autograd with <a href="primitives.html#Vertex"><code>Vertex</code></a>, <a href="primitives.html#Graph"><code>Graph</code></a> and <a href="primitives.html#Monolayer"><code>Monolayer</code></a> objects from the <code>primitives</code> module<a class="anchor-link" href="#Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">&#182;</a></h3>
+<h3 id="Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">Using Pytorch's autograd with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a>, <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> and <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects from the <code>primitives</code> module<a class="anchor-link" href="#Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Initializing-and-working-with-Vertex-and-Graph-objects">Initializing and working with <a href="primitives.html#Vertex"><code>Vertex</code></a> and <a href="primitives.html#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Initializing-and-working-with-Vertex-and-Graph-objects">&#182;</a></h4>
+<h4 id="Initializing-and-working-with-Vertex-and-Graph-objects">Initializing and working with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Initializing-and-working-with-Vertex-and-Graph-objects">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="primitives.html#Graph"><code>Graph</code></a> objects implement graphs and stores its vertices as a <a href="primitives.html#Vertex"><code>Vertex</code></a> object, and its edges as a <code>torch.tensor</code>. Both <a href="primitives.html#Vertex"><code>Vertex</code></a> and <a href="primitives.html#Graph"><code>Graph</code></a> provide interface methods for working with torch's autograd, and methods for calculating edge lengths (or vertex to vertex distance in the case <a href="primitives.html#Vertex"><code>Vertex</code></a>).</p>
+<p><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects implement graphs and stores its vertices as a <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object, and its edges as a <code>torch.tensor</code>. Both <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> provide interface methods for working with torch's autograd, and methods for calculating edge lengths (or vertex to vertex distance in the case <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a>).</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To illustrate how to use autograd, let's use <a href="primitives.html#Vertex"><code>Vertex</code></a> object. We can define <a href="primitives.html#Vertex"><code>Vertex</code></a> object with its location, or set and modify it later. Location is stored as <a href="primitives.html#Vertex.x"><code>Vertex.x</code></a> property, a <code>torch.tensor</code>. <code>Vertex(location)</code> accepts <code>torch.tensors</code>, list of lists that are convertible to tensors (with optional keyword arg-s for <code>torch.tensor()</code>), and numpy.ndarrays (uses <code>torch.from_numpy()</code>)</p>
+<p>To illustrate how to use autograd, let's use <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object. We can define <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object with its location, or set and modify it later. Location is stored as <a href="/vertex_simulation/primitives#Vertex.x"><code>Vertex.x</code></a> property, a <code>torch.tensor</code>. <code>Vertex(location)</code> accepts <code>torch.tensors</code>, list of lists that are convertible to tensors (with optional keyword arg-s for <code>torch.tensor()</code>), and numpy.ndarrays (uses <code>torch.from_numpy()</code>)</p>
 <ul>
 <li><code>v.x</code> (i.e. location for <code>v=Vertex(location)</code>) is assumed to be Nx2 array with float dtype (or any 2D array), and sizes are <strong>not</strong> checked when set using <code>self.x</code>.</li>
 <li>Computing gradients, and resetting them to zeros. Example below demonstrates computing $\partial y/\partial v_{i,j}$ for $y = \sum_i\sum_j v_{i,j}^2$ using <code>torch.autograd</code>.</li>
@@ -232,7 +233,7 @@ t=0: dE/dx=[[-6.0, 6.0]] --&gt; dx/dt=-dE/dx=[[6.0, -6.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>An important point to keep in mind when using iterative methods (e.g. gradient descent) shown in the code below, is to remember to reset gradients accumulator to zeros. For <a href="primitives.html#Vertex"><code>Vertex</code></a> objects its done with <a href="primitives.html#Vertex.zero_grad_("><code>Vertex.zero_grad_()</code></a>), if the vertex has <code>requires_grad=True</code> flag, calling this method sets all gradients of a given vertex to zeros. Otherwise it does nothing, e.g. gradients w.r.t. $o$ are kept as <code>None</code>, and they are not calculated.</p>
+<p>An important point to keep in mind when using iterative methods (e.g. gradient descent) shown in the code below, is to remember to reset gradients accumulator to zeros. For <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> objects its done with <a href="/vertex_simulation/primitives#Vertex.zero_grad_("><code>Vertex.zero_grad_()</code></a>), if the vertex has <code>requires_grad=True</code> flag, calling this method sets all gradients of a given vertex to zeros. Otherwise it does nothing, e.g. gradients w.r.t. $o$ are kept as <code>None</code>, and they are not calculated.</p>
 
 </div>
 </div>
@@ -355,7 +356,7 @@ t=3.20:r=0.002; E=3.6e-06; dx/dt=tensor([[ 0.0027, -0.0027]], dtype=torch.float6
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Graph-usage-example"><a href="primitives.html#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example">&#182;</a></h5><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
+<h5 id="Graph-usage-example"><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example">&#182;</a></h5><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
 <p>Now, let's evolve in time a system decribed by a potential
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in <a href="#ex1">Example 1</a> is 
@@ -9792,13 +9793,13 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Monolayer-objects"><a href="primitives.html#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects">&#182;</a></h4>
+<h4 id="Monolayer-objects"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="primitives.html#Monolayer"><code>Monolayer</code></a> object stores vertices, edges, and cells and implements methods for working wiht torch's autograd. In order to demonstrate how to use <a href="primitives.html#Monolayer"><code>Monolayer</code></a> objects, we start with generating cells. Here we will use Voronoi tessellation.</p>
+<p><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> object stores vertices, edges, and cells and implements methods for working wiht torch's autograd. In order to demonstrate how to use <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects, we start with generating cells. Here we will use Voronoi tessellation.</p>
 
 </div>
 </div>
@@ -9845,7 +9846,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>After obtaining the Voronoi tesselation, use <a href="primitives.html#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to convert regions into a <a href="primitives.html#Monolayer"><code>Monolayer</code></a> (and <a href="primitives.html#Graph"><code>Graph</code></a>) compatible edges and cells representations:</p>
+<p>After obtaining the Voronoi tesselation, use <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to convert regions into a <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> (and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>) compatible edges and cells representations:</p>
 
 </div>
 </div>
@@ -9940,7 +9941,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Monolayer-dynamics-example"><a href="primitives.html#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example">&#182;</a></h5>
+<h5 id="Monolayer-dynamics-example"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example">&#182;</a></h5>
 </div>
 </div>
 </div>
