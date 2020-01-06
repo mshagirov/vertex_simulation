@@ -75,7 +75,7 @@ class Vertex(object):
         - `requires_grad_(self,val)`: sets `torch.tensor` flag inplace
         - `requires_grad(self)`: returns `torch.tensor` flag
     - Properties :
-        - `x` : use it to set/get location torch.tensor (returns or modifies self.x) [<a name="Vertex.x">`Vertex.x`</a>]
+        - `x` : use it to set/get location torch.tensor (returns or modifies self.x) [<a name="Vertex.x">Vertex.x</a>]
     '''
     def __init__(self,location=None,**kwargs):
         '''`location` must be a 2D `torch.tensor` w/ float dtype (or a compatible list of lists,
@@ -228,7 +228,7 @@ class Monolayer(Graph):
     - Methods:
         - `perimeter(self)` : calculates cell perimeters. Returns `torch.tensor`.
         - `area(self)` : calculates cell areas (2-d polygons). Returns `torch.tensor`.
-        [<a name="Monolayer.area">`Monolayer.area`</a>]
+        [<a name="Monolayer.area">Monolayer.area</a>]
     - Properties:
         - `cells` : dictionary of lists, with cell numbers (keys) and list of
     **edge indices starting from 1** (values). Negative indices indicate reversed order for vertices
