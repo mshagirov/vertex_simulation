@@ -63,13 +63,13 @@ summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (p
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">Using Pytorch's autograd with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a>, <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> and <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects from the <code>primitives</code> module<a class="anchor-link" href="#Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">&#182;</a></h3>
+<h2 id="Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">Using Pytorch's autograd with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a>, <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> and <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects from the <code>primitives</code> module<a class="anchor-link" href="#Using-Pytorch's-autograd-with-Vertex,-Graph-and-Monolayer-objects-from-the-primitives-module">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Initializing-and-working-with-Vertex-and-Graph-objects">Initializing and working with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Initializing-and-working-with-Vertex-and-Graph-objects">&#182;</a></h4>
+<h3 id="Initializing-and-working-with-Vertex-and-Graph-objects">Initializing and working with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Initializing-and-working-with-Vertex-and-Graph-objects">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -133,7 +133,7 @@ dy/dx_i after zeroing grad-s:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Vertex-usage-example">Vertex usage example<a class="anchor-link" href="#Vertex-usage-example">&#182;</a></h5><p><a name="ex1">Trapped particle in a 2D fluid</a></p>
+<h4 id="Vertex-usage-example">Vertex usage example<a class="anchor-link" href="#Vertex-usage-example">&#182;</a></h4><p><a name="ex1">Trapped particle in a 2D fluid</a></p>
 <p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
@@ -356,7 +356,7 @@ t=3.20:r=0.002; E=3.6e-06; dx/dt=tensor([[ 0.0027, -0.0027]], dtype=torch.float6
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Graph-usage-example"><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example">&#182;</a></h5><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
+<h4 id="Graph-usage-example"><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example">&#182;</a></h4><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
 <p>Now, let's evolve in time a system decribed by a potential
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in <a href="#ex1">Example 1</a> is 
@@ -9793,7 +9793,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Monolayer-objects"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects">&#182;</a></h4>
+<h3 id="Monolayer-objects"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -9941,7 +9941,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Monolayer-dynamics-example"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example">&#182;</a></h5>
+<h4 id="Monolayer-dynamics-example"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example">&#182;</a></h4>
 </div>
 </div>
 </div>

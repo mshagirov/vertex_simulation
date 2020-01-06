@@ -16,8 +16,8 @@ entries:
       title: Simulation
       url: /simulation
     - output: web,pdf
-      title: Title
-      url: /examples
+      title: Vertex Dynamics Models
+      url: /vertex_dynamics_models
     output: web
     title: vertex_simulation
   output: web
