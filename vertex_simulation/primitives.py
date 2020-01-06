@@ -75,7 +75,7 @@ class Vertex(object):
         - `requires_grad_(self,val)`: sets `torch.tensor` flag inplace
         - `requires_grad(self)`: returns `torch.tensor` flag
     - Properties :
-        - `x` : use it to set/get location torch.tensor (returns or modifies self.x)
+        - `x` : use it to set/get location torch.tensor (returns or modifies self.x) [<a name="Vertex.x">self.x</a>]
     '''
     def __init__(self,location=None,**kwargs):
         '''`location` must be a 2D `torch.tensor` w/ float dtype (or a compatible list of lists,
@@ -223,8 +223,14 @@ class Graph(object):
 class Monolayer(Graph):
     '''Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.
 
-    - to-do:
-        - add cell area calculation method
+    - Methods (*inherits all methods from* `Graph`):
+        - `perimeter` : calculates cell perimeters. Returns `torch.tensor`.
+        - `area` : calculates cell areas (2-d polygons). Returns `torch.tensor`.
+    - Properties (*inherits all properties from* `Graph`):
+        - `cells` : dictionary of lists, with cell numbers (keys) and list of
+    **edge indices starting from 1** (values). Negative indices indicate reversed order for vertices
+    (cell is defined as a closed region formed by edges connected end-to-end).
+    Use `np.sign(cells[c])` to find reversed edges.
     '''
     def __init__(self, vertices=None, edges=None, cells=None, fixed=None):
         '''Usage:

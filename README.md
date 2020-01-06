@@ -21,14 +21,12 @@ Modules:
 
 `pip install vertex_simulation` (not yet implemented)
 
-## How to use
+## Using autograd with Vertex, Graph and Monolayer
 
 In examples below, it is assumed that you've imported `primitives` module. You can do so with 
 ```
 from vertex_simulation.primitives import *
 ```
-
-## Using Pytorch's autograd with `Vertex`, `Graph` and `Monolayer` objects from the `primitives` module
 
 ### Initializing and working with `Vertex` and `Graph` objects
 
@@ -213,7 +211,7 @@ plt.show()
 <div class="output_area" markdown="1">
 
 
-![png](docs/images/output_18_0.png)
+![png](docs/images/output_17_0.png)
 
 
 </div>
@@ -245,7 +243,7 @@ plot_graph(Xv,edges) # plot vertices and edges
 <div class="output_area" markdown="1">
 
 
-![png](docs/images/output_20_0.png)
+![png](docs/images/output_19_0.png)
 
 
 </div>
@@ -308,7 +306,7 @@ plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 
 
 
-![png](docs/images/output_22_1.png)
+![png](docs/images/output_21_1.png)
 
 
 </div>
@@ -9626,7 +9624,7 @@ plt.show()
 <div class="output_area" markdown="1">
 
 
-![png](docs/images/output_27_0.png)
+![png](docs/images/output_26_0.png)
 
 
 </div>
@@ -9686,7 +9684,7 @@ plt.show()
 <div class="output_area" markdown="1">
 
 
-![png](docs/images/output_31_0.png)
+![png](docs/images/output_30_0.png)
 
 
 </div>
@@ -9747,42 +9745,42 @@ plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 <div class="output_area" markdown="1">
 
 
-![png](docs/images/output_33_0.png)
+![png](docs/images/output_32_0.png)
 
 
     Integration (Euler's method):
 
 
 
-![png](docs/images/output_33_2.png)
+![png](docs/images/output_32_2.png)
 
 
     t=0.250: E=4; aver |dx/dt|= 0.2
 
 
 
-![png](docs/images/output_33_4.png)
+![png](docs/images/output_32_4.png)
 
 
     t=0.500: E=4; aver |dx/dt|= 0.4
 
 
 
-![png](docs/images/output_33_6.png)
+![png](docs/images/output_32_6.png)
 
 
     t=0.750: E=3; aver |dx/dt|= 0.8
 
 
 
-![png](docs/images/output_33_8.png)
+![png](docs/images/output_32_8.png)
 
 
     t=1.000: E=0.4; aver |dx/dt|= 0.5
 
 
 
-![png](docs/images/output_33_10.png)
+![png](docs/images/output_32_10.png)
 
 
 </div>
@@ -9804,7 +9802,7 @@ print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_grap
 <div class="output_area" markdown="1">
 
 
-![png](docs/images/output_34_0.png)
+![png](docs/images/output_33_0.png)
 
 
     Perimeters:tensor([5.7934, 5.7934, 5.7934], dtype=torch.float64)

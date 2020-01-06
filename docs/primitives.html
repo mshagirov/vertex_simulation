@@ -39,7 +39,7 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 </li>
 <li>to-do:<ul>
 <li>extend <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to add out-of-diagram vertices as boundary vertices (or partial cells)</li>
-<li>add area using <a href="https://en.wikipedia.org/wiki/Shoelace_formula">"shoelace formula"</a> another <a href="https://www.mathopenref.com/coordpolygonarea.html">link</a> </li>
+<li>need to add tranfer to GPU and back</li>
 </ul>
 </li>
 </ul>
@@ -52,13 +52,7 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Helper-functions">Helper functions<a class="anchor-link" href="#Helper-functions">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Helper-functions-for-Graphs">Helper functions for Graphs<a class="anchor-link" href="#Helper-functions-for-Graphs">&#182;</a></h3><hr>
+<h2 id="Helper-functions-for-Graphs">Helper functions for Graphs<a class="anchor-link" href="#Helper-functions-for-Graphs">&#182;</a></h2><hr>
 
 </div>
 </div>
@@ -89,7 +83,7 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Helper-functions-for-Monolayer">Helper functions for Monolayer<a class="anchor-link" href="#Helper-functions-for-Monolayer">&#182;</a></h3><hr>
+<h2 id="Helper-functions-for-Monolayer">Helper functions for Monolayer<a class="anchor-link" href="#Helper-functions-for-Monolayer">&#182;</a></h2><hr>
 
 </div>
 </div>
@@ -170,7 +164,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 </ul>
 </li>
 <li>Properties :<ul>
-<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self.x)</li>
+<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self.x) [<a name="Vertex.x">self.x</a>]</li>
 </ul>
 </li>
 </ul>
@@ -409,8 +403,16 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <ul>
-<li>to-do:<ul>
-<li>add cell area calculation method</li>
+<li>Methods (<em>inherits all methods from</em> <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>):<ul>
+<li><code>perimeter</code> : calculates cell perimeters. Returns <code>torch.tensor</code>.</li>
+<li><code>area</code> : calculates cell areas (2-d polygons). Returns <code>torch.tensor</code>.</li>
+</ul>
+</li>
+<li>Properties (<em>inherits all properties from</em> <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>):<ul>
+<li><code>cells</code> : dictionary of lists, with cell numbers (keys) and list of
+<strong>edge indices starting from 1</strong> (values). Negative indices indicate reversed order for vertices
+(cell is defined as a closed region formed by edges connected end-to-end).
+Use <code>np.sign(cells[c])</code> to find reversed edges.</li>
 </ul>
 </li>
 </ul>
