@@ -515,39 +515,39 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgf25872da54cf41eb907109a3283e3927">
+  <img id="_anim_imgf518fb33fa8548a38dd0d65f8d80fedd">
   <div class="anim-controls">
-    <input id="_anim_sliderf25872da54cf41eb907109a3283e3927" type="range" class="anim-slider"
+    <input id="_anim_sliderf518fb33fa8548a38dd0d65f8d80fedd" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animf25872da54cf41eb907109a3283e3927.set_frame(parseInt(this.value));"></input>
+           oninput="animf518fb33fa8548a38dd0d65f8d80fedd.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button onclick="animf25872da54cf41eb907109a3283e3927.slower()"><i class="fa fa-minus"></i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.first_frame()"><i class="fa fa-fast-backward">
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.slower()"><i class="fa fa-minus"></i></button>
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.first_frame()"><i class="fa fa-fast-backward">
           </i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.previous_frame()">
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.reverse_animation()">
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.pause_animation()"><i class="fa fa-pause">
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.pause_animation()"><i class="fa fa-pause">
           </i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.play_animation()"><i class="fa fa-play"></i>
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.play_animation()"><i class="fa fa-play"></i>
           </button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.next_frame()"><i class="fa fa-step-forward">
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.next_frame()"><i class="fa fa-step-forward">
           </i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.last_frame()"><i class="fa fa-fast-forward">
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.last_frame()"><i class="fa fa-fast-forward">
           </i></button>
-      <button onclick="animf25872da54cf41eb907109a3283e3927.faster()"><i class="fa fa-plus"></i></button>
+      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.faster()"><i class="fa fa-plus"></i></button>
     </div>
-    <form action="#n" name="_anim_loop_selectf25872da54cf41eb907109a3283e3927" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_f25872da54cf41eb907109a3283e3927"
+    <form action="#n" name="_anim_loop_selectf518fb33fa8548a38dd0d65f8d80fedd" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_f518fb33fa8548a38dd0d65f8d80fedd"
              >
-      <label for="_anim_radio1_f25872da54cf41eb907109a3283e3927">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_f25872da54cf41eb907109a3283e3927"
+      <label for="_anim_radio1_f518fb33fa8548a38dd0d65f8d80fedd">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_f518fb33fa8548a38dd0d65f8d80fedd"
              checked>
-      <label for="_anim_radio2_f25872da54cf41eb907109a3283e3927">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_f25872da54cf41eb907109a3283e3927"
+      <label for="_anim_radio2_f518fb33fa8548a38dd0d65f8d80fedd">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_f518fb33fa8548a38dd0d65f8d80fedd"
              >
-      <label for="_anim_radio3_f25872da54cf41eb907109a3283e3927">Reflect</label>
+      <label for="_anim_radio3_f518fb33fa8548a38dd0d65f8d80fedd">Reflect</label>
     </form>
   </div>
 </div>
@@ -557,9 +557,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgf25872da54cf41eb907109a3283e3927";
-    var slider_id = "_anim_sliderf25872da54cf41eb907109a3283e3927";
-    var loop_select_id = "_anim_loop_selectf25872da54cf41eb907109a3283e3927";
+    var img_id = "_anim_imgf518fb33fa8548a38dd0d65f8d80fedd";
+    var slider_id = "_anim_sliderf518fb33fa8548a38dd0d65f8d80fedd";
+    var loop_select_id = "_anim_loop_selectf518fb33fa8548a38dd0d65f8d80fedd";
     var frames = new Array(65);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -9590,7 +9590,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animf25872da54cf41eb907109a3283e3927 = new Animation(frames, img_id, slider_id, 200.0,
+        animf518fb33fa8548a38dd0d65f8d80fedd = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -9720,7 +9720,7 @@ Dt = 2**-12 # time step size
 t = [0]
 Energies = []
 print('Integration (Euler\'s method):')
-t_total = 2**14
+t_total = 2**12
 for n in range(t_total):
     cell_graph.set_zero_grad_() # reset grad accumulator
     E = energy(cell_graph.perimeter(),cell_graph.area())  # total potential energy of the system
@@ -9732,13 +9732,13 @@ for n in range(t_total):
         cell_graph.vertices.x += dxdt*Dt
     t.append(t[-1]+Dt)
     if round((n+1)%(t_total/4))==0:
-        mean_grad = torch.norm(dxdt,dim=1).mean().item()
-        print(f't={t[-1]:2.3f}: E={E.item():1.1g}; aver |dx/dt|= {mean_grad:1.1g}')
         plt.figure(figsize=figsize)
         plot_graph(vrn.vertices,cell_graph.edges,plot_arg=['b-','b.'],alphas=[.1])
         plot_graph(cell_graph.vertices.x.detach(),cell_graph.edges)
         plt.axis(axs_lims)
         plt.show()
+        mean_grad = torch.norm(dxdt,dim=1).mean().item()
+        print(f't={t[-1]:2.3f}: E={E.item():1.1g}; aver |dx/dt|= {mean_grad:1.1g}')
 Energies.append( energy(cell_graph.perimeter(),cell_graph.area()).item() )
 plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 ```
@@ -9751,36 +9751,38 @@ plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 
 
     Integration (Euler's method):
-    t=1.000: E=0.4; aver |dx/dt|= 0.5
 
 
 
 ![png](docs/images/output_33_2.png)
 
 
-    t=2.000: E=1e-06; aver |dx/dt|= 0.0009
+    t=0.250: E=4; aver |dx/dt|= 0.2
 
 
 
 ![png](docs/images/output_33_4.png)
 
 
-    t=3.000: E=1e-12; aver |dx/dt|= 1e-06
+    t=0.500: E=4; aver |dx/dt|= 0.4
 
 
 
 ![png](docs/images/output_33_6.png)
 
 
-    t=4.000: E=2e-18; aver |dx/dt|= 1e-09
+    t=0.750: E=3; aver |dx/dt|= 0.8
 
 
 
 ![png](docs/images/output_33_8.png)
 
 
+    t=1.000: E=0.4; aver |dx/dt|= 0.5
 
-![png](docs/images/output_33_9.png)
+
+
+![png](docs/images/output_33_10.png)
 
 
 </div>
@@ -9805,8 +9807,8 @@ print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_grap
 ![png](docs/images/output_34_0.png)
 
 
-    Perimeters:tensor([6.0000, 6.0000, 6.0000], dtype=torch.float64)
-    Areas:tensor([1.0000, 1.0000, 1.0000], dtype=torch.float64)
+    Perimeters:tensor([5.7934, 5.7934, 5.7934], dtype=torch.float64)
+    Areas:tensor([1.3224, 1.3224, 1.3224], dtype=torch.float64)
 
 
 </div>
