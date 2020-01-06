@@ -38,7 +38,7 @@ To illustrate how to use autograd, let's use `Vertex` object. We can define `Ver
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 v = Vertex([[3.,-1.],[0.1,0.]],requires_grad=True,dtype=torch.float32)
 # do some calculation with v.x
 y = torch.sum(v.x**2)
@@ -78,7 +78,7 @@ One way to model this system is to use two vertices, one for constant equilibriu
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 o  = Vertex(torch.tensor([[0,0]],dtype=torch.float64)) # equilibrium point (where U(x) is minimum)
 v1 = Vertex(torch.tensor([[-3,3]],requires_grad=True,dtype=torch.float64)) # particles location
 r = o.dist(v1)
@@ -106,7 +106,7 @@ In order to calculate gradients w.r.t. $x$, we need to set up a function that ma
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 # Define energy
 k = 1.0
 energy = lambda r: k*r**2
@@ -134,7 +134,7 @@ An important point to keep in mind when using iterative methods (e.g. gradient d
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 # Numerical integration
 Dt = .16 # time step size
 positions = [v1.x.tolist()]
@@ -175,7 +175,7 @@ Results of the numerical integration above-- the evolution of the system in rela
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 # Display the results
 positions = np.array(positions).squeeze() # convert to a np array
 fig = plt.figure(figsize=plt.figaspect(0.25))
@@ -231,7 +231,7 @@ This system can be described by a complete graph, `G` in the code below. In orde
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 np.random.seed(42) # let's seed RNG for sanity and reproducibility
 Nv = 10 # number of vertices
 Xv = np.random.uniform(0,1,(Nv,2)) # initial vertex potions sampled from uniform distribution [0,1)
@@ -254,7 +254,7 @@ Now, let's solve $x(t)$ with Euler's method. Note that in the code below, `Dt` m
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 # initialize a graph
 G = Graph(vertices=Vertex(torch.from_numpy(Xv).clone(),requires_grad=True, dtype=torch.float64), edges=torch.tensor(edges) )
 G.vertices.requires_grad_(True) # turn on `Vertex` gradients; check its status with G.vertices.requires_grad()
@@ -317,7 +317,7 @@ Results for numerical integration above as a movie of the graph $G$:
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 HTML(f_anim.to_jshtml()) # using HTML from IPython.display and matplotlib's animation module
 ```
 
@@ -9607,7 +9607,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 from scipy.spatial import Voronoi,voronoi_plot_2d
 
 v_seeds=np.array([[np.sqrt(3)/2,5.5], [1.5*np.sqrt(3),5.5], [0.,4.],
@@ -9635,7 +9635,7 @@ After obtaining the Voronoi tesselation, use `VoronoiRegions2Edges` to convert r
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 edge_list,cells = VoronoiRegions2Edges(vrn.regions) # convert regions to edges and cells
 print(cells)
 ```
@@ -9654,7 +9654,7 @@ print(cells)
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 verts = Vertex(vrn.vertices)
 edges = torch.tensor(edge_list)
 
@@ -9695,7 +9695,7 @@ plt.show()
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 # using Voronoi tesselation from above:
 verts = Vertex(vrn.vertices)
 edges = torch.tensor(edge_list)
@@ -9789,7 +9789,7 @@ plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```python
+```
 plt.figure(figsize=[3,3])
 plot_graph(vrn.vertices,cell_graph.edges,plot_arg=['b-','b.'],alphas=[.1])
 plot_graph(cell_graph.vertices.x.detach(),cell_graph.edges)

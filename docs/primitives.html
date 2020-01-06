@@ -164,7 +164,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 </ul>
 </li>
 <li>Properties :<ul>
-<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self.x) [<a name="Vertex.x">self.x</a>]</li>
+<li><code>x</code> : use it to set/get location torch.tensor (returns or modifies self.x) [<a name="Vertex.x">[`Vertex.x`](/vertex_simulation/primitives#Vertex.x)</a>]</li>
 </ul>
 </li>
 </ul>
@@ -402,17 +402,19 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 <h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
+<p><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> inherits <em>all methods, and properties</em> of <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
 <ul>
-<li>Methods (<em>inherits all methods from</em> <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>):<ul>
-<li><code>perimeter</code> : calculates cell perimeters. Returns <code>torch.tensor</code>.</li>
-<li><code>area</code> : calculates cell areas (2-d polygons). Returns <code>torch.tensor</code>.</li>
+<li>Methods:<ul>
+<li><code>perimeter(self)</code> : calculates cell perimeters. Returns <code>torch.tensor</code>.</li>
+<li><code>area(self)</code> : calculates cell areas (2-d polygons). Returns <code>torch.tensor</code>.
+[<a name="Monolayer.area">[`Monolayer.area`](/vertex_simulation/primitives#Monolayer.area)</a>]</li>
 </ul>
 </li>
-<li>Properties (<em>inherits all properties from</em> <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>):<ul>
+<li>Properties:<ul>
 <li><code>cells</code> : dictionary of lists, with cell numbers (keys) and list of
 <strong>edge indices starting from 1</strong> (values). Negative indices indicate reversed order for vertices
 (cell is defined as a closed region formed by edges connected end-to-end).
-Use <code>np.sign(cells[c])</code> to find reversed edges.</li>
+Use <code>np.sign(cells[c])</code> to find reversed edges for cell <code>c</code>.</li>
 </ul>
 </li>
 </ul>
@@ -434,7 +436,7 @@ Use <code>np.sign(cells[c])</code> to find reversed edges.</li>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="/vertex_simulation/primitives#Monolayer.area"><code>Monolayer.area</code></a>:<br>
+<p>Notes on <a href="/vertex_simulation/primitives#Monolayer.area"><code>Monolayer.area</code></a>:<br>
 For a <em>simple polygon</em> with $n$ sides, area is given by a <em>shoelace formula</em> :
 $$A_{polygon} = \frac{1}{2}\left|{\sum^{n-1}_{i=1}x_{i}y_{i+1} + x_ny_1 - \sum^{n-1}_{i=1}x_{i+1}y_{i} - x_1 y_n}\right|$$
 $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$</p>
