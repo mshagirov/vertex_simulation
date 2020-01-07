@@ -38,7 +38,7 @@ To illustrate how to use autograd, let's use `Vertex` object. We can define `Ver
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 v = Vertex([[3.,-1.],[0.1,0.]],requires_grad=True,dtype=torch.float32)
 # do some calculation with v.x
 y = torch.sum(v.x**2)
@@ -78,7 +78,7 @@ One way to model this system is to use two vertices, one for constant equilibriu
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 o  = Vertex(torch.tensor([[0,0]],dtype=torch.float64)) # equilibrium point (where U(x) is minimum)
 v1 = Vertex(torch.tensor([[-3,3]],requires_grad=True,dtype=torch.float64)) # particles location
 r = o.dist(v1)
@@ -106,7 +106,7 @@ In order to calculate gradients w.r.t. $x$, we need to set up a function that ma
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 # Define energy
 k = 1.0
 energy = lambda r: k*r**2
@@ -134,7 +134,7 @@ An important point to keep in mind when using iterative methods (e.g. gradient d
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 # Numerical integration
 Dt = .16 # time step size
 positions = [v1.x.tolist()]
@@ -175,7 +175,7 @@ Results of the numerical integration above-- the evolution of the system in rela
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 # Display the results
 positions = np.array(positions).squeeze() # convert to a np array
 fig = plt.figure(figsize=plt.figaspect(0.25))
@@ -231,7 +231,7 @@ This system can be described by a complete graph, `G` in the code below. In orde
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 np.random.seed(42) # let's seed RNG for sanity and reproducibility
 Nv = 10 # number of vertices
 Xv = np.random.uniform(0,1,(Nv,2)) # initial vertex potions sampled from uniform distribution [0,1)
@@ -254,7 +254,7 @@ Now, let's solve $x(t)$ with Euler's method. Note that in the code below, `Dt` m
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 # initialize a graph
 G = Graph(vertices=Vertex(torch.from_numpy(Xv).clone(),requires_grad=True, dtype=torch.float64), edges=torch.tensor(edges) )
 G.vertices.requires_grad_(True) # turn on `Vertex` gradients; check its status with G.vertices.requires_grad()
@@ -317,7 +317,7 @@ Results for numerical integration above as a movie of the graph $G$:
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 HTML(f_anim.to_jshtml()) # using HTML from IPython.display and matplotlib's animation module
 ```
 
@@ -513,39 +513,39 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgf518fb33fa8548a38dd0d65f8d80fedd">
+  <img id="_anim_imga9feea95c3034ccb93d11bda84b86200">
   <div class="anim-controls">
-    <input id="_anim_sliderf518fb33fa8548a38dd0d65f8d80fedd" type="range" class="anim-slider"
+    <input id="_anim_slidera9feea95c3034ccb93d11bda84b86200" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animf518fb33fa8548a38dd0d65f8d80fedd.set_frame(parseInt(this.value));"></input>
+           oninput="anima9feea95c3034ccb93d11bda84b86200.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.slower()"><i class="fa fa-minus"></i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.first_frame()"><i class="fa fa-fast-backward">
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.slower()"><i class="fa fa-minus"></i></button>
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.first_frame()"><i class="fa fa-fast-backward">
           </i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.previous_frame()">
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.reverse_animation()">
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.pause_animation()"><i class="fa fa-pause">
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.pause_animation()"><i class="fa fa-pause">
           </i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.play_animation()"><i class="fa fa-play"></i>
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.play_animation()"><i class="fa fa-play"></i>
           </button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.next_frame()"><i class="fa fa-step-forward">
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.next_frame()"><i class="fa fa-step-forward">
           </i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.last_frame()"><i class="fa fa-fast-forward">
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.last_frame()"><i class="fa fa-fast-forward">
           </i></button>
-      <button onclick="animf518fb33fa8548a38dd0d65f8d80fedd.faster()"><i class="fa fa-plus"></i></button>
+      <button onclick="anima9feea95c3034ccb93d11bda84b86200.faster()"><i class="fa fa-plus"></i></button>
     </div>
-    <form action="#n" name="_anim_loop_selectf518fb33fa8548a38dd0d65f8d80fedd" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_f518fb33fa8548a38dd0d65f8d80fedd"
+    <form action="#n" name="_anim_loop_selecta9feea95c3034ccb93d11bda84b86200" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_a9feea95c3034ccb93d11bda84b86200"
              >
-      <label for="_anim_radio1_f518fb33fa8548a38dd0d65f8d80fedd">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_f518fb33fa8548a38dd0d65f8d80fedd"
+      <label for="_anim_radio1_a9feea95c3034ccb93d11bda84b86200">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_a9feea95c3034ccb93d11bda84b86200"
              checked>
-      <label for="_anim_radio2_f518fb33fa8548a38dd0d65f8d80fedd">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_f518fb33fa8548a38dd0d65f8d80fedd"
+      <label for="_anim_radio2_a9feea95c3034ccb93d11bda84b86200">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_a9feea95c3034ccb93d11bda84b86200"
              >
-      <label for="_anim_radio3_f518fb33fa8548a38dd0d65f8d80fedd">Reflect</label>
+      <label for="_anim_radio3_a9feea95c3034ccb93d11bda84b86200">Reflect</label>
     </form>
   </div>
 </div>
@@ -555,9 +555,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgf518fb33fa8548a38dd0d65f8d80fedd";
-    var slider_id = "_anim_sliderf518fb33fa8548a38dd0d65f8d80fedd";
-    var loop_select_id = "_anim_loop_selectf518fb33fa8548a38dd0d65f8d80fedd";
+    var img_id = "_anim_imga9feea95c3034ccb93d11bda84b86200";
+    var slider_id = "_anim_slidera9feea95c3034ccb93d11bda84b86200";
+    var loop_select_id = "_anim_loop_selecta9feea95c3034ccb93d11bda84b86200";
     var frames = new Array(65);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -9588,7 +9588,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animf518fb33fa8548a38dd0d65f8d80fedd = new Animation(frames, img_id, slider_id, 200.0,
+        anima9feea95c3034ccb93d11bda84b86200 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -9607,7 +9607,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 from scipy.spatial import Voronoi,voronoi_plot_2d
 
 v_seeds=np.array([[np.sqrt(3)/2,5.5], [1.5*np.sqrt(3),5.5], [0.,4.],
@@ -9635,7 +9635,7 @@ After obtaining the Voronoi tesselation, use `VoronoiRegions2Edges` to convert r
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 edge_list,cells = VoronoiRegions2Edges(vrn.regions) # convert regions to edges and cells
 print(cells)
 ```
@@ -9654,7 +9654,7 @@ print(cells)
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 verts = Vertex(vrn.vertices)
 edges = torch.tensor(edge_list)
 
@@ -9695,7 +9695,7 @@ plt.show()
 <div class="codecell" markdown="1">
 <div class="input_area" markdown="1">
 
-```
+```python
 # using Voronoi tesselation from above:
 verts = Vertex(vrn.vertices)
 edges = torch.tensor(edge_list)
@@ -9707,7 +9707,11 @@ cell_graph.vertices.requires_grad_(True)
 figsize=[2,2]
 plt.figure(figsize=figsize)
 plot_graph(vrn.vertices,cell_graph.edges)
-axs_lims = plt.axis()
+axs_lims = np.array(plt.axis())
+hw = 1.3*(axs_lims[1::2]-axs_lims[0::2])/2
+xy_0 = [axs_lims[:2].mean(), axs_lims[2:].mean()]
+axs_lims = [xy_0[0]-hw[0],xy_0[0]+hw[0],xy_0[1]-hw[1],xy_0[1]+hw[1]]
+plt.axis(axs_lims)
 plt.show()
 
 # Define energy function
@@ -9717,6 +9721,7 @@ energy = lambda p,a: torch.sum((p-6)**2)+torch.sum((a-1)**2) #
 Dt = 2**-12 # time step size
 t = [0]
 Energies = []
+Forces = []
 print('Integration (Euler\'s method):')
 t_total = 2**12
 for n in range(t_total):
@@ -9728,6 +9733,7 @@ for n in range(t_total):
     # Update vertex position
     with torch.no_grad():
         cell_graph.vertices.x += dxdt*Dt
+        Forces.append(torch.norm(dxdt,dim=1).mean().item())
     t.append(t[-1]+Dt)
     if round((n+1)%(t_total/4))==0:
         plt.figure(figsize=figsize)
@@ -9738,7 +9744,15 @@ for n in range(t_total):
         mean_grad = torch.norm(dxdt,dim=1).mean().item()
         print(f't={t[-1]:2.3f}: E={E.item():1.1g}; aver |dx/dt|= {mean_grad:1.1g}')
 Energies.append( energy(cell_graph.perimeter(),cell_graph.area()).item() )
+plt.figure(figsize=[5,3])
 plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
+# add forces (except last frame)
+ax2=plt.gca().twinx()
+ax2.set_ylabel('Average $|F|$',color='red')
+ax2.plot(t[:-1],Forces,'r-',alpha=.4,lw=4)
+plt.show()
+# Print final Perimeters and Areas
+print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
 ```
 
 </div>
@@ -9781,28 +9795,6 @@ plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 
 
 ![png](docs/images/output_32_10.png)
-
-
-</div>
-
-</div>
-<div class="codecell" markdown="1">
-<div class="input_area" markdown="1">
-
-```
-plt.figure(figsize=[3,3])
-plot_graph(vrn.vertices,cell_graph.edges,plot_arg=['b-','b.'],alphas=[.1])
-plot_graph(cell_graph.vertices.x.detach(),cell_graph.edges)
-# plt.axis(axs_lims)
-plt.show()
-print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
-```
-
-</div>
-<div class="output_area" markdown="1">
-
-
-![png](docs/images/output_33_0.png)
 
 
     Perimeters:tensor([5.7934, 5.7934, 5.7934], dtype=torch.float64)
