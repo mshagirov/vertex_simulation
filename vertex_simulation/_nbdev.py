@@ -6,9 +6,11 @@ index = {"plot_graph": "00_primitives.ipynb",
          "VoronoiRegions2Edges": "00_primitives.ipynb",
          "Vertex": "00_primitives.ipynb",
          "Graph": "00_primitives.ipynb",
-         "Monolayer": "00_primitives.ipynb"}
+         "Monolayer": "00_primitives.ipynb",
+         "unit_hexagons": "01_simulation.ipynb"}
 
-modules = ["primitives.py"]
+modules = ["primitives.py",
+           "simulation.py"]
 
 doc_url = "https://mshagirov.github.io/vertex_simulation/"
 
