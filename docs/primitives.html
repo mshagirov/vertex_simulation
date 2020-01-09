@@ -47,21 +47,6 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>TO-DO</strong>:</p>
-<ul>
-<li><em>new</em> MultiVertex (stores and works with a dict of Vertex obj-s)</li>
-<li><em>re-write</em>:<ul>
-<li>Graph</li>
-<li>Monolayer</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
@@ -86,7 +71,12 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="plot_graph" class="doc_header"><code>plot_graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L10" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph</code>(<strong><code>Xv</code></strong>, <strong><code>edges</code></strong>, <strong><code>plot_arg</code></strong>=<em><code>['g-', 'mo']</code></em>, <strong><code>alphas</code></strong>=<em><code>[0.2, 0.5]</code></em>)</p>
 </blockquote>
-<p>Simple function for plotting vertices(location <code>Xv</code>) and <code>edges</code></p>
+<p>A function for plotting simple graphs</p>
+<ul>
+<li><code>Xv</code>: vertex locations</li>
+<li><code>edges</code>: graph edges as indices of the vertex pairs that form.
+Nx2 array of integers (could be list of lists)</li>
+</ul>
 
 </div>
 
@@ -115,7 +105,7 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="VoronoiRegions2Edges" class="doc_header"><code>VoronoiRegions2Edges</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>VoronoiRegions2Edges</code>(<strong><code>regions</code></strong>)</p>
+<h4 id="VoronoiRegions2Edges" class="doc_header"><code>VoronoiRegions2Edges</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>VoronoiRegions2Edges</code>(<strong><code>regions</code></strong>)</p>
 </blockquote>
 <p>Converts Voronoi region vertex indices, like the one obtained from <code>scipy.spatial.Voronoi</code>,
 to a list of (<em>undirected</em>) edges (indices of vertex pairs).</p>
@@ -165,7 +155,7 @@ substract 1 from (absolute value of) these indices.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L67" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L71" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) <code>torch.Tensor</code>:(x,y,...)'s.
 Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,y2], ...,[xN,yN]]</code></p>
@@ -252,7 +242,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Graph" class="doc_header"><code>class</code> <code>Graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L145" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Graph</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Graph" class="doc_header"><code>class</code> <code>Graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L149" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Graph</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Implements graph object. Stores vertices and edges.</p>
 <ul>
@@ -414,7 +404,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
+<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L227" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <p><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> inherits <em>all methods, and properties</em> of <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>

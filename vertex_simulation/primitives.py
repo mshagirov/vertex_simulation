@@ -8,7 +8,11 @@ import numpy as np, matplotlib.pylab as plt
 
 # Cell
 def plot_graph(Xv,edges,plot_arg=['g-','mo'],alphas=[.2,.5]):
-    '''Simple function for plotting vertices(location `Xv`) and `edges`'''
+    '''A function for plotting simple graphs
+    - `Xv`: vertex locations
+    - `edges`: graph edges as indices of the vertex pairs that form.
+    Nx2 array of integers (could be list of lists)
+    '''
     for ij in edges:
         plt.plot([Xv[ij[0],0], Xv[ij[1],0]], [Xv[ij[0],1], Xv[ij[1],1]],plot_arg[0],lw=2,alpha=alphas[0])
     plt.plot(Xv[:,0],Xv[:,1],plot_arg[-1],ms=10,alpha=alphas[-1])
