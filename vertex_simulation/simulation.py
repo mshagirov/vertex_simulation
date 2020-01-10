@@ -24,6 +24,8 @@ def unit_hex_seeds(Sx,Sy):
     X[1::2,:]+=x_offset
     return np.concatenate((X.ravel()[:,np.newaxis],Y.ravel()[:,np.newaxis]),axis=1)
 
+
+
 def mask2vrn_region(verts,vrn_regions,row_mask):
     '''Apply mask to Voronoi regions and vertices and re-label them.
 
@@ -31,9 +33,10 @@ def mask2vrn_region(verts,vrn_regions,row_mask):
     and regions with "-1" Voronoi vertices.
 
     Arg-s:
-    - `verts` : Voronoi vertex locations
+    - `verts` : Voronoi vertex locations (`numpy` array).
     - `vrn_regions`: Voronoi regions ("cells"). Empty regions and
     out-of-diagram Voronoi regions with "-1" vertices are removed.
+    - `row_mask`: 1-d binary mask for `verts` rows.
 
     Returns:
     - `v_x` : vertices after applying the mask (`=verts[row_mask,:]`)
@@ -49,8 +52,8 @@ def mask2vrn_region(verts,vrn_regions,row_mask):
     return v_x, regions
 
 # Cell
-def unit_hexagons(Nx,Ny):
-    '''Produces Nx by Ny hexagons with unit length edges.
+def unit_hexagons(Ny,Nx):
+    '''Produces Ny columns-by-Nx rows of hexagons with unit length edges.
 
     Uses scipy.spatial.Voronoi, then trims non-hexagon edge cells and vertices.
 
