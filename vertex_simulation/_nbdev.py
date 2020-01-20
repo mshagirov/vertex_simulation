@@ -4,6 +4,7 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"plot_graph": "00_primitives.ipynb",
          "plot_graph_as_quiver": "00_primitives.ipynb",
+         "graph2networkx_with_pos": "00_primitives.ipynb",
          "is_in_edges_": "00_primitives.ipynb",
          "VoronoiRegions2Edges": "00_primitives.ipynb",
          "Vertex": "00_primitives.ipynb",
