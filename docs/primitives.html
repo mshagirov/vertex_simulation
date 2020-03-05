@@ -26,6 +26,13 @@ description: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><h1>Table of Contents<span class="tocSkip"></span></h1></p>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Helper-functions-for-Graphs" data-toc-modified-id="Helper-functions-for-Graphs-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Helper functions for Graphs</a></span></li><li><span><a href="#Helper-functions-for-Monolayer" data-toc-modified-id="Helper-functions-for-Monolayer-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Helper functions for Monolayer</a></span></li><li><span><a href="#Graph-primitives" data-toc-modified-id="Graph-primitives-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Graph primitives</a></span></li><li><span><a href="#Cell-monolayer-representations" data-toc-modified-id="Cell-monolayer-representations-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Cell monolayer representations</a></span></li></ul></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>Graph primitives:<ul>
 <li><a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a>: implements a vertex object. Stores position of a given vertex (or vertices) as <code>1x2</code> <code>torch.tensor</code>, and implements methods for interacting with <code>torch</code> autograd. Compatible with D-dimensional <code>NxD</code> <code>torch.tensor</code>.</li>
@@ -438,8 +445,9 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
-<span class="n">g</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -654,13 +662,13 @@ Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Now let&#39;s do the same computation on GPU (if available)</span>
 <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
     <span class="n">m</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;m is on :&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">perimeter</span><span class="p">(),</span><span class="s1">&#39;; Area=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;m is on :&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">perimeter</span><span class="p">(),</span><span class="s1">&#39;; Area=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
 
-<span class="c1"># plot monolayer graph</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plot_graph_as_quiver</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span><span class="s1">&#39;mo&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+    <span class="c1"># plot monolayer graph</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plot_graph_as_quiver</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span><span class="s1">&#39;mo&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
 </pre></div>
 
     </div>
