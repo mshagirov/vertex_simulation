@@ -6,6 +6,7 @@ keywords: fastai
 sidebar: home_sidebar
 
 summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (package description)"
+description: "Vertex dynamics simulation for modelling epithelial tissue dynamics (package description)"
 ---
 <!--
 
@@ -36,7 +37,7 @@ summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (p
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install">Install<a class="anchor-link" href="#Install">&#182;</a></h2>
+<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
 </div>
 </div>
 </div>
@@ -49,7 +50,7 @@ summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (p
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Using-autograd-with-Vertex,-Graph-and-Monolayer">Using autograd with Vertex, Graph and Monolayer<a class="anchor-link" href="#Using-autograd-with-Vertex,-Graph-and-Monolayer">&#182;</a></h2>
+<h2 id="Using-autograd-with-Vertex,-Graph-and-Monolayer">Using autograd with Vertex, Graph and Monolayer<a class="anchor-link" href="#Using-autograd-with-Vertex,-Graph-and-Monolayer"> </a></h2>
 </div>
 </div>
 </div>
@@ -64,7 +65,7 @@ summary: "Vertex dynamics simulation for modelling epithelial tissue dynamics (p
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Initializing-and-working-with-Vertex-and-Graph-objects">Initializing and working with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Initializing-and-working-with-Vertex-and-Graph-objects">&#182;</a></h3>
+<h3 id="Initializing-and-working-with-Vertex-and-Graph-objects">Initializing and working with <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> objects<a class="anchor-link" href="#Initializing-and-working-with-Vertex-and-Graph-objects"> </a></h3>
 </div>
 </div>
 </div>
@@ -128,7 +129,7 @@ dy/dx_i after zeroing grad-s:
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Vertex-usage-example">Vertex usage example<a class="anchor-link" href="#Vertex-usage-example">&#182;</a></h4><p><a name="ex1">Trapped particle in a 2D fluid</a></p>
+<h4 id="Vertex-usage-example">Vertex usage example<a class="anchor-link" href="#Vertex-usage-example"> </a></h4><p><a name="ex1">Trapped particle in a 2D fluid</a></p>
 <p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
@@ -351,7 +352,7 @@ t=3.20:r=0.002; E=3.6e-06; dx/dt=tensor([[ 0.0027, -0.0027]], dtype=torch.float6
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Graph-usage-example"><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example">&#182;</a></h4><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
+<h4 id="Graph-usage-example"><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example"> </a></h4><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
 <p>Now, let's evolve in time a system decribed by a potential
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in <a href="#ex1">Example 1</a> is 
@@ -9788,7 +9789,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Monolayer-objects"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects">&#182;</a></h3>
+<h3 id="Monolayer-objects"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects"> </a></h3>
 </div>
 </div>
 </div>
@@ -9936,7 +9937,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Monolayer-dynamics-example"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example">&#182;</a></h4>
+<h4 id="Monolayer-dynamics-example"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example"> </a></h4>
 </div>
 </div>
 </div>
@@ -9988,7 +9989,7 @@ GACRBAyASAIGQCQBAyCSgAEQScAAiCRgAEQSMAAiCRgAkQQMgEgCBkAkAQMgkoABEEnAAIgkYABE\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Passive-forces-case">Passive forces case<a class="anchor-link" href="#Passive-forces-case">&#182;</a></h3>
+<h3 id="Passive-forces-case">Passive forces case<a class="anchor-link" href="#Passive-forces-case"> </a></h3>
 </div>
 </div>
 </div>
@@ -13330,13 +13331,13 @@ URTFo6hAK4qieJT/HzMafeYkQE4xAAAAAElFTkSuQmCC\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Active-anisotropic-forces">Active anisotropic forces<a class="anchor-link" href="#Active-anisotropic-forces">&#182;</a></h3>
+<h3 id="Active-anisotropic-forces">Active anisotropic forces<a class="anchor-link" href="#Active-anisotropic-forces"> </a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Edge-direction-is-independent">Edge direction is independent<a class="anchor-link" href="#Edge-direction-is-independent">&#182;</a></h4>
+<h4 id="Edge-direction-is-independent">Edge direction is independent<a class="anchor-link" href="#Edge-direction-is-independent"> </a></h4>
 </div>
 </div>
 </div>
@@ -16359,7 +16360,7 @@ QRAEi/L/A/z8V1DjS6P0AAAAAElFTkSuQmCC\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="with-anisotropy-and-differentiable-edge-direction">with anisotropy and differentiable edge direction<a class="anchor-link" href="#with-anisotropy-and-differentiable-edge-direction">&#182;</a></h4>
+<h4 id="with-anisotropy-and-differentiable-edge-direction">with anisotropy and differentiable edge direction<a class="anchor-link" href="#with-anisotropy-and-differentiable-edge-direction"> </a></h4>
 </div>
 </div>
 </div>
@@ -18971,7 +18972,7 @@ aEVRFJfy/wDOVnGO1y60TQAAAABJRU5ErkJggg==\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Anisotropic-active-forces-with-lower-amplitude">Anisotropic active forces with lower amplitude<a class="anchor-link" href="#Anisotropic-active-forces-with-lower-amplitude">&#182;</a></h4>
+<h4 id="Anisotropic-active-forces-with-lower-amplitude">Anisotropic active forces with lower amplitude<a class="anchor-link" href="#Anisotropic-active-forces-with-lower-amplitude"> </a></h4>
 </div>
 </div>
 </div>
@@ -21407,7 +21408,7 @@ MYE2DMMIKCbQhmEYAcUE2jAMI6D8T5IaHwfsctljAAAAAElFTkSuQmCC\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Random-edges-with-active-tension">Random edges with active tension<a class="anchor-link" href="#Random-edges-with-active-tension">&#182;</a></h4>
+<h4 id="Random-edges-with-active-tension">Random edges with active tension<a class="anchor-link" href="#Random-edges-with-active-tension"> </a></h4>
 </div>
 </div>
 </div>

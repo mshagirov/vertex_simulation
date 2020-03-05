@@ -5,7 +5,7 @@ __all__ = ['plot_graph', 'plot_graph_as_quiver', 'graph2networkx_with_pos', 'is_
 
 # Cell
 import torch
-import numpy as np, matplotlib.pylab as plt
+import numpy as np, matplotlib.pyplot as plt
 
 # Cell
 def plot_graph(Xv,edges,plot_arg=['g-','mo'],alphas=[.2,.5]):
@@ -40,7 +40,7 @@ import networkx as nx
 def graph2networkx_with_pos(g):
     '''Convert `Graph` or `Monolayer` object toReturn `network` graph '''
     G = nx.Graph(g.edges.tolist())
-    pos=dict(zip(range(g.vertices.x.shape[0]),g.vertices.x.detach().numpy()))
+    pos=dict(zip(range(g.vertices.x.shape[0]),g.vertices.x.detach().cpu().numpy()))
     return G, pos
 
 # Cell
@@ -154,7 +154,7 @@ class Vertex(object):
         return self.x.device
     def to_(self,val):
         """Change torch tensor's device"""
-        self._x = self.x.to(val)
+        self._x = self.x.detach().to(val).requires_grad_(self.requires_grad())
 
     def dtype(self):
         """Returns torch tensor's dtype"""
@@ -217,6 +217,14 @@ class Graph(object):
     def set_zero_grad_(self):
         '''Set gradients to zero if `requires_grad` is set to `True` for variable vertices. Uses `vertices.zero_grad_()`'''
         self.vertices.zero_grad_()
+
+    def device(self):
+        '''Return Vertex and Edge tensor devices as dict.'''
+        return {'vertices':self.vertices.device(), 'edges':self.edges.device}
+    def to_(self,val):
+        '''Set Vertex and Edge (vertes IDs) devices to "val"'''
+        self.vertices.to_(val)
+        self.edges = self.edges.to(val)
 
     @property
     def edges(self):

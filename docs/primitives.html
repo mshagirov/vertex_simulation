@@ -6,6 +6,7 @@ keywords: fastai
 sidebar: home_sidebar
 
 summary: "Implementations for vertex, graph, and cell monolayer classes"
+description: "Implementations for vertex, graph, and cell monolayer classes"
 ---
 <!--
 
@@ -33,7 +34,7 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 </li>
 <li>Cell monolayer representations: <ul>
 <li><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a>: Implements cell monolayer, such as (2-dimensional) apical plane of an epithelial tissue. Inherits from <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> class. [<strong>needs docs</strong>]<ul>
-<li><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> and <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> will need "to", "dtype", and "device" methods.</li>
+<li><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> and <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> have "to", and "device" methods.</li>
 </ul>
 </li>
 </ul>
@@ -53,7 +54,7 @@ summary: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Helper-functions-for-Graphs">Helper functions for Graphs<a class="anchor-link" href="#Helper-functions-for-Graphs">&#182;</a></h2><hr>
+<h2 id="Helper-functions-for-Graphs">Helper functions for Graphs<a class="anchor-link" href="#Helper-functions-for-Graphs"> </a></h2><hr>
 
 </div>
 </div>
@@ -137,7 +138,7 @@ Nx2 array of integers (could be list of lists)</li>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Helper-functions-for-Monolayer">Helper functions for Monolayer<a class="anchor-link" href="#Helper-functions-for-Monolayer">&#182;</a></h2><hr>
+<h2 id="Helper-functions-for-Monolayer">Helper functions for Monolayer<a class="anchor-link" href="#Helper-functions-for-Monolayer"> </a></h2><hr>
 
 </div>
 </div>
@@ -220,7 +221,7 @@ substract 1 from (absolute value of) these indices.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Graph-primitives">Graph primitives<a class="anchor-link" href="#Graph-primitives">&#182;</a></h2>
+<h2 id="Graph-primitives">Graph primitives<a class="anchor-link" href="#Graph-primitives"> </a></h2>
 </div>
 </div>
 </div>
@@ -276,13 +277,24 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">o</span><span class="o">=</span><span class="n">Vertex</span><span class="p">()</span>
-<span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">])</span> <span class="c1"># set to 0&#39;s (origin)</span>
-<span class="c1"># or with location at init</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># initialise and then set vertex location </span>
+<span class="n">o</span><span class="o">=</span><span class="n">Vertex</span><span class="p">()</span>
+<span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># or with location at init-n</span>
 <span class="n">v1</span><span class="o">=</span><span class="n">Vertex</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># you can transfer &quot;v1&quot; and &quot;o&quot; to GPU</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;v1: {v1.device()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">f</span><span class="s1">&#39;o : {o.device()}&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
+    <span class="n">v1</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;CUDA devices found: {torch.cuda.device_count()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+      <span class="n">f</span><span class="s1">&#39;v1: {v1.device()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">f</span><span class="s1">&#39;o : {o.device()}&#39;</span><span class="p">)</span>
+
 <span class="c1"># calculate distance between vertices</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Distance between two vertices (o &lt;--&gt; v1) : {r.numpy().squeeze()}&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Distance between two vertices (o &lt;--&gt; v1) : {r.squeeze()}&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -295,7 +307,12 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Distance between two vertices (o &lt;--&gt; v1) : 1.4142135381698608
+<pre>v1: cpu
+ o : cpu
+CUDA devices found: 4
+ v1: cuda:0
+ o : cuda:0
+Distance between two vertices (o &lt;--&gt; v1) : 1.4142135381698608
 </pre>
 </div>
 </div>
@@ -410,6 +427,43 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Use <code>device()</code> and <code>to_()</code> to check device and move <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> tensors (vertices and edges) to GPU</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
+<span class="n">g</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;vertices&#39;: device(type=&#39;cpu&#39;), &#39;edges&#39;: device(type=&#39;cpu&#39;)}
+{&#39;vertices&#39;: device(type=&#39;cuda&#39;, index=0), &#39;edges&#39;: device(type=&#39;cuda&#39;, index=0)}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> class)</p>
 <ul>
 <li>Example below illustrates how to compute spatial gradient $\frac{\partial E}{\partial x_i}$ for $E(\{x_i\})=\sum_{edges}l_{ij}^2$ for vertices shown in the graph above. In a more general case, you can use vertex positions using <code>g.vertices.x</code> of a <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> object, and check gradient tag with <code>g.vertices.requires_grad()</code> and enable gradient tracking inplace with <code>g.vertices.requires_grad_(True)</code>.</li>
@@ -463,7 +517,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Cell-monolayer-representations">Cell monolayer representations<a class="anchor-link" href="#Cell-monolayer-representations">&#182;</a></h2>
+<h2 id="Cell-monolayer-representations">Cell monolayer representations<a class="anchor-link" href="#Cell-monolayer-representations"> </a></h2>
 </div>
 </div>
 </div>
@@ -479,7 +533,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L255" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
+<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L263" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <p><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> inherits <em>all methods, and properties</em> of <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
@@ -516,10 +570,20 @@ Use <code>np.sign(cells[c])</code> to find reversed edges for cell <code>c</code
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Notes on <a href="/vertex_simulation/primitives#Monolayer.area"><code>Monolayer.area</code></a>:<br>
-For a <em>simple polygon</em> with $n$ sides, area is given by a <em>shoelace formula</em> :
+<ul>
+<li><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> assumes that cells are 2D <em>simple polygons</em>. For a <em>simple polygon</em> with $n$ sides, <a href="/vertex_simulation/primitives#Monolayer.area("><code>Monolayer.area()</code></a>) implements a <em>shoelace formula</em>:
 $$A_{polygon} = \frac{1}{2}\left|{\sum^{n-1}_{i=1}x_{i}y_{i+1} + x_ny_1 - \sum^{n-1}_{i=1}x_{i+1}y_{i} - x_1 y_n}\right|$$
-$$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$</p>
+$$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>You can use <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> functions <code>to_()</code> and <code>device()</code> to move tensors to GPU and check tensor's device</li>
+</ul>
 
 </div>
 </div>
@@ -534,6 +598,7 @@ $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\do
 <span class="n">edges</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
 <span class="n">tri_cells</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]}</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">Monolayer</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">v</span><span class="p">,</span><span class="n">edges</span><span class="o">=</span><span class="n">edges</span><span class="p">,</span><span class="n">cells</span><span class="o">=</span><span class="n">tri_cells</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;m is on :&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">perimeter</span><span class="p">(),</span><span class="s1">&#39;; Area=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
 
 <span class="c1"># plot monolayer graph</span>
@@ -552,7 +617,64 @@ $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\do
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
+<pre>m is on : {&#39;vertices&#39;: device(type=&#39;cpu&#39;), &#39;edges&#39;: device(type=&#39;cpu&#39;)}
+Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that we need to remember to copy tensors to CPU (and detach from the Pytorch's computational graph) to be able to use <code>matplotlib</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Now let&#39;s do the same computation on GPU (if available)</span>
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;m is on :&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">perimeter</span><span class="p">(),</span><span class="s1">&#39;; Area=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
+
+<span class="c1"># plot monolayer graph</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plot_graph_as_quiver</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span><span class="n">m</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span><span class="s1">&#39;mo&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>m is on : {&#39;vertices&#39;: device(type=&#39;cuda&#39;, index=0), &#39;edges&#39;: device(type=&#39;cuda&#39;, index=0)}
+Perimeter= tensor([[3.4142]], device=&#39;cuda:0&#39;) ; Area= tensor([0.5000], device=&#39;cuda:0&#39;)
 </pre>
 </div>
 </div>
@@ -621,7 +743,7 @@ $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\do
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Perimeter= tensor([6., 6., 6.], dtype=torch.float64) ;
+<pre>Perimeter= tensor([6.0000, 6.0000, 6.0000], dtype=torch.float64) ;
 Area= tensor([2.5981, 2.5981, 2.5981], dtype=torch.float64)
 </pre>
 </div>

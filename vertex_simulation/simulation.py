@@ -3,7 +3,7 @@
 __all__ = ['unit_hex_seeds', 'mask2vrn_region', 'unit_hexagons']
 
 # Cell
-import torch, numpy as np, matplotlib.pylab as plt
+import torch, numpy as np, matplotlib.pyplot as plt
 from scipy.spatial import Voronoi,voronoi_plot_2d
 
 # Cell
