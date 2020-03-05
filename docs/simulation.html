@@ -33,6 +33,13 @@ description: "Tools for  simulating cellular vertex dynamics. Iterative algorith
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><h1>Table of Contents<span class="tocSkip"></span></h1></p>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Euler's-method" data-toc-modified-id="Euler's-method-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Euler's method</a></span></li><li><span><a href="#Cell-monolayer-graph-generators" data-toc-modified-id="Cell-monolayer-graph-generators-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Cell monolayer graph generators</a></span></li></ul></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>numerical integration method(s)<ul>
 <li>Euler's method</li>
@@ -160,7 +167,7 @@ out-of-diagram Voronoi regions with "-1" vertices are removed.</li>
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="unit_hexagons" class="doc_header"><code>unit_hexagons</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/simulation.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unit_hexagons</code>(<strong><code>Ny</code></strong>, <strong><code>Nx</code></strong>)</p>
 </blockquote>
-<p>Produces Ny columns-by-Nx rows of hexagons with unit length edges.</p>
+<p>Produces Ny rows-by-Nx columns of hexagons with unit length edges.</p>
 <p>Uses scipy.spatial.Voronoi, then trims non-hexagon edge cells and vertices.</p>
 <p>Returns:</p>
 <ul>

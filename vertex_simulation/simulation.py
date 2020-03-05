@@ -53,7 +53,7 @@ def mask2vrn_region(verts,vrn_regions,row_mask):
 
 # Cell
 def unit_hexagons(Ny,Nx):
-    '''Produces Ny columns-by-Nx rows of hexagons with unit length edges.
+    '''Produces Ny rows-by-Nx columns of hexagons with unit length edges.
 
     Uses scipy.spatial.Voronoi, then trims non-hexagon edge cells and vertices.
 
