@@ -6,6 +6,7 @@ __all__ = ['plot_graph', 'plot_graph_as_quiver', 'graph2networkx_with_pos', 'is_
 # Cell
 import torch
 import numpy as np, matplotlib.pyplot as plt
+from scipy.spatial import Voronoi,voronoi_plot_2d
 
 # Cell
 def plot_graph(Xv,edges,plot_arg=['g-','mo'],alphas=[.2,.5]):
