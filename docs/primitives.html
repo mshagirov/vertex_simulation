@@ -19,11 +19,14 @@ description: "Implementations for vertex, graph, and cell monolayer classes"
 -->
 
 <div class="container" id="notebook-container">
-    {% raw %}
         
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><h1>Table of Contents<span class="tocSkip"></span></h1></p>
@@ -56,9 +59,13 @@ description: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Helper-functions-for-Graphs">Helper functions for Graphs<a class="anchor-link" href="#Helper-functions-for-Graphs"> </a></h2><hr>
@@ -66,9 +73,15 @@ description: "Implementations for vertex, graph, and cell monolayer classes"
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -95,9 +108,17 @@ Nx2 array of integers (could be list of lists)</li>
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -119,9 +140,17 @@ Nx2 array of integers (could be list of lists)</li>
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -143,6 +172,8 @@ Nx2 array of integers (could be list of lists)</li>
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Helper-functions-for-Monolayer">Helper functions for Monolayer<a class="anchor-link" href="#Helper-functions-for-Monolayer"> </a></h2><hr>
@@ -150,9 +181,15 @@ Nx2 array of integers (could be list of lists)</li>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -175,6 +212,8 @@ Used by <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>Voron
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Slowest part of <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> is checking whether the edge is in the list of edges, <code>is_in_edges_()</code> function. In <a href="/vertex_simulation/primitives#is_in_edges_"><code>is_in_edges_</code></a> most of the time is spent for the <code>if, elif</code> conditionals (using <code>np</code> binary indexing in <a href="/vertex_simulation/primitives#is_in_edges_"><code>is_in_edges_</code></a> didn't speed up finding regions, actually it slowed it down), need to change how <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> works in particular adding edges to list (or need to even avoid it).</p>
@@ -182,9 +221,15 @@ Used by <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>Voron
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -226,15 +271,23 @@ substract 1 from (absolute value of) these indices.</p>
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Graph-primitives">Graph primitives<a class="anchor-link" href="#Graph-primitives"> </a></h2>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -271,6 +324,8 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
@@ -279,6 +334,8 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -328,6 +385,8 @@ Distance between two vertices (o &lt;--&gt; v1) : 1.4142135381698608
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
@@ -335,9 +394,15 @@ Distance between two vertices (o &lt;--&gt; v1) : 1.4142135381698608
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -376,6 +441,8 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
@@ -390,6 +457,8 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -432,6 +501,8 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Use <code>device()</code> and <code>to_()</code> to check device and move <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> tensors (vertices and edges) to GPU</p>
@@ -439,6 +510,8 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -470,6 +543,8 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Evaluating functions that depend on vertex positions (edge Euclidean length, and direction functions are already implemented in <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> class)</p>
@@ -480,6 +555,8 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -523,15 +600,23 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Cell-monolayer-representations">Cell monolayer representations<a class="anchor-link" href="#Cell-monolayer-representations"> </a></h2>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
@@ -569,6 +654,8 @@ Use <code>np.sign(cells[c])</code> to find reversed edges for cell <code>c</code
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
@@ -580,8 +667,12 @@ Use <code>np.sign(cells[c])</code> to find reversed edges for cell <code>c</code
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> assumes that cells are 2D <em>simple polygons</em>. For a <em>simple polygon</em> with $n$ sides, <a href="/vertex_simulation/primitives#Monolayer.area("><code>Monolayer.area()</code></a>) implements a <em>shoelace formula</em>:
+{{% raw %}}
 $$A_{polygon} = \frac{1}{2}\left|{\sum^{n-1}_{i=1}x_{i}y_{i+1} + x_ny_1 - \sum^{n-1}_{i=1}x_{i+1}y_{i} - x_1 y_n}\right|$$
-$$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$</li>
+{{% endraw %}}
+{{% raw %}}
+$$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$
+{{% endraw %}}</li>
 </ul>
 
 </div>
@@ -596,6 +687,8 @@ $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\do
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -647,6 +740,8 @@ Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Note that we need to remember to copy tensors to CPU (and detach from the Pytorch's computational graph) to be able to use <code>matplotlib</code></p>
@@ -654,6 +749,8 @@ Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -703,6 +800,10 @@ Perimeter= tensor([[3.4142]], device=&#39;cuda:0&#39;) ; Area= tensor([0.5000], 
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -724,6 +825,10 @@ Perimeter= tensor([[3.4142]], device=&#39;cuda:0&#39;) ; Area= tensor([0.5000], 
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -774,6 +879,7 @@ Area= tensor([2.5981, 2.5981, 2.5981], dtype=torch.float64)
 
 </div>
     {% endraw %}
+
 </div>
  
 

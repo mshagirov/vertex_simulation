@@ -25,7 +25,7 @@ To illustrate how to use autograd, let's use `Vertex` object. We can define `Ver
 - `v.x` (i.e. location for `v=Vertex(location)`) is assumed to be Nx2 array with float dtype (or any 2D array), and sizes are __not__ checked when set using `self.x`.
 - Computing gradients, and resetting them to zeros. Example below demonstrates computing $\partial y/\partial v_{i,j}$ for $y = \sum_i\sum_j v_{i,j}^2$ using `torch.autograd`.
 
-```python
+```
 v = Vertex([[3.,-1.],[0.1,0.]],requires_grad=True,dtype=torch.float32)
 # do some calculation with v.x
 y = torch.sum(v.x**2)
@@ -41,14 +41,18 @@ print('dy/dx_i after zeroing grad-s:\n',v.grad())
 <a name="ex1">Trapped particle in a 2D fluid</a>
 
 Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
+{{% raw %}}
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
+{{% endraw %}}
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
+{{% raw %}}
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
+{{% endraw %}}
 Let's numerically solve this equation ( _refer to the code cell below_ ). If the scale of the step size is chosen well (e.g. in the code below for large `k` use smaller `Dt`), solution $x(t)$ should converge to the equilibrium point $o$.
 
 One way to model this system is to use two vertices, one for constant equilibrium point $o$, and a second vertex for particle position $x(t)$. To track potential energy gradient w.r.t. $x(t)$ we'll set `requires_grad=True` for the moving vertex, `v1` in the code below (this flag enables `torch`'s autograd to backpropagate the gradients).
 
-```python
+```
 o  = Vertex(torch.tensor([[0,0]],dtype=torch.float64)) # equilibrium point (where U(x) is minimum)
 v1 = Vertex(torch.tensor([[-3,3]],requires_grad=True,dtype=torch.float64)) # particles location
 r = o.dist(v1)
@@ -61,7 +65,7 @@ print(f'o requires_grad? :{o.requires_grad()}',
 
 In order to calculate gradients w.r.t. $x$, we need to set up a function that maps $x$ to some scalar value. In our example, this function is the potential energy function $U(x)$ (`energy(r)` below). Once `energy` function is evalutated, we need to call `backward()` on the returned `torch.tensor` to calculate (analytic) gradient of potential energy function at $x=v1$ (i.e. $\nabla_x U|_{x=v1}$; `dEdx` in code below)
 
-```python
+```
 # Define energy
 k = 1.0
 energy = lambda r: k*r**2
@@ -76,7 +80,7 @@ print(f't=0: dE/dx={dEdx.tolist()} --> dx/dt=-dE/dx={dxdt.tolist()}')
 
 An important point to keep in mind when using iterative methods (e.g. gradient descent) shown in the code below, is to remember to reset gradients accumulator to zeros. For `Vertex` objects its done with `Vertex.zero_grad_()`, if the vertex has `requires_grad=True` flag, calling this method sets all gradients of a given vertex to zeros. Otherwise it does nothing, e.g. gradients w.r.t. $o$ are kept as `None`, and they are not calculated.
 
-```python
+```
 # Numerical integration
 Dt = .16 # time step size
 positions = [v1.x.tolist()]
@@ -100,7 +104,7 @@ Energies.append( energy(o.dist(v1)).item() )
 
 Results of the numerical integration above-- the evolution of the system in relative time, are shown below. Keep in mind that, in this simulation time is scaled by drag coefficient $b$, and for more accurate dynamics we need to use smaller `Dt` (or more accurate method for numerical integration).
 
-```python
+```
 # Display the results
 positions = np.array(positions).squeeze() # convert to a np array
 fig = plt.figure(figsize=plt.figaspect(0.25))
@@ -136,14 +140,20 @@ plt.show()
 <a name="ex2">Attracting particles in a 2D fluid</a>
 
 Now, let's evolve in time a system decribed by a potential
+{{% raw %}}
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
+{{% endraw %}}
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in [Example 1](#ex1) is 
+{{% raw %}}
 $$b\frac{dx(t')}{dt'}=-\nabla U$$
+{{% endraw %}}
 $\nabla U$ is a function of distances between all possible pairs of vertices (edge lengths $l_{ij}$, scalars). The equation of motion for every vertex is (with $t=t'/b$)
+{{% raw %}}
 $$\frac{dx_i}{dt}=-k\sum_{\forall ij|j\neq i}2(x_i-x_j)= 2k\sum_{\forall ij|j\neq i}(x_j-x_i)$$
+{{% endraw %}}
 This system can be described by a complete graph, `G` in the code below. In order to demonstrate how to work with this type of systems, let's create a complete graph with $N_v$ vertices.
 
-```python
+```
 np.random.seed(42) # let's seed RNG for sanity and reproducibility
 Nv = 10 # number of vertices
 Xv = np.random.uniform(0,1,(Nv,2)) # initial vertex potions sampled from uniform distribution [0,1)
@@ -153,7 +163,7 @@ plot_graph(Xv,edges) # plot vertices and edges
 
 Now, let's solve $x(t)$ with Euler's method. Note that in the code below, `Dt` must be smaller for large $N_v$ (e.g. about $0.01$ or less for $N_v=10$, and about $0.001$ for $N_v=100$). Try changing the parameters (one at a time) and observe what happens.
 
-```python
+```
 # initialize a graph
 G = Graph(vertices=Vertex(torch.from_numpy(Xv).clone(),requires_grad=True, dtype=torch.float64), edges=torch.tensor(edges) )
 G.vertices.requires_grad_(True) # turn on `Vertex` gradients; check its status with G.vertices.requires_grad()
@@ -189,7 +199,7 @@ plt.plot(t,Energies);plt.xlabel('time');plt.ylabel('energy');
 
 Results for numerical integration above as a movie of the graph $G$:
 
-```python
+```
 HTML(f_anim.to_jshtml()) # using HTML from IPython.display and matplotlib's animation module
 ```
 
@@ -197,7 +207,7 @@ HTML(f_anim.to_jshtml()) # using HTML from IPython.display and matplotlib's anim
 
 `Monolayer` object stores vertices, edges, and cells and implements methods for working wiht torch's autograd. In order to demonstrate how to use `Monolayer` objects, we start with generating cells. Here we will use Voronoi tessellation.
 
-```python
+```
 from scipy.spatial import Voronoi,voronoi_plot_2d
 
 v_seeds=np.array([[np.sqrt(3)/2,5.5], [1.5*np.sqrt(3),5.5], [0.,4.],
@@ -212,14 +222,14 @@ plt.show()
 
 After obtaining the Voronoi tesselation, use `VoronoiRegions2Edges` to convert regions into a `Monolayer` (and `Graph`) compatible edges and cells representations:
 
-```python
+```
 edge_list,cells = VoronoiRegions2Edges(vrn.regions) # convert regions to edges and cells
 print(cells)
 ```
 
 `cells` is the `dict` of edge indices. Negative edge indices indicate reversed vertex order:
 
-```python
+```
 verts = Vertex(vrn.vertices)
 edges = torch.tensor(edge_list)
 
@@ -247,7 +257,7 @@ plt.show()
 
 #### `Monolayer` dynamics example
 
-```python
+```
 import networkx as nx
 import matplotlib.animation as animation
 
@@ -268,7 +278,7 @@ nx.draw(Gnx,pos,node_size=10,node_color='#FF00FF',edge_color='#51C5FF')
 
 ### Passive forces case
 
-```python
+```
 # let's seed RNG for sanity and reproducibility
 np.random.seed(42)
 
@@ -338,7 +348,7 @@ plt.show()
 print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
 ```
 
-```python
+```
 def draw(i):
     pos = dict(zip(range(verts_t[i].shape[0]),verts_t[i].numpy()))
     ax.cla()
@@ -359,7 +369,7 @@ def draw_w_tension(i):
             edge_color=line_tensions[i].numpy()[edge_idx_order],edge_cmap=plt.cm.bwr)
 ```
 
-```python
+```
 fig = plt.figure(figsize=[5,5])
 fig.clf()
 ax = fig.subplots()
@@ -372,7 +382,7 @@ ani_passive = animation.FuncAnimation(fig, draw, interval=200,
                               frames = range(0,len(verts_t),max(1,round(len(verts_t)/64))))
 ```
 
-```python
+```
 print('Passive system (foam)')
 HTML(ani_passive.to_jshtml()) # using HTML from IPython.display and matplotlib's animation module
 ```
@@ -381,7 +391,7 @@ HTML(ani_passive.to_jshtml()) # using HTML from IPython.display and matplotlib's
 
 #### Edge direction is independent
 
-```python
+```
 # let's seed RNG for sanity and reproducibility
 np.random.seed(42)
 
@@ -458,19 +468,19 @@ plt.show()
 print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
 ```
 
-```python
+```
 ani_dir_no_grad = animation.FuncAnimation(fig, draw_w_tension, interval=200,
                               frames = range(0,len(verts_t),max(1,round(len(verts_t)/64))))
 ```
 
-```python
+```
 print('Direction is independent of positions (gradient==0)')
 HTML(ani_dir_no_grad.to_jshtml()) # using HTML from IPython.display and matplotlib's animation module
 ```
 
 #### with anisotropy and differentiable edge direction
 
-```python
+```
 # let's seed RNG for sanity and reproducibility
 np.random.seed(42)
 
@@ -548,19 +558,19 @@ plt.show()
 print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
 ```
 
-```python
+```
 ani_dir_grad = animation.FuncAnimation(fig, draw_w_tension, interval=200,
                               frames = range(0,len(verts_t),max(1,round(len(verts_t)/64))))
 ```
 
-```python
+```
 print('Direction has gradient w.r.t. positions')
 HTML(ani_dir_grad.to_jshtml()) # using HTML from IPython.display and matplotlib's animation module
 ```
 
 #### Anisotropic active forces with lower amplitude
 
-```python
+```
 # let's seed RNG for sanity and reproducibility
 np.random.seed(42)
 
@@ -637,12 +647,12 @@ plt.show()
 print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
 ```
 
-```python
+```
 ani_dir_grad_low_amplitude = animation.FuncAnimation(fig, draw_w_tension, interval=200,
                               frames = range(0,len(verts_t),max(1,round(len(verts_t)/64))))
 ```
 
-```python
+```
 print('Direction has gradient w.r.t. positions (low line tension: 1/5)')
 # using HTML from IPython.display and matplotlib's animation module
 HTML(ani_dir_grad_low_amplitude.to_jshtml()) 
@@ -650,14 +660,14 @@ HTML(ani_dir_grad_low_amplitude.to_jshtml())
 
 #### Random edges with active tension
 
-```python
+```
 e_ij_coeff = torch.zeros(len(edge_list),1,dtype=cell_graph.vertices.x.dtype)
 e_ij_on = np.random.rand(len(edge_list),1)<.2
 e_ij_coeff[e_ij_on] = 1.0
 
 ```
 
-```python
+```
 # define cell monolayer
 v_x,regions =unit_hexagons(4,4) # 4x4 hexagons
 # convert Voronoi regions to cells and edges
@@ -736,12 +746,12 @@ plt.show()
 print(f"Perimeters:{cell_graph.perimeter().detach().squeeze()}\nAreas:{cell_graph.area().detach()}")
 ```
 
-```python
+```
 ani_dir_grad_low_mem_low = animation.FuncAnimation(fig, draw_w_tension, interval=200,
                               frames = range(0,len(verts_t),max(1,round(len(verts_t)/128))))
 ```
 
-```python
+```
 print('Random edges with active tension')
 # using HTML from IPython.display and matplotlib's animation module
 HTML(ani_dir_grad_low_mem_low.to_jshtml()) 

@@ -19,11 +19,14 @@ description: "Vertex dynamics simulation for modelling epithelial tissue dynamic
 -->
 
 <div class="container" id="notebook-container">
-    {% raw %}
         
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Modules:</p>
@@ -87,6 +90,8 @@ description: "Vertex dynamics simulation for modelling epithelial tissue dynamic
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -108,13 +113,19 @@ description: "Vertex dynamics simulation for modelling epithelial tissue dynamic
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Vertex-usage-example">Vertex usage example<a class="anchor-link" href="#Vertex-usage-example"> </a></h4><p><a name="ex1">Trapped particle in a 2D fluid</a></p>
 <p>Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
+{{% raw %}}
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
+{{% endraw %}}
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
+{{% raw %}}
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
+{{% endraw %}}
 Let's numerically solve this equation ( <em>refer to the code cell below</em> ). If the scale of the step size is chosen well (e.g. in the code below for large <code>k</code> use smaller <code>Dt</code>), solution $x(t)$ should converge to the equilibrium point $o$.</p>
 
 </div>
@@ -127,6 +138,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -147,6 +160,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In order to calculate gradients w.r.t. $x$, we need to set up a function that maps $x$ to some scalar value. In our example, this function is the potential energy function $U(x)$ (<code>energy(r)</code> below). Once <code>energy</code> function is evalutated, we need to call <code>backward()</code> on the returned <code>torch.tensor</code> to calculate (analytic) gradient of potential energy function at $x=v1$ (i.e. $\nabla_x U|_{x=v1}$; <code>dEdx</code> in code below)</p>
@@ -154,6 +169,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -176,6 +193,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>An important point to keep in mind when using iterative methods (e.g. gradient descent) shown in the code below, is to remember to reset gradients accumulator to zeros. For <a href="/vertex_simulation/primitives#Vertex"><code>Vertex</code></a> objects its done with <a href="/vertex_simulation/primitives#Vertex.zero_grad_("><code>Vertex.zero_grad_()</code></a>), if the vertex has <code>requires_grad=True</code> flag, calling this method sets all gradients of a given vertex to zeros. Otherwise it does nothing, e.g. gradients w.r.t. $o$ are kept as <code>None</code>, and they are not calculated.</p>
@@ -183,6 +202,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -214,6 +235,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Results of the numerical integration above-- the evolution of the system in relative time, are shown below. Keep in mind that, in this simulation time is scaled by drag coefficient $b$, and for more accurate dynamics we need to use smaller <code>Dt</code> (or more accurate method for numerical integration).</p>
@@ -221,6 +244,8 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -262,20 +287,30 @@ Let's numerically solve this equation ( <em>refer to the code cell below</em> ).
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Graph-usage-example"><a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> usage example<a class="anchor-link" href="#Graph-usage-example"> </a></h4><p><a name="ex2">Attracting particles in a 2D fluid</a></p>
 <p>Now, let's evolve in time a system decribed by a potential
+{{% raw %}}
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
+{{% endraw %}}
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in <a href="#ex1">Example 1</a> is 
+{{% raw %}}
 $$b\frac{dx(t')}{dt'}=-\nabla U$$
+{{% endraw %}}
 $\nabla U$ is a function of distances between all possible pairs of vertices (edge lengths $l_{ij}$, scalars). The equation of motion for every vertex is (with $t=t'/b$)
+{{% raw %}}
 $$\frac{dx_i}{dt}=-k\sum_{\forall ij|j\neq i}2(x_i-x_j)= 2k\sum_{\forall ij|j\neq i}(x_j-x_i)$$
+{{% endraw %}}
 This system can be described by a complete graph, <code>G</code> in the code below. In order to demonstrate how to work with this type of systems, let's create a complete graph with $N_v$ vertices.</p>
 
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -293,6 +328,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, let's solve $x(t)$ with Euler's method. Note that in the code below, <code>Dt</code> must be smaller for large $N_v$ (e.g. about $0.01$ or less for $N_v=10$, and about $0.001$ for $N_v=100$). Try changing the parameters (one at a time) and observe what happens.</p>
@@ -300,6 +337,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -343,6 +382,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Results for numerical integration above as a movie of the graph $G$:</p>
@@ -350,6 +391,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -363,6 +406,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Monolayer-objects"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> objects<a class="anchor-link" href="#Monolayer-objects"> </a></h3>
@@ -376,6 +421,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -398,6 +445,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>After obtaining the Voronoi tesselation, use <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a> to convert regions into a <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> (and <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a>) compatible edges and cells representations:</p>
@@ -405,6 +454,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -419,6 +470,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>cells</code> is the <code>dict</code> of edge indices. Negative edge indices indicate reversed vertex order:</p>
@@ -426,6 +479,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -461,12 +516,16 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Monolayer-dynamics-example"><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> dynamics example<a class="anchor-link" href="#Monolayer-dynamics-example"> </a></h4>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -495,12 +554,16 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Passive-forces-case">Passive forces case<a class="anchor-link" href="#Passive-forces-case"> </a></h3>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -580,6 +643,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -610,6 +677,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -632,6 +703,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -646,6 +721,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Active-anisotropic-forces">Active anisotropic forces<a class="anchor-link" href="#Active-anisotropic-forces"> </a></h3>
@@ -658,6 +735,8 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -744,6 +823,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -758,6 +841,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -772,12 +859,16 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="with-anisotropy-and-differentiable-edge-direction">with anisotropy and differentiable edge direction<a class="anchor-link" href="#with-anisotropy-and-differentiable-edge-direction"> </a></h4>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -865,6 +956,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -879,6 +974,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -893,12 +992,16 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Anisotropic-active-forces-with-lower-amplitude">Anisotropic active forces with lower amplitude<a class="anchor-link" href="#Anisotropic-active-forces-with-lower-amplitude"> </a></h4>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -985,6 +1088,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -999,6 +1106,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -1014,12 +1125,16 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Random-edges-with-active-tension">Random edges with active tension<a class="anchor-link" href="#Random-edges-with-active-tension"> </a></h4>
 </div>
 </div>
 </div>
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -1035,6 +1150,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -1123,6 +1242,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -1137,6 +1260,10 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 </div>
 
 </div>
+    {% endraw %}
+
+    {% raw %}
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -1153,6 +1280,7 @@ This system can be described by a complete graph, <code>G</code> in the code bel
 
 </div>
     {% endraw %}
+
 </div>
  
 
