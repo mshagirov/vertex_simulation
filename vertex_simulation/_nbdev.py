@@ -12,7 +12,9 @@ index = {"plot_graph": "00_primitives.ipynb",
          "Monolayer": "00_primitives.ipynb",
          "mask2vrn_region": "00_primitives.ipynb",
          "unit_hex_seeds": "00_primitives.ipynb",
-         "unit_hexagons": "00_primitives.ipynb"}
+         "unit_hexagons": "00_primitives.ipynb",
+         "Simulation": "01_simulation.ipynb",
+         "Simulation_Honda": "01_simulation.ipynb"}
 
 modules = ["primitives.py",
            "simulation.py"]
