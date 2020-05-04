@@ -41,13 +41,13 @@ print('dy/dx_i after zeroing grad-s:\n',v.grad())
 <a name="ex1">Trapped particle in a 2D fluid</a>
 
 Let's assume linear drag, where force exerted by a spring is proportional to the velocity of the particle (drag force is $F_d=-b\frac{dx(t')}{dt'}$)
-{{% raw %}}
+{% raw %}
 $$F_s(t') = -\nabla U = b\frac{dx(t')}{dt'}$$
-{{% endraw %}}
+{% endraw %}
 where $U$ is the potential energy of the spring (e.g. optical trap) $U=k\cdot |r|^2$, where $r$ is the vector from equilibrium point, $o$, pointing to the current location of the particle, $x$. After re-defining time ($t'$) as a relative "scaled" time $t=\frac{t'}{b}$ and taking gradient of potential energy w.r.t. $x$, we can re-write the equation of motion (also let's set $o$ as origin $[0,0]$, then $r=x$)
-{{% raw %}}
+{% raw %}
 $$\frac{dx(t)}{dt}=-2k(x-o)= -2kx$$
-{{% endraw %}}
+{% endraw %}
 Let's numerically solve this equation ( _refer to the code cell below_ ). If the scale of the step size is chosen well (e.g. in the code below for large `k` use smaller `Dt`), solution $x(t)$ should converge to the equilibrium point $o$.
 
 One way to model this system is to use two vertices, one for constant equilibrium point $o$, and a second vertex for particle position $x(t)$. To track potential energy gradient w.r.t. $x(t)$ we'll set `requires_grad=True` for the moving vertex, `v1` in the code below (this flag enables `torch`'s autograd to backpropagate the gradients).
@@ -140,17 +140,17 @@ plt.show()
 <a name="ex2">Attracting particles in a 2D fluid</a>
 
 Now, let's evolve in time a system decribed by a potential
-{{% raw %}}
+{% raw %}
 $$U=k\sum_{\forall ij|j\neq i}|x_i-x_j|^2=k\sum_{\forall ij|j\neq i}l^2_{ij}$$
-{{% endraw %}}
+{% endraw %}
 where every vertex $i$ is connected to all the other vertices $j$ with edges $ij$, and $x_i$ is the position of vertex $i$ on a 2D plane (vector). Force balance equation for this system, same as in [Example 1](#ex1) is 
-{{% raw %}}
+{% raw %}
 $$b\frac{dx(t')}{dt'}=-\nabla U$$
-{{% endraw %}}
+{% endraw %}
 $\nabla U$ is a function of distances between all possible pairs of vertices (edge lengths $l_{ij}$, scalars). The equation of motion for every vertex is (with $t=t'/b$)
-{{% raw %}}
+{% raw %}
 $$\frac{dx_i}{dt}=-k\sum_{\forall ij|j\neq i}2(x_i-x_j)= 2k\sum_{\forall ij|j\neq i}(x_j-x_i)$$
-{{% endraw %}}
+{% endraw %}
 This system can be described by a complete graph, `G` in the code below. In order to demonstrate how to work with this type of systems, let's create a complete graph with $N_v$ vertices.
 
 ```

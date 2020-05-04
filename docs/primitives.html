@@ -659,12 +659,12 @@ Use <code>np.sign(cells[c])</code> to find reversed edges for cell <code>c</code
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> assumes that cells are 2D <em>simple polygons</em>. For a <em>simple polygon</em> with $n$ sides, <a href="/vertex_simulation/primitives#Monolayer.area("><code>Monolayer.area()</code></a>) implements a <em>shoelace formula</em>:
-{{% raw %}}
+{% raw %}
 $$A_{polygon} = \frac{1}{2}\left|{\sum^{n-1}_{i=1}x_{i}y_{i+1} + x_ny_1 - \sum^{n-1}_{i=1}x_{i+1}y_{i} - x_1 y_n}\right|$$
-{{% endraw %}}
-{{% raw %}}
+{% endraw %}
+{% raw %}
 $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\dots-x_ny_{n-1}-x_1y_n\right|$$
-{{% endraw %}}</li>
+{% endraw %}</li>
 </ul>
 
 </div>
