@@ -37,7 +37,10 @@ class Simulation(object):
 # Cell
 class Simulation_Honda(Simulation):
     '''Honda et al. definition of Vertex model.
-    _See_ Fletcher _et al._ 2013 for details.'''
+
+    References:
+    - A.G. Fletcher _et al._, _Progress in Biophysics and Molecular Biology_ __113__, 299-326 (2013).
+    '''
     def __init__(self, m=None):
         '''Init'''
         super().__init__(m=m)
