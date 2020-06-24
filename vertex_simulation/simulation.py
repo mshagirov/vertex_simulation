@@ -21,8 +21,12 @@ class Simulation(object):
         '''m: `Monolayer` or `Graph` object (e.g. cells defined as polygons).'''
         pass
     def _energy(self):
+        '''Computes the total free energy of the system.'''
         pass
     def _force(self):
+        '''Computes the total force acting on each vertex. Alternatively use F_i = -grad_i(U), where
+        grad_i is the spatial gradient with respect to vertex i, and U is the total free energy.
+        '''
         pass
     def sample_trajectory(self, T=10000, delta_T=0.001, sample_freq=10, T_ignore=500):
         '''
@@ -38,9 +42,21 @@ class Simulation(object):
 class Simulation_Honda(Simulation):
     '''Honda et al. definition of Vertex model.
 
+    Total free energy of the `Monolayer` is defined as `U = Ud + Us + Ua`
+    - `Ud` : deformation energy or elastic energy of the cells. For a cell `k`, `Ud[k] = K*(A[k] - Ao)^2`
+             where `A[k]>=0` is an area of cell `k`, `K>=0` is an elastic constant, and `Ao>=0` is a target area.
+    - `Us` : membrane surface tension energy. For cell `k`, `Us[k] = Kp*(P[k] - Po)^2`
+             where `Kp>=0` is constant, `Po` is a target perimeter (constant), and `P[k]` is a perimeter of cell `k`.
+    - `Ua` : cell-cell adhesion energy.
+
     References:
-    - A.G. Fletcher _et al._, _Progress in Biophysics and Molecular Biology_ __113__, 299-326 (2013).
+    - Fletcher A.G., _et al._, _Progress in Biophysics and Molecular Biology_ __113__, 299-326 (2013).
     '''
     def __init__(self, m=None):
-        '''Init'''
+        '''m: `Monolayer` object (`Graph` w/ cells defined as polygons).'''
         super().__init__(m=m)
+
+    def _energy(self):
+        '''Computes total free energy U. U = Ud + Us + Ua
+        '''
+        pass

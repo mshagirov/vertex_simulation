@@ -153,7 +153,7 @@ Nx2 array of integers (could be list of lists)</li>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="graph2networkx_with_pos" class="doc_header"><code>graph2networkx_with_pos</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>graph2networkx_with_pos</code>(<strong><code>g</code></strong>)</p>
+<h4 id="graph2networkx_with_pos" class="doc_header"><code>graph2networkx_with_pos</code><a href="__main__.py#L3" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>graph2networkx_with_pos</code>(<strong><code>g</code></strong>)</p>
 </blockquote>
 <p>Convert <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> or <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> object toReturn <code>network</code> graph</p>
 
@@ -334,8 +334,7 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># initialise and then set vertex location </span>
-<span class="n">o</span><span class="o">=</span><span class="n">Vertex</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">o</span><span class="o">=</span><span class="n">Vertex</span><span class="p">()</span>
 <span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="c1"># or with location at init-n</span>
@@ -555,8 +554,7 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># do something with vertex positions</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="c1"># edge lengths</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="c1"># edge lengths</span>
 <span class="n">E</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># some function that returns a scalar</span>
 
 <span class="c1"># compute gradients w.r.t. variables of E </span>
@@ -687,8 +685,7 @@ $$ = \frac{1}{2}\left|x_1y_2+x_2y_3+\dots+x_{n-1}y_n +x_ny_1 - x_2y_1-x_3y_2-\do
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># triangle shaped cell:</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">([[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">1</span><span class="p">],[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">9</span><span class="p">],[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">1</span><span class="p">]])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Vertex</span><span class="p">([[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">1</span><span class="p">],[</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">9</span><span class="p">],[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">1</span><span class="p">]])</span>
 <span class="n">edges</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
 <span class="n">tri_cells</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]}</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">Monolayer</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">v</span><span class="p">,</span><span class="n">edges</span><span class="o">=</span><span class="n">edges</span><span class="p">,</span><span class="n">cells</span><span class="o">=</span><span class="n">tri_cells</span><span class="p">)</span>
@@ -749,8 +746,7 @@ Perimeter= tensor([[3.4142]]) ; Area= tensor([0.5000])
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Now let&#39;s do the same computation on GPU (if available)</span>
-<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
     <span class="n">m</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;m is on :&#39;</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Perimeter=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">perimeter</span><span class="p">(),</span><span class="s1">&#39;; Area=&#39;</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">area</span><span class="p">())</span>
