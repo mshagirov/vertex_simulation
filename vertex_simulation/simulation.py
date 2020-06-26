@@ -12,7 +12,7 @@ class Simulation(object):
 
     Children should implement following methods:
     - `_energy(self,...)`: calculates systems energy
-    - `_force(self,...)`: calculates forces acting on all vertices
+    - `_force(self,...)` : calculates forces acting on all vertices
     (you can implement either one, or both of the energy and force functions)
     - `sample_trajectory(self,...)`: simulates dynamics and samples vertex trajectories.
     This method should use either force or energy (spatial gradient) to simulate the system dynamics.
@@ -40,13 +40,12 @@ class Simulation(object):
 
 # Cell
 class Simulation_Honda(Simulation):
-    '''Honda et al. definition of Vertex model.
-
-    Total free energy of the `Monolayer` is defined as `U = Ud + Us + Ua`
+    '''Honda et al. definition of Vertex model. This approach defines a phenomenological total free energy
+    (_or_ work function) of the `Monolayer`: `U = Ud + Us + Ua`
     - `Ud` : deformation energy or elastic energy of the cells. For a cell `k`, `Ud[k] = K*(A[k] - Ao)^2`
-             where `A[k]>=0` is an area of cell `k`, `K>=0` is an elastic constant, and `Ao>=0` is a target area.
+    where `A[k]>=0` is an area of cell `k`, `K>=0` is an elastic constant, and `Ao>=0` is a target area.
     - `Us` : membrane surface tension energy. For cell `k`, `Us[k] = Kp*(P[k] - Po)^2`
-             where `Kp>=0` is constant, `Po` is a target perimeter (constant), and `P[k]` is a perimeter of cell `k`.
+    where `Kp>=0` is a constant, `Po` is a target perimeter (constant), and `P[k]` is a perimeter of cell `k`.
     - `Ua` : cell-cell adhesion energy.
 
     References:
@@ -57,6 +56,5 @@ class Simulation_Honda(Simulation):
         super().__init__(m=m)
 
     def _energy(self):
-        '''Computes total free energy U. U = Ud + Us + Ua
-        '''
+        '''Computes total free energy U. U = Ud + Us + Ua'''
         pass
