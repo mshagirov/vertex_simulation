@@ -341,16 +341,16 @@ Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,
 <span class="n">v1</span><span class="o">=</span><span class="n">Vertex</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="c1"># you can transfer &quot;v1&quot; and &quot;o&quot; to GPU</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;v1: {v1.device()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;o : {o.device()}&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;v1: {v1.device()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">f</span><span class="s1">&#39;o : {o.device()}&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">():</span>
     <span class="n">v1</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
     <span class="n">o</span><span class="o">.</span><span class="n">to_</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">device</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;CUDA devices found: {torch.cuda.device_count()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
-      <span class="sa">f</span><span class="s1">&#39;v1: {v1.device()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;o : {o.device()}&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;CUDA devices found: {torch.cuda.device_count()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+      <span class="n">f</span><span class="s1">&#39;v1: {v1.device()}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">f</span><span class="s1">&#39;o : {o.device()}&#39;</span><span class="p">)</span>
 
 <span class="c1"># calculate distance between vertices</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance between two vertices (o &lt;--&gt; v1) : {r.squeeze()}&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Distance between two vertices (o &lt;--&gt; v1) : {r.squeeze()}&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -566,7 +566,7 @@ Provided for convenience, turn off gradient calculation separately from "variabl
 <span class="c1"># reset gradients to zeros (useful for iterative calculations s.a. gradient descent)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">set_zero_grad_</span><span class="p">()</span>
 <span class="n">dEdx_2</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">get_vertex_grad</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dEdx=</span><span class="si">{dEdx}</span><span class="se">\n</span><span class="s1">---</span><span class="se">\n</span><span class="s1">after zeroing gradients</span><span class="se">\n</span><span class="s1">dEdx=</span><span class="si">{dEdx_2}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;dEdx=</span><span class="si">{dEdx}</span><span class="se">\n</span><span class="s1">---</span><span class="se">\n</span><span class="s1">after zeroing gradients</span><span class="se">\n</span><span class="s1">dEdx=</span><span class="si">{dEdx_2}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
