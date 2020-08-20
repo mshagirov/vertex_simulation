@@ -3,16 +3,16 @@
 __all__ = ['Simulation', 'Simulation_Honda']
 
 # Cell
-import torch, numpy as np, matplotlib.pyplot as plt
-from scipy.spatial import Voronoi,voronoi_plot_2d
+import torch, numpy as np
+import matplotlib.pyplot as plt
 
 # Cell
 class Simulation(object):
     '''Abstract class for vertex dynamics simulations
 
     Children should implement following methods:
-    - `_energy(self,...)`: calculates systems energy
-    - `_force(self,...)` : calculates forces acting on all vertices
+    - `energy(self,...)`: calculates systems energy
+    - `force(self,...)` : calculates forces acting on all vertices
     (you can implement either one, or both of the energy and force functions)
     - `sample_trajectory(self,...)`: simulates dynamics and samples vertex trajectories.
     This method should use either force or energy (spatial gradient) to simulate the system dynamics.
@@ -20,10 +20,10 @@ class Simulation(object):
     def __init__(self,m=None):
         '''m: `Monolayer` or `Graph` object (e.g. cells defined as polygons).'''
         pass
-    def _energy(self):
+    def energy(self):
         '''Computes the total free energy of the system.'''
         pass
-    def _force(self):
+    def force(self):
         '''Computes the total force acting on each vertex. Alternatively use F_i = -grad_i(U), where
         grad_i is the spatial gradient with respect to vertex i, and U is the total free energy.
         '''
@@ -42,19 +42,41 @@ class Simulation(object):
 class Simulation_Honda(Simulation):
     '''Honda et al. definition of Vertex model. This approach defines a phenomenological total free energy
     (_or_ work function) of the `Monolayer`: `U = Ud + Us + Ua`
-    - `Ud` : deformation energy or elastic energy of the cells. For a cell `k`, `Ud[k] = K*(A[k] - Ao)^2`
-    where `A[k]>=0` is an area of cell `k`, `K>=0` is an elastic constant, and `Ao>=0` is a target area.
-    - `Us` : membrane surface tension energy. For cell `k`, `Us[k] = Kp*(P[k] - Po)^2`
-    where `Kp>=0` is a constant, `Po` is a target perimeter (constant), and `P[k]` is a perimeter of cell `k`.
-    - `Ua` : cell-cell adhesion energy.
+    - `Ud` : deformation energy or elastic energy of the cells. For a cell `k`, `Ud[k] = K*(A[k] - A0)^2`
+    where `A[k]>=0` is an area of cell `k`, `K>=0` is an elastic constant, and `A0>=0` is a target area.
+    - `Us` : membrane surface tension energy. For cell `k`, `Us[k] = Kp*(P[k] - P0)^2`
+    where `Kp>=0` is a constant, `P0` is a target perimeter (constant), and `P[k]` is a perimeter of cell `k`.
+    - `Ua` : cell-cell adhesion energy, overall energy of adhesion and contractile tensions along
+    cell-cell junctions. `Ua = sum_edges[ Lambda_ij(t)*l_ij ]`, where `Lambda_ij(t)` is a time-dependent value,
+    or a constant value, and `l_ij` is edge length between cells `i` and `j`. This (time-dependent) parameter
+    can be used to represent active tensions in the simulation.
 
     References:
     - Fletcher A.G., _et al._, _Progress in Biophysics and Molecular Biology_ __113__, 299-326 (2013).
     '''
-    def __init__(self, m=None):
-        '''m: `Monolayer` object (`Graph` w/ cells defined as polygons).'''
-        super().__init__(m=m)
+    def __init__(self, m=None,params=None):
+        '''
+        - `m` : `Monolayer` object (`Graph` w/ cells defined as polygons).
+        - `params` : simulation parameters for the vertex model. Dictionary with following keys,
+        'A0' - target cell area(s), 'P0' - target cell perimeter(s), 'Ka' - "elastic" area constant,
+        'Kp' - "elastic" perimeter constant, 'Lambda_ij' - a function, 'Lambda_ij' must accept simulation
+        time (t) and cell monolayer (`self.m`) and return torch tensor with same size as the edge lengths
+        (computed by monolayer's `m.length()` method).
+        '''
+        super().__init__()
+        self.m = m # cell monolayer
+        self.params = params # simulation parameters
 
-    def _energy(self):
-        '''Computes total free energy U. U = Ud + Us + Ua'''
+    def energy(self):
+        '''Computes total free energy U. `U = Ud + Us + Ua`'''
+        pass
+
+    def sample_trajectory(self, T=10000, delta_T=0.001, sample_freq=10, T_ignore=500):
+        '''
+        Run simulation for `T` time steps and sample vertex trajectories with frequency `sample_freq`.
+        - `T`  : total number of time steps
+        - `delta_T`: step size (e.g. for the numerical integration using Euler's method)
+        - `sample_freq`: Trajectory sampling frequency. Use `assert (T % sample_freq == 0)` in your implementation.
+        - `T_ignore`: number of initial time steps to ignore.
+        '''
         pass
