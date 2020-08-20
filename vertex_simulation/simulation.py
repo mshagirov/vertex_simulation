@@ -4,7 +4,6 @@ __all__ = ['Simulation', 'Simulation_Honda']
 
 # Cell
 import torch, numpy as np
-import matplotlib.pyplot as plt
 
 # Cell
 class Simulation(object):
@@ -54,22 +53,32 @@ class Simulation_Honda(Simulation):
     References:
     - Fletcher A.G., _et al._, _Progress in Biophysics and Molecular Biology_ __113__, 299-326 (2013).
     '''
-    def __init__(self, m=None,params=None):
+    def __init__(self, m=None,params={'Ka':1., 'A0':2.3, 'Kp':0.01,'P0':0., 'Lambda_ij':lambda m,t: 1.}):
         '''
         - `m` : `Monolayer` object (`Graph` w/ cells defined as polygons).
-        - `params` : simulation parameters for the vertex model. Dictionary with following keys,
-        'A0' - target cell area(s), 'P0' - target cell perimeter(s), 'Ka' - "elastic" area constant,
-        'Kp' - "elastic" perimeter constant, 'Lambda_ij' - a function, 'Lambda_ij' must accept simulation
-        time (t) and cell monolayer (`self.m`) and return torch tensor with same size as the edge lengths
-        (computed by monolayer's `m.length()` method).
+        - `params` : simulation parameters for the vertex model. `params` must be a dictionary with following keys,
+            * 'Ka' - "elastic" area constant(s),
+            * 'A0' - target cell area(s),
+            * 'Kp' - "elastic" perimeter constant(s),
+            * 'P0' - target cell perimeter(s) {default: 0},
+            * 'Lambda_ij' - a function `f(m,t)`, 'Lambda_ij' must accept the cell monolayer (`self.m`) and the simulation time
+            (t=number_of_iters * delta_T) and return a constant (float) or a torch tensor. Size and type of the tensor must be
+            the same size and type as the edge lengths tensor computed by the monolayer's `m.length()` method.
         '''
         super().__init__()
         self.m = m # cell monolayer
         self.params = params # simulation parameters
 
-    def energy(self):
-        '''Computes total free energy U. `U = Ud + Us + Ua`'''
-        pass
+    def energy(self,t):
+        '''Computes total free energy U: `U = Ud + Us + Ua`, U is a function of sim-n parameters (`params`), monolayer ('m'),
+        and time (used for implementing periodic contractions through `params['Lambda_ij']` function).
+        '''
+        Ka, A0 = self.params['Ka'], self.params['A0']
+        Kp, P0 = self.params['Kp'], self.params['P0']
+        Lij = self.params['Lambda_ij'](self.m, t)
+        E_tot = torch.sum( Ka*( ( self.m.area() - A0)**2)) + \
+        torch.sum( Kp*( ( self.m.perimeter() - P0)**2)) + torch.sum(Lij*self.m.length())
+        return E_tot
 
     def sample_trajectory(self, T=10000, delta_T=0.001, sample_freq=10, T_ignore=500):
         '''
@@ -79,4 +88,13 @@ class Simulation_Honda(Simulation):
         - `sample_freq`: Trajectory sampling frequency. Use `assert (T % sample_freq == 0)` in your implementation.
         - `T_ignore`: number of initial time steps to ignore.
         '''
-        pass
+        assert (T % sample_freq == 0)
+        self.m.vertices.requires_grad_(True)
+
+
+#     @property
+#     def x(self):
+#         return self._x
+#     @x.setter
+#     def x(self, val):
+#         self._x = val
