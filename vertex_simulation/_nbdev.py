@@ -14,7 +14,8 @@ index = {"plot_graph": "00_primitives.ipynb",
          "unit_hex_seeds": "00_primitives.ipynb",
          "unit_hexagons": "00_primitives.ipynb",
          "Simulation": "01_simulation.ipynb",
-         "Simulation_Honda": "01_simulation.ipynb"}
+         "Simulation_Honda": "01_simulation.ipynb",
+         "Simulation_Honda_t": "01_simulation.ipynb"}
 
 modules = ["primitives.py",
            "simulation.py"]
