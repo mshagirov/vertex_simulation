@@ -84,7 +84,7 @@ description: "Implementations for vertex, graph, and cell monolayer classes"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_graph" class="doc_header"><code>plot_graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph</code>(<strong><code>Xv</code></strong>, <strong><code>edges</code></strong>, <strong><code>plot_arg</code></strong>=<em><code>['g-', 'mo']</code></em>, <strong><code>alphas</code></strong>=<em><code>[0.2, 0.5]</code></em>)</p>
+<h4 id="plot_graph" class="doc_header"><code>plot_graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph</code>(<strong><code>Xv</code></strong>, <strong><code>edges</code></strong>, <strong><code>plot_arg</code></strong>=<em><code>['g-', 'mo']</code></em>, <strong><code>alphas</code></strong>=<em><code>[0.2, 0.5]</code></em>)</p>
 </blockquote>
 <p>A function for plotting simple graphs (slow for large graphs)</p>
 <ul>
@@ -121,7 +121,7 @@ Nx2 array of integers (could be list of lists)</li>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_graph_as_quiver" class="doc_header"><code>plot_graph_as_quiver</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L25" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph_as_quiver</code>(<strong><code>g</code></strong>, <strong><code>quiver_kwargs</code></strong>=<em><code>{'units': 'xy', 'angles': 'xy', 'scale_units': 'xy', 'scale': 1.0, 'headwidth': 0, 'headlength': 0, 'width': 0.05, 'color': 'g'}</code></em>, <strong><code>return_Q</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="plot_graph_as_quiver" class="doc_header"><code>plot_graph_as_quiver</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L26" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_graph_as_quiver</code>(<strong><code>g</code></strong>, <strong><code>quiver_kwargs</code></strong>=<em><code>{'units': 'xy', 'angles': 'xy', 'scale_units': 'xy', 'scale': 1.0, 'headwidth': 0, 'headlength': 0, 'width': 0.05, 'color': 'g'}</code></em>, <strong><code>return_Q</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Plot <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> or <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> object edges.</p>
 
@@ -153,9 +153,9 @@ Nx2 array of integers (could be list of lists)</li>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="graph2networkx_with_pos" class="doc_header"><code>graph2networkx_with_pos</code><a href="__main__.py#L3" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>graph2networkx_with_pos</code>(<strong><code>g</code></strong>)</p>
+<h4 id="graph2networkx_with_pos" class="doc_header"><code>graph2networkx_with_pos</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>graph2networkx_with_pos</code>(<strong><code>g</code></strong>)</p>
 </blockquote>
-<p>Convert <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> or <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> object toReturn <code>network</code> graph</p>
+<p>Convert <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a> or <a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> object to a <code>networkx.Graph</code> undirected graph object.</p>
 
 </div>
 
@@ -192,7 +192,7 @@ Nx2 array of integers (could be list of lists)</li>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="is_in_edges_" class="doc_header"><code>is_in_edges_</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L48" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_in_edges_</code>(<strong><code>e</code></strong>, <strong><code>edge_list</code></strong>)</p>
+<h4 id="is_in_edges_" class="doc_header"><code>is_in_edges_</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L47" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>is_in_edges_</code>(<strong><code>e</code></strong>, <strong><code>edge_list</code></strong>)</p>
 </blockquote>
 <p>Returns edge index in the list, "-" means in reversed order, False if not found.
 Used by <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>VoronoiRegions2Edges</code></a></p>
@@ -232,7 +232,7 @@ Used by <a href="/vertex_simulation/primitives#VoronoiRegions2Edges"><code>Voron
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="VoronoiRegions2Edges" class="doc_header"><code>VoronoiRegions2Edges</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>VoronoiRegions2Edges</code>(<strong><code>regions</code></strong>)</p>
+<h4 id="VoronoiRegions2Edges" class="doc_header"><code>VoronoiRegions2Edges</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>VoronoiRegions2Edges</code>(<strong><code>regions</code></strong>)</p>
 </blockquote>
 <p>Converts Voronoi region vertex indices, like the one obtained from <code>scipy.spatial.Voronoi</code>,
 to a list of (<em>undirected</em>) edges (indices of vertex pairs).</p>
@@ -290,7 +290,7 @@ substract 1 from (absolute value of) these indices.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L100" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+<h2 id="Vertex" class="doc_header"><code>class</code> <code>Vertex</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L99" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Vertex</code>(<strong><code>location</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Implements vertex and stores vertex position(s) as Nx2 (or any 2-D tensor) <code>torch.Tensor</code>:(x,y,...)'s.
 Rows represent points, columns the spatial dimensions, i.e. <code>[[x1,y1], [x2,y2], ...,[xN,yN]]</code></p>
@@ -404,7 +404,7 @@ Distance between two vertices (o &lt;--&gt; v1) : 1.4142135381698608
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Graph" class="doc_header"><code>class</code> <code>Graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L178" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Graph</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>)</p>
+<h2 id="Graph" class="doc_header"><code>class</code> <code>Graph</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L177" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Graph</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Implements graph object. Stores vertices and edges.</p>
 <ul>
@@ -617,7 +617,7 @@ dEdx=[[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L264" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
+<h2 id="Monolayer" class="doc_header"><code>class</code> <code>Monolayer</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L263" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Monolayer</code>(<strong><code>vertices</code></strong>=<em><code>None</code></em>, <strong><code>edges</code></strong>=<em><code>None</code></em>, <strong><code>cells</code></strong>=<em><code>None</code></em>, <strong><code>fixed</code></strong>=<em><code>None</code></em>) :: <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
 </blockquote>
 <p>Implements 2-dimensional cell monolayer (apical plane) represented by vertices and edges.</p>
 <p><a href="/vertex_simulation/primitives#Monolayer"><code>Monolayer</code></a> inherits <em>all methods, and properties</em> of <a href="/vertex_simulation/primitives#Graph"><code>Graph</code></a></p>
@@ -891,7 +891,7 @@ Area= tensor([2.5981, 2.5981, 2.5981], dtype=torch.float64)
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="mask2vrn_region" class="doc_header"><code>mask2vrn_region</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L335" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mask2vrn_region</code>(<strong><code>verts</code></strong>, <strong><code>vrn_regions</code></strong>, <strong><code>row_mask</code></strong>)</p>
+<h4 id="mask2vrn_region" class="doc_header"><code>mask2vrn_region</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L334" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mask2vrn_region</code>(<strong><code>verts</code></strong>, <strong><code>vrn_regions</code></strong>, <strong><code>row_mask</code></strong>)</p>
 </blockquote>
 <p>Apply mask to Voronoi regions and vertices and re-label them.</p>
 <p>In addition to the <code>row_mask</code> (for vertices), also removes empty regions
@@ -937,7 +937,7 @@ out-of-diagram Voronoi regions with "-1" vertices are removed.</li>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="unit_hex_seeds" class="doc_header"><code>unit_hex_seeds</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L361" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unit_hex_seeds</code>(<strong><code>Sx</code></strong>, <strong><code>Sy</code></strong>)</p>
+<h4 id="unit_hex_seeds" class="doc_header"><code>unit_hex_seeds</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L360" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unit_hex_seeds</code>(<strong><code>Sx</code></strong>, <strong><code>Sy</code></strong>)</p>
 </blockquote>
 <p>Produces seed locations for Voronoi such that Voronoi regions
 form rectangle of hexagonal cells with unit side length (==1).</p>
@@ -978,7 +978,7 @@ form rectangle of hexagonal cells with unit side length (==1).</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="unit_hexagons" class="doc_header"><code>unit_hexagons</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L379" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unit_hexagons</code>(<strong><code>Ny</code></strong>, <strong><code>Nx</code></strong>)</p>
+<h4 id="unit_hexagons" class="doc_header"><code>unit_hexagons</code><a href="https://github.com/mshagirov/vertex_simulation/tree/master/vertex_simulation/primitives.py#L378" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>unit_hexagons</code>(<strong><code>Ny</code></strong>, <strong><code>Nx</code></strong>)</p>
 </blockquote>
 <p>Produces Ny rows-by-Nx columns of hexagons with unit length edges.</p>
 <p>Uses scipy.spatial.Voronoi, and unit_hex_seeds then trims

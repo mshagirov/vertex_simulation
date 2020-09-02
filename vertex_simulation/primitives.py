@@ -5,8 +5,9 @@ __all__ = ['plot_graph', 'plot_graph_as_quiver', 'graph2networkx_with_pos', 'is_
 
 # Cell
 import torch
-import numpy as np, matplotlib.pyplot as plt
-from scipy.spatial import Voronoi,voronoi_plot_2d
+import numpy as np, matplotlib.pyplot as plt, networkx as nx
+from scipy.spatial import Voronoi
+# for plotting Voronoi use scipy.spatial.voronoi_plot_2d
 
 # Cell
 def plot_graph(Xv,edges,plot_arg=['g-','mo'],alphas=[.2,.5]):
@@ -22,10 +23,9 @@ def plot_graph(Xv,edges,plot_arg=['g-','mo'],alphas=[.2,.5]):
     plt.axis(False);
 
 # Cell
-def plot_graph_as_quiver(g,quiver_kwargs = {'units':'xy','angles':'xy',
-                                            'scale_units':'xy','scale':1.0,
-                                            'headwidth':0,'headlength':0,
-                                            'width':.05,'color':'g'},return_Q=False):
+def plot_graph_as_quiver(g, quiver_kwargs = {'units' : 'xy', 'angles' : 'xy', 'scale_units' : 'xy',
+                                             'scale' : 1.0, 'headwidth' : 0, 'headlength' : 0,
+                                             'width' : .05, 'color' : 'g'}, return_Q = False):
     '''Plot `Graph` or `Monolayer` object edges.'''
     edge_dirs = g.direction().detach().cpu()
     vx = g.vertices.x.detach().cpu()
@@ -37,9 +37,8 @@ def plot_graph_as_quiver(g,quiver_kwargs = {'units':'xy','angles':'xy',
         return Q
 
 # Cell
-import networkx as nx
 def graph2networkx_with_pos(g):
-    '''Convert `Graph` or `Monolayer` object toReturn `network` graph '''
+    '''Convert `Graph` or `Monolayer` object to a `networkx.Graph` undirected graph object.'''
     G = nx.Graph(g.edges.tolist())
     pos=dict(zip(range(g.vertices.x.shape[0]),g.vertices.x.detach().cpu().numpy()))
     return G, pos
