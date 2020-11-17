@@ -219,12 +219,11 @@ class Graph(object):
         self.vertices.zero_grad_()
 
     def device(self):
-        '''Return Vertex and Edge tensor devices as dict.'''
+        '''Return `Vertex` and Edge tensor devices as dict.'''
         return {'vertices':self.vertices.device(), 'edges':self.edges.device}
     def to_(self,val):
-        '''Set Vertex and Edge (vertes IDs) devices to "val"'''
+        '''Set `Vertex` device to "val"'''
         self.vertices.to_(val)
-        self.edges = self.edges.to(val)
 
     @property
     def edges(self):

@@ -11,13 +11,13 @@ entries:
       url: /
     - output: web,pdf
       title: Primitives
-      url: /primitives
+      url: primitives.html
     - output: web,pdf
       title: Simulation
-      url: /simulation
+      url: simulation.html
     - output: web,pdf
       title: Vertex Dynamics Models
-      url: /vertex_dynamics_models
+      url: vertex_dynamics_models.html
     output: web
     title: vertex_simulation
   output: web

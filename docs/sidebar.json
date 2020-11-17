@@ -1,8 +1,8 @@
 {
   "vertex_simulation": {
     "Overview": "/",
-    "Primitives": "/primitives",
-    "Simulation": "/simulation",
-    "Vertex Dynamics Models": "/vertex_dynamics_models"
+    "Primitives": "primitives.html",
+    "Simulation": "simulation.html",
+    "Vertex Dynamics Models": "vertex_dynamics_models.html"
   }
 }
