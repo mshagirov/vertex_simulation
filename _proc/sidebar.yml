@@ -1,0 +1,7 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 00_primitives.ipynb
+      - 01_simulation.ipynb
+      - vertex_dynamics_models.ipynb

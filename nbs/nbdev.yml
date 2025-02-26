@@ -1,0 +1,9 @@
+project:
+  output-dir: docs
+
+website:
+  title: "vertex_simulation"
+  site-url: "https://mshagirov.github.io/vertex_simulation/"
+  description: "Pytorch Implementation Vertex Dynamics Model"
+  repo-branch: master
+  repo-url: "https://github.com/mshagirov/vertex_simulation/tree/master/"
