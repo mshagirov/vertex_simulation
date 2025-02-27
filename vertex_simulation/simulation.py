@@ -6,7 +6,7 @@ __all__ = ['Simulation', 'Simulation_Honda', 'Simulation_Honda_t']
 # %% ../nbs/01_simulation.ipynb 5
 import torch, numpy as np
 
-# %% ../nbs/01_simulation.ipynb 9
+# %% ../nbs/01_simulation.ipynb 12
 class Simulation(object):
     '''Abstract class for vertex dynamics simulations
     
@@ -37,7 +37,7 @@ class Simulation(object):
         '''
         pass
 
-# %% ../nbs/01_simulation.ipynb 10
+# %% ../nbs/01_simulation.ipynb 13
 class Simulation_Honda(Simulation):
     '''Honda et al. definition of Vertex model. This approach defines a phenomenological total free energy 
     (_or_ work function) of the `Monolayer`: `U = Ud + Us + Ua`
@@ -132,7 +132,7 @@ class Simulation_Honda(Simulation):
             t_samples.append(t_sim)
         return t_samples, x_t, (t_Energy, Es, maxSpeed)
 
-# %% ../nbs/01_simulation.ipynb 15
+# %% ../nbs/01_simulation.ipynb 18
 class Simulation_Honda_t(Simulation_Honda):
     '''Honda et al. definition of Vertex model. Same as the `Simulation_Honda` class, but allows time-dependent 
     `Ka`, `A0`, `Kp`, and `P0` in addition to the time-dependent `Lambda_ij` parameter. For simulation details refer to
