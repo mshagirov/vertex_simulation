@@ -132,7 +132,7 @@ class Simulation_Honda(Simulation):
             t_samples.append(t_sim)
         return t_samples, x_t, (t_Energy, Es, maxSpeed)
 
-# %% ../nbs/01_simulation.ipynb 18
+# %% ../nbs/01_simulation.ipynb 19
 class Simulation_Honda_t(Simulation_Honda):
     '''Honda et al. definition of Vertex model. Same as the `Simulation_Honda` class, but allows time-dependent 
     `Ka`, `A0`, `Kp`, and `P0` in addition to the time-dependent `Lambda_ij` parameter. For simulation details refer to
