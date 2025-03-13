@@ -28,7 +28,7 @@ class Simulation(object):
         grad_i is the spatial gradient with respect to vertex i, and U is the total free energy.
         '''
         pass
-    def sample_trajectory(self, T=10000, delta_T=0.001, sample_freq=10):
+    def sample_trajectory(self, T=1000, delta_T=0.001, sample_freq=10):
         '''
         Run simulation for `T` time steps and sample vertex trajectories with frequency `sample_freq`.
         - `T`  : total number of time steps
@@ -80,12 +80,16 @@ class Simulation_Honda(Simulation):
         torch.sum( Kp*( ( self.m.perimeter() - P0)**2)) + torch.sum(Lij*self.m.length())
         return E_tot
     
-    def sample_trajectory(self, T=1000, delta_T=0.001, sample_freq=10, print_freq=100):
+    def sample_trajectory(self, T=1000, delta_T=0.001, sample_freq=10, print_freq=100, skip_saving=0):
         '''
         Run simulation for `T` time steps and sample vertex trajectories with frequency `sample_freq`.
         - T  : total number of time steps
         - delta_T: step size (e.g. for the numerical integration using Euler's method)
-        - sample_freq: trajectory sampling frequency. Use `assert (T % sample_freq == 0)` in your implementation.
+        - sample_freq: trajectory sampling frequency. Used for saving results, e.g., by default, every 10th frame is saved.
+                       Use `assert (T % sample_freq == 0)` in your implementation.
+        - print_freq : used for printing to the standard output (e.g., terminal).
+        - skip_saving: determines how many steps/iterations from the start to skip saving.
+                       The number of saved iterations/steps : (T - skip_saving)/sample_freq .
         
         Returns:
         t_samples, x_t, Energy_and_maxSpeed:
@@ -94,6 +98,7 @@ class Simulation_Honda(Simulation):
         maximum vertex speeds (movements) for each time period in `t_Energy`.
         '''
         assert (T % sample_freq == 0)
+        assert (T > skip_saving)
         
         t_samples = [] #time for x_t,Es,maxVels
         x_t = [] #positions of vertices
@@ -103,7 +108,7 @@ class Simulation_Honda(Simulation):
         
         t_sim = 0 #starting simulation time
         self.m.vertices.requires_grad_(True)
-        for k in range(1,T+1):
+        for k in range(0,T):
             self.m.set_zero_grad_() # reset grad accumulator
             
             E_tot = self.energy(t_sim) # total potential energy of the system
@@ -112,24 +117,28 @@ class Simulation_Honda(Simulation):
             dxdt = -self.m.get_vertex_grad() # dx/dt=-dE/dx
             
             with torch.no_grad():
-                if (k%sample_freq) == 0:
+                if ((k%sample_freq) == 0) and (k > (skip_saving - 1)):
+                    # save results
                     Es.append(E_tot.item()) # record E_tot
+                    
                     maxSpeed.append(torch.norm(dxdt,dim=1).max().item())
+                    
                     t_Energy.append(t_sim) # time for E_tot, maxSpeed
+                    
                     x_t.append(self.m.vertices.x.detach().cpu().clone())
+                    
                     t_samples.append(t_sim) # time for x_t
+                
                 if (k%print_freq) == 0:
+                    # print iteration stats
                     print(f'iter:{k}; t={t_sim:2.3f}: E={E_tot.item():5.4g};'+
                           f' max_spd = {torch.norm(dxdt,dim=1).max().item():3.2g}')
                 
-                self.m.vertices.x += dxdt*delta_T # update vertex positions
+                # update vertex positions
+                self.m.vertices.x += dxdt*delta_T
             
             t_sim+=delta_T
         
-        # record latest vertex positions
-        with torch.no_grad():
-            x_t.append(self.m.vertices.x.detach().cpu().clone())
-            t_samples.append(t_sim)
         return t_samples, x_t, (t_Energy, Es, maxSpeed)
 
 # %% ../nbs/01_simulation.ipynb 19
